@@ -1,0 +1,164 @@
+
+/* SCOPE LOGIN KHUSUS, ANTI TABRAKAN */
+.siukur-login-bg {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #eaf6ff !important;
+    position: relative !important;
+    overflow: hidden !important;
+    z-index: 1;
+}
+.siukur-login-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.7;
+    background-image:
+        linear-gradient(to right, #cce8ff 1.5px, transparent 1.5px),
+        linear-gradient(to bottom, #cce8ff 1.5px, transparent 1.5px);
+    background-size: 42px 42px;
+    pointer-events: none;
+}
+.siukur-login-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: none;
+    position: relative;
+    z-index: 1;
+    width: 830px;
+    max-width: 96vw;
+}
+@media (max-width: 900px) {
+    .siukur-login-container { width: 99vw;}
+}
+@media (max-width: 700px) {
+    .siukur-login-container { flex-direction: column; width: 100vw;}
+}
+/* KIRI: VECTOR */
+.siukur-login-illus {
+    flex: 1 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0 0 2vw;
+    background: none;
+}
+.siukur-login-illus img {
+    width: 95%;
+    max-width: 260px;
+    min-width: 120px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 22px #a0d8fa93);
+    background: none;
+}
+@media (max-width:700px) {
+    .siukur-login-illus { justify-content: center; padding: 20px 0 0 0;}
+    .siukur-login-illus img { max-width: 150px;}
+}
+/* KANAN: CARD LOGIN */
+.siukur-login-card {
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 330px;
+    padding: 20px 0;
+}
+.siukur-login-cardbox {
+    background: #fff !important;
+    border-radius: 23px !important;
+    box-shadow: 0 6px 34px #aad6f366 !important;
+    width: 100%;
+    max-width: 360px;
+    padding: 34px 30px 26px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    position: relative;
+    z-index: 10;
+}
+@media (max-width: 500px) {
+    .siukur-login-cardbox { padding: 21px 3vw 15px 3vw; max-width: 97vw;}
+}
+
+.siukur-login-title {
+    font-size: 1.29rem !important;
+    font-weight: bold !important;
+    color: #2065c7 !important;
+    margin-bottom: 18px !important;
+    text-align: left !important;
+    letter-spacing: 0.3px;
+}
+
+.siukur-login-label {
+    font-weight: 700 !important;
+    font-size: 1.03rem !important;
+    margin-bottom: 4px !important;
+    color: #ff4949 !important; /* merah */
+    letter-spacing: 0.4px;
+    display: block !important;
+}
+
+.siukur-login-input {
+    border-radius: 8px !important;
+    border: 2.2px solid #31ad5a !important; /* hijau */
+    padding: 11px 13px !important;
+    background: #fafdff !important;
+    color: #166a23 !important;
+    font-size: 1.07rem !important;
+    margin-bottom: 15px !important;
+    font-weight: 500 !important;
+    transition: border 0.22s !important;
+    width: 100% !important;
+    box-shadow: none !important;
+}
+.siukur-login-input:focus {
+    border: 2.2px solid #ffd731 !important; /* kuning saat focus */
+    outline: none !important;
+    background: #f8fff4 !important;
+}
+.siukur-login-btn {
+    background: #2196f3 !important; /* biru */
+    color: #fff !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+    border: none !important;
+    border-radius: 7px !important;
+    padding: 11px 0 !important;
+    margin-top: 8px !important;
+    margin-bottom: 10px !important;
+    transition: background 0.13s !important;
+    box-shadow: 0 3px 12px #b4d6f2a8 !important;
+    width: 100% !important;
+}
+.siukur-login-btn:hover {
+    background: #156cb5 !important;
+}
+.siukur-login-cardbox .invalid-feedback {
+    color: #e24646 !important;
+    font-size: 0.99em !important;
+    margin-bottom: 8px !important;
+    display: block !important;
+}
+.siukur-login-links {
+    margin-top: 12px !important;
+    font-size: 1rem !important;
+    text-align: left !important;
+    color: #187a2d !important;
+}
+.siukur-login-links a {
+    font-weight: 700 !important;
+    color: #2ca35c !important; /* hijau */
+    text-decoration: underline !important;
+}
+.siukur-login-links a:hover {
+    color: #d4af19 !important; /* kuning */
+    text-decoration: none !important;
+}
