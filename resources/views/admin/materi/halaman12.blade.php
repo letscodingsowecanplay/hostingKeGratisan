@@ -2,124 +2,92 @@
 
 @section('content')
 
-<div class="card bg-coklat fs-5">
-    <div class="card-header d-flex justify-content-between align-items-center">
-        <h4 class="mb-0">Pengukuran</h4>
-    </div>
-    <div class="card-body">
+<div class="materi-main-container fs-5">
+    <h2 class="fw-bold text-center mb-3" style="font-size:2rem;">Pengukuran</h2>
 
-        <p class="fw-semibold mb-3">Beberapa alat ukur tidak baku yang digunakan dalam kehidupan sehari-hari:
+    <div class="materi-section shadow-sm rounded-3 py-3 px-3" style="background:#fff;">
+        <div class="warna-label blue-card mb-3" style="font-size:1rem;">Alat Ukur Tidak Baku</div>
+        <div class="materi-content mb-3 fw-semibold">
+            Beberapa alat ukur tidak baku yang digunakan dalam kehidupan sehari-hari:
             <button onclick="toggleAudio(this)" 
-                    class="btn btn-sm btn-outline-dark bg-coklapbet text-white ms-2"
-                    data-id="index-1" data-playing="false">🔊</button>
+                    class="btn-audio"
+                    data-id="index-1" data-playing="false" type="button">🔊</button>
             <audio id="audio-index-1" src="{{ asset('sounds/materi/hal12/1.mp3') }}"></audio>
-        </p>
+        </div>
 
         {{-- Grid Gambar --}}
-        <div class="container text-center">
-            <div class="row mb-4">
-                <div class="col-3">
-                    <img src="{{ asset('images/materi/jengkal.png') }}" class="img-fluid shadow mb-2" style="max-height: 100px;" alt="Jengkal">
-                    <p class="fw-semibold">jengkal
+        <div class="materi-image-row flex-wrap mb-3" style="gap:22px;">
+            @php
+                $alat = [
+                    [
+                        'img' => 'jengkal.png', 'label' => 'jengkal', 'audio' => 2
+                    ],
+                    [
+                        'img' => 'hasta.png', 'label' => 'hasta', 'audio' => 3
+                    ],
+                    [
+                        'img' => 'depa.png', 'label' => 'depa', 'audio' => 4
+                    ],
+                    [
+                        'img' => 'telapak-kaki.png', 'label' => 'telapak kaki', 'audio' => 5
+                    ],
+                    [
+                        'img' => 'koin.png', 'label' => 'koin', 'audio' => 6
+                    ],
+                    [
+                        'img' => 'sedotan.png', 'label' => 'sedotan', 'audio' => 7
+                    ],
+                    [
+                        'img' => 'klip-kertas.png', 'label' => 'klip kertas', 'audio' => 8
+                    ],
+                    [
+                        'img' => 'stik-eskrim.png', 'label' => 'stik eskrim', 'audio' => 9
+                    ],
+                ];
+            @endphp
+            @foreach($alat as $a)
+                <div class="materi-image-col" style="max-width:180px">
+                    <img src="{{ asset('images/materi/' . $a['img']) }}" 
+                        class="img-fluid shadow mb-2"
+                        style="max-height: 100px; background: #fffbe9;"
+                        alt="{{ ucfirst($a['label']) }}">
+                    <div class="materi-caption fw-semibold" style="margin-bottom: 0;">
+                        {{ $a['label'] }}
                         <button onclick="toggleAudio(this)" 
-                                class="btn btn-sm btn-outline-dark bg-coklapbet text-white ms-2"
-                                data-id="index-2" data-playing="false">🔊</button>
-                        <audio id="audio-index-2" src="{{ asset('sounds/materi/hal12/2.mp3') }}"></audio>
-                    </p>
+                                class="btn-audio"
+                                data-id="index-{{ $a['audio'] }}" data-playing="false" type="button" style="padding:2px 11px;">🔊</button>
+                        <audio id="audio-index-{{ $a['audio'] }}" src="{{ asset('sounds/materi/hal12/'.$a['audio'].'.mp3') }}"></audio>
+                    </div>
                 </div>
-                <div class="col-3">
-                    <img src="{{ asset('images/materi/hasta.png') }}" class="img-fluid shadow mb-2" style="max-height: 100px;" alt="Hasta">
-                    <p class="fw-semibold">hasta
-                        <button onclick="toggleAudio(this)" 
-                                class="btn btn-sm btn-outline-dark bg-coklapbet text-white ms-2"
-                                data-id="index-3" data-playing="false">🔊</button>
-                        <audio id="audio-index-3" src="{{ asset('sounds/materi/hal12/3.mp3') }}"></audio>
-                    </p>
-                </div>
-                <div class="col-3">
-                    <img src="{{ asset('images/materi/depa.png') }}" class="img-fluid shadow mb-2" style="max-height: 100px;" alt="Depa">
-                    <p class="fw-semibold">depa
-                        <button onclick="toggleAudio(this)" 
-                                class="btn btn-sm btn-outline-dark bg-coklapbet text-white ms-2"
-                                data-id="index-4" data-playing="false">🔊</button>
-                        <audio id="audio-index-4" src="{{ asset('sounds/materi/hal12/4.mp3') }}"></audio>
-                    </p>
-                </div>
-                <div class="col-3">
-                    <img src="{{ asset('images/materi/telapak-kaki.png') }}" class="img-fluid shadow mb-2" style="max-height: 100px;" alt="Telapak Kaki">
-                    <p class="fw-semibold">telapak kaki
-                        <button onclick="toggleAudio(this)" 
-                                class="btn btn-sm btn-outline-dark bg-coklapbet text-white ms-2"
-                                data-id="index-5" data-playing="false">🔊</button>
-                        <audio id="audio-index-5" src="{{ asset('sounds/materi/hal12/5.mp3') }}"></audio>
-                    </p>
-                </div>
-            </div>
-
-            <div class="row mb-4">
-                <div class="col-3">
-                    <img src="{{ asset('images/materi/koin.png') }}" class="img-fluid shadow mb-2" style="max-height: 100px;" alt="Koin">
-                    <p class="fw-semibold">koin
-                        <button onclick="toggleAudio(this)" 
-                                class="btn btn-sm btn-outline-dark bg-coklapbet text-white ms-2"
-                                data-id="index-6" data-playing="false">🔊</button>
-                        <audio id="audio-index-6" src="{{ asset('sounds/materi/hal12/6.mp3') }}"></audio>
-                    </p>
-                </div>
-                <div class="col-3">
-                    <img src="{{ asset('images/materi/sedotan.png') }}" class="img-fluid shadow mb-2" style="max-height: 100px;" alt="Sedotan">
-                    <p class="fw-semibold">sedotan
-                        <button onclick="toggleAudio(this)" 
-                                class="btn btn-sm btn-outline-dark bg-coklapbet text-white ms-2"
-                                data-id="index-7" data-playing="false">🔊</button>
-                        <audio id="audio-index-7" src="{{ asset('sounds/materi/hal12/7.mp3') }}"></audio>
-                    </p>
-                </div>
-                <div class="col-3">
-                    <img src="{{ asset('images/materi/klip-kertas.png') }}" class="img-fluid shadow mb-2" style="max-height: 100px;" alt="Klip Kertas">
-                    <p class="fw-semibold">klip kertas
-                        <button onclick="toggleAudio(this)" 
-                                class="btn btn-sm btn-outline-dark bg-coklapbet text-white ms-2"
-                                data-id="index-8" data-playing="false">🔊</button>
-                        <audio id="audio-index-8" src="{{ asset('sounds/materi/hal12/8.mp3') }}"></audio>
-                    </p>
-                </div>
-                <div class="col-3">
-                    <img src="{{ asset('images/materi/stik-eskrim.png') }}" class="img-fluid shadow mb-2" style="max-height: 100px;" alt="Stik Es Krim">
-                    <p class="fw-semibold">stik eskrim
-                        <button onclick="toggleAudio(this)" 
-                                class="btn btn-sm btn-outline-dark bg-coklapbet text-white ms-2"
-                                data-id="index-9" data-playing="false">🔊</button>
-                        <audio id="audio-index-9" src="{{ asset('sounds/materi/hal12/9.mp3') }}"></audio>
-                    </p>
-                </div>
-            </div>
+            @endforeach
         </div>
-
-        <div class="mt-4">
-            <p><strong>Kalian bisa menggunakan benda lain di sekitar.</strong> <button onclick="toggleAudio(this)" 
-                    class="btn btn-sm btn-outline-dark bg-coklapbet text-white"
-                    data-id="index-10" data-playing="false">🔊</button>
-            <audio id="audio-index-10" src="{{ asset('sounds/materi/hal12/10.mp3') }}"></audio></p>
-            <p><strong>Penjelasan:</strong></p>
-            <ul>
-                <li>Jengkal adalah menggunakan jari tangan.</li>
-                <li>Hasta adalah jarak antara ujung jari tengah ke siku tangan.</li>
-                <li>Depa adalah merentangkan kedua tangan.</li>
-                <li>Telapak kaki adalah jumlah langkah kaki.</li>
-            </ul>
-        </div>
-
     </div>
 
-    <div class="card-footer d-flex justify-content-between">
-        <a href="{{ route('admin.materi.halaman11') }}" class="btn bg-coklap2 text-white fs-5">← Sebelumnya</a>
-        <a href="{{ route('admin.materi.halaman13') }}" class="btn bg-coklap1 text-white fs-5">Selanjutnya →</a>
+    <div class="materi-section shadow-sm rounded-3 py-3 px-3" style="background:#fff;">
+        <div class="warna-label green-card mb-3" style="font-size:1rem;">Catatan & Penjelasan</div>
+        <div class="materi-content mb-3">
+            <strong>Kalian bisa menggunakan benda lain di sekitar.</strong>
+            <button onclick="toggleAudio(this)" 
+                class="btn-audio"
+                data-id="index-10" data-playing="false" type="button">🔊</button>
+            <audio id="audio-index-10" src="{{ asset('sounds/materi/hal12/10.mp3') }}"></audio>
+        </div>
+        <div class="materi-content mb-2"><strong>Penjelasan:</strong></div>
+        <ul class="materi-list">
+            <li>Jengkal adalah menggunakan jari tangan.</li>
+            <li>Hasta adalah jarak antara ujung jari tengah ke siku tangan.</li>
+            <li>Depa adalah merentangkan kedua tangan.</li>
+            <li>Telapak kaki adalah jumlah langkah kaki.</li>
+        </ul>
+    </div>
+
+    <div class="materi-nav-footer mt-3">
+        <a href="{{ route('admin.materi.halaman11') }}" class="btn btn-nav fs-5">← Sebelumnya</a>
+        <a href="{{ route('admin.materi.halaman13') }}" class="btn btn-nav btn-next fs-5">Selanjutnya →</a>
     </div>
 </div>
 <br>
 @endsection
-
 
 @section('scripts')
 <script>

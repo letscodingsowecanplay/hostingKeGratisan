@@ -2,13 +2,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 50px;
-    min-height: 50px;
+    min-width: 44px;
+    min-height: 44px;
+    background: transparent;
+    border: 2px dashed #ffe145;
+    border-radius: 8px;
+    margin-bottom: 2px;
+    transition: border .15s;
 }
 .satuan-slot.empty {
-    background: transparent;
-    border: 2px dashed #eee;
-    border-radius: 8px;
+    background: #fffbe9;
+    border: 2px dashed #e3caa5;
 }
 .block-option {
     background-color: #664343;
@@ -27,13 +31,13 @@
 .block-option:active { cursor: grabbing; }
 .drop-area-style {
     background-color: #fff;
-    border: 2px dashed #ccc;
+    border: 2px dashed #c3a878;
     border-radius: 10px;
     padding: 20px;
     min-height: 100px;
     text-align: center;
     position: relative;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
 }
 .drop-area-style.highlight {
     border-color: #28a745;
@@ -50,56 +54,94 @@
 }
 .drop-zone {
     position: absolute;
-    background-color: rgba(255, 255, 255, 0.7);
-    border: 2px dashed #888;
+    background-color: rgba(255, 255, 255, 0.75);
+    border: 2.3px dashed #fbb954;
     display: flex;
     z-index: 5;
+    transition: border-color .17s, background .12s;
+    pointer-events: auto;
 }
 .drop-zone.horizontal {
-    height: 50px;
-    width: 300px;
+    height: 44px;
+    width: 320px;
     bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
     flex-direction: row;
     align-items: flex-end;
     justify-content: flex-start;
+    padding: 0;
 }
 .drop-zone.vertikal {
-    height: 300px;
-    width: 50px;
-    top: 50%;
+    height: 290px;
+    width: 44px;
+    top: 52%;
     left: 10%;
     transform: translateY(-50%);
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
+    padding: 0;
 }
 .drop-zone.disabled { pointer-events: none; }
 .alat-satuan {
-    width: 50px;
-    height: 50px;
+    width: 44px;
+    height: 44px;
     object-fit: contain;
     cursor: grab;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s, box-shadow .15s;
+    background: #fff;
+    border-radius: 10px;
+    border: 1.5px solid #ffe145;
+    box-shadow: 0 2px 8px #ffe14533;
+    margin: 0; /* Hilangkan margin antar alat satuan */
 }
 .alat-satuan:active { cursor: grabbing; }
 .satuan-area {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
+    gap: 7px;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 7px;
+    margin-bottom: 7px;
 }
-.drop-zone.custom-drop-2 { height: 260px; top: 30px; transform: translateX(-50%);}
-.drop-zone.custom-drop-3 { height: 210px; top: 80px; transform: translateX(-50%);}
-.drop-zone.custom-drop-4 { width: 350px; left: 120px; transform: translateY(-50%);}
-.drop-zone.custom-drop-5 { width: 350px; left: 120px; transform: translateY(-50%);}
+/* --- Dropzone Kustom: Soal 2, 3, 4, 5 --- */
+.drop-zone.custom-drop-2 { height: 250px; top: 32px; transform: translateX(-50%);}
+.drop-zone.custom-drop-3 { height: 190px; top: 82px; transform: translateX(-50%);}
+.drop-zone.custom-drop-4 { width: 330px; left: 120px; transform: translateY(-50%);}
+.drop-zone.custom-drop-5 {
+    width: 375px;     /* tambah lebar biar cukup */
+    left: 50%;
+    transform: translateX(-50%);
+    height: 52px;     /* sedikit lebih tinggi agar tidak gepeng */
+    bottom: 10%;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 0;
+}
+.drop-zone.custom-drop-5 .alat-satuan {
+    width: 50px;
+    height: 50px;
+}
 .gambar-soal { display: block; max-width: 100%; border-radius: 12px; box-shadow: 0 2px 8px #0001;}
-.drop-zone { pointer-events: auto; border: 2px dashed #ccc; background: rgba(255,255,255,0.09);}
 .drop-zone .alat-satuan.opacity-50 { opacity: .55 !important;}
 .explain-alert { font-size: 1rem; }
+
 @media (max-width: 700px) {
-    .alat-satuan { width: 32px; }
-    .drop-zone { min-height: 32px; }
+    .alat-satuan { width: 28px; height: 28px; }
+    .satuan-slot { min-width: 28px; min-height: 28px; }
+    .satuan-area { max-width: 99vw; gap: 3px; }
+    .drop-zone { min-height: 22px; }
+    .drop-zone.horizontal { width: 95vw; min-width: 110px; height: 20px; }
+    .drop-zone.vertikal { height: 32vw; min-height: 80px; width: 22px; }
+    .gambar-wrapper img.gambar-soal { max-width: 98vw; }
+    .drop-zone.custom-drop-5 {
+        width: 98vw;
+        height: 32px;
+    }
+    .drop-zone.custom-drop-5 .alat-satuan {
+        width: 36px;
+        height: 36px;
+    }
 }

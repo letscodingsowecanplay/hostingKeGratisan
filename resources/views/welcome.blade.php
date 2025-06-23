@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Si Ukur – Website Belajar Pengukuran Satuan Tak Baku</title>
+    <title>Si Ukur</title>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" sizes="180x180" href="{{ asset('ikon-si-ukur.ico') }}">
     <style>
         html, body {
             min-height: 100%;
             margin: 0;
             padding: 0;
+            background: #fffbe9;
+            font-family: 'Montserrat', Arial, sans-serif;
         }
         body {
-            font-family: 'Montserrat', Arial, sans-serif;
-            background-color: #f5fbff;
-            background-image: 
-                linear-gradient(0deg, #b1d5fd 1.5px, transparent 1.5px),
-                linear-gradient(90deg, #b1d5fd 1.5px, transparent 1.5px);
+            background-image:
+                linear-gradient(0deg, #e3caa5 1.5px, transparent 1.5px),
+                linear-gradient(90deg, #e3caa5 1.5px, transparent 1.5px);
             background-size: 40px 40px;
             background-position: center;
             min-height: 100vh;
@@ -28,39 +29,25 @@
             justify-content: space-between;
             align-items: center;
             padding: 28px 30px 0 30px;
+            width: 100%;
+            box-sizing: border-box;
         }
         .navbar-logo {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #258fff;
-            letter-spacing: 1px;
             display: flex;
             align-items: center;
             gap: 7px;
             font-family: 'Baloo 2', Arial, sans-serif;
         }
-        .navbar-menu {
-            display: flex;
-            gap: 28px;
-        }
-        .navbar-menu a {
-            color: #258fff;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.04rem;
-            padding: 3px 0;
-            border-bottom: 2.5px solid transparent;
-            transition: border 0.16s;
-        }
-        .navbar-menu a:hover, .navbar-menu a.active {
-            border-bottom: 2.5px solid #258fff;
+        .navbar-logo img {
+            width: 100px;
+            height: auto;
         }
         .navbar-right {
             margin-left: 30px;
         }
         .guru-btn {
             background: #258fff;
-            color: #fff;
+            color: rgb(0, 0, 0);
             border: none;
             border-radius: 18px;
             padding: 8px 28px;
@@ -76,21 +63,34 @@
         }
         .guru-btn:hover {
             background: #1557a6;
+            color: #fff;
         }
-        /* Hero Section */
-        .hero {
+        .hero-section {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .hero-content-wrap {
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 30px;
-            padding: 18px 30px 8px 30px;
+            gap: 38px;
+            flex: 1;
+            padding: 24px 32px 24px 32px;
+            min-height: 76vh;
+            box-sizing: border-box;
         }
         .hero-img {
-            width: 110px;
-            height: 142px;
-            background: #e1f2ff;
+            width: 120px;
+            height: 150px;
+            background: #fffbe9;
             border-radius: 22px;
             display: flex;
             align-items: center;
@@ -98,6 +98,7 @@
             overflow: hidden;
             box-shadow: 0 2px 12px #b5e6ff29;
             object-fit: cover;
+            flex-shrink: 0;
         }
         .hero-img img {
             width: 100%; height: 100%; object-fit: cover;
@@ -107,69 +108,83 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-        .logo-img {
-            width: 220px;
-            margin-bottom: 10px;
-            margin-top: 0px;
+            min-width: 0;
         }
         .hero-title {
             font-family: 'Baloo 2', Arial, sans-serif;
-            font-size: 2.1rem;
-            font-weight: 700;
-            color: #258fff;
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: rgb(0, 0, 0);
             text-align: center;
-            margin-bottom: 5px;
+            margin-bottom: 18px;
             letter-spacing: 0.5px;
         }
         .hero-sub {
-            color: #258fff;
+            color: #222;
             font-weight: 500;
             text-align: center;
-            margin-bottom: 18px;
-            font-size: 1.15rem;
+            margin-bottom: 32px;
+            font-size: 1.19rem;
         }
         .hero-btn {
             background: #ffe145;
-            color: #234d10;
+            color: rgb(0, 0, 0);
             font-family: 'Baloo 2', Arial, sans-serif;
             border: none;
             border-radius: 24px;
-            padding: 14px 38px;
-            font-size: 1.16rem;
+            padding: 15px 44px;
+            font-size: 1.19rem;
             font-weight: 700;
             box-shadow: 0 3px 12px #ffd42629;
             cursor: pointer;
-            margin-bottom: 8px;
+            margin-bottom: 0;
             transition: background .18s;
         }
         .hero-btn:hover {
             background: #ffd600;
         }
-        /* Grid 4 Kolom Berwarna */
+        .fitur-title {
+            font-family: 'Baloo 2', Arial, sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            margin-top: 58px;
+            margin-bottom: 2px;
+            letter-spacing: 0.2px;
+        }
+        .fitur-desc {
+            text-align: center;
+            font-size: 1.08rem;
+            color: rgb(0, 0, 0);
+            margin-bottom: 34px;
+            margin-top: 10px;
+            font-weight: 500;
+        }
         .main-grid {
-            max-width: 1200px;
+            max-width: 960px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 28px;
-            padding: 30px 30px 38px 30px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            padding: 18px 30px 50px 30px;
+            box-sizing: border-box;
         }
         .card-box {
             border-radius: 22px;
             box-shadow: 0 4px 22px #00000011;
-            color: #fff;
+            color: #111;
             padding: 36px 24px 28px 24px;
-            min-height: 230px;
+            min-height: 200px;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             position: relative;
             font-size: 1.05rem;
+            background: #fff;
         }
         .red-card    { background: linear-gradient(120deg, #f5515f 80%, #f67262 100%);}
         .yellow-card { background: linear-gradient(120deg, #ffe145 85%, #fbd046 100%);}
-        .green-card  { background: linear-gradient(120deg, #20b484 85%, #43cea2 100%);}
         .blue-card   { background: linear-gradient(120deg, #3f73d3 80%, #43a1e2 100%);}
         .card-title {
             font-size: 1.22rem;
@@ -181,109 +196,121 @@
         .card-content {
             font-size: 1.05rem;
             line-height: 1.56;
-            color: #fffde7;
+            color: rgb(0, 0, 0);
             font-weight: 500;
         }
-        .card-list {
-            margin: 0 0 0 1em;
-            padding: 0;
-            color: #fffde7;
+
+        /* RESPONSIVE BREAKPOINTS */
+        @media (max-width: 1100px) {
+            .navbar, .hero-content-wrap, .main-grid { max-width: 99vw; }
+            .main-grid { padding: 12px 8vw 30px 8vw; }
+            .hero-content-wrap { padding: 20px 5vw; }
         }
-        .card-list li {
-            margin-bottom: 6px;
-        }
-        .card-content a {
-            color: #fff;
-            text-decoration: underline;
-            word-break: break-all;
-        }
-        @media (max-width: 1200px) {
-            .navbar, .hero, .main-grid { max-width: 99vw; }
-            .main-grid { gap: 18px; padding: 18px 2vw 22px 2vw;}
-        }
-        @media (max-width: 1000px) {
-            .main-grid { grid-template-columns: 1fr 1fr; }
+        @media (max-width: 900px) {
+            .main-grid { grid-template-columns: 1fr; gap: 22px; padding: 12px 3vw 26px 3vw;}
+            .card-box { padding: 26px 4vw 18px 4vw; min-height: 140px;}
+            .hero-content-wrap { flex-direction: column; gap: 22px; min-height: 60vh; }
+            .hero-img { width: 88px; height: 98px;}
+            .hero-title { font-size: 1.8rem;}
         }
         @media (max-width: 650px) {
-            .navbar { flex-direction: column; gap: 5px; padding: 12px 4vw 0 4vw;}
-            .hero { flex-direction: column; gap: 18px; padding: 8px 2vw 4px 2vw;}
-            .logo-img { width: 130px;}
+            .navbar { flex-direction: column; gap: 5px; padding: 10px 2vw 0 2vw;}
+            .navbar-logo img { width: 74px; }
+            .hero-content-wrap { flex-direction: column; gap: 12px; min-height: 48vh; padding: 10px 2vw 12px 2vw;}
             .main-grid { grid-template-columns: 1fr; padding: 8px 1vw 16px 1vw;}
-            .card-box { padding: 26px 4vw 18px 4vw;}
-            .hero-img { width: 70px; height: 80px;}
-            .hero-title { font-size: 1.1rem;}
+            .card-box { padding: 18px 4vw 14px 4vw;}
+            .hero-img { width: 60px; height: 70px;}
+            .hero-title { font-size: 1.18rem;}
+            .fitur-title { font-size: 1.08rem; margin-top: 22px; }
+            .fitur-desc { font-size: 0.97rem; margin-bottom: 17px; }
+            .guru-btn, .hero-btn { font-size: 1rem; padding: 10px 20px; }
+        }
+        @media (max-width: 400px) {
+            .card-title { font-size: 0.98rem;}
+            .fitur-title { font-size: 0.97rem; }
+            .main-grid, .card-box { padding: 4px 2vw; }
         }
     </style>
 </head>
 <body>
-    {{-- Navbar --}}
+    <audio id="bg-music" src="{{ asset('sounds/music.mp3') }}" loop preload="auto"></audio>
+    <script>
+        const bgMusic = document.getElementById('bg-music');
+        bgMusic.volume = 0.25;
+        let musicStarted = false;
+        function playMusic() {
+            if (musicStarted) return;
+            musicStarted = true;
+            if (bgMusic.readyState >= 2) {
+                bgMusic.play().catch(()=>{});
+            } else {
+                bgMusic.addEventListener('canplaythrough', () => {
+                    bgMusic.play().catch(()=>{});
+                }, {once: true});
+            }
+            window.removeEventListener('pointerdown', playMusic);
+            window.removeEventListener('keydown', playMusic);
+            window.removeEventListener('touchstart', playMusic);
+        }
+        window.addEventListener('pointerdown', playMusic, {passive:true});
+        window.addEventListener('keydown', playMusic, {passive:true});
+        window.addEventListener('touchstart', playMusic, {passive:true});
+    </script>
+
+    <!-- Navbar -->
     <div class="navbar">
         <div class="navbar-logo">
-            <span style="font-size: 1.6em;">🟦</span> Si Ukur
+            <img src="{{ asset('images/Logo-Si-Ukur.png') }}" alt="Logo">
         </div>
         <div class="navbar-right">
             <a href="{{ route('login.guru') }}" class="guru-btn">Masuk sebagai Guru</a>
         </div>
     </div>
-    {{-- Hero Section --}}
-    <div class="hero">
-        <div class="hero-img">
-            {{-- Gambar anak/kartun kiri --}}
-            <img src="{{ asset('images/siswa-cowo.png') }}" alt="Anak SD">
-        </div>
-        <div class="hero-content">
-            <img src="{{ asset('images/logo-siukur.png') }}" alt="Logo Si Ukur" class="logo-img" onerror="this.style.display='none'">
-            <div class="hero-title">Selamat Datang di <br>Website Si Ukur</div>
-            <div class="hero-sub">
-                Website Belajar Pengukuran Satuan Tak Baku untuk SD Kelas 1
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content-wrap">
+            <div class="hero-img">
+                <img src="{{ asset('images/bekantan.png') }}" alt="Anak SD">
             </div>
-            <a href="{{ route('login.siswa') }}">
-                <button class="hero-btn">Masuk Sebagai Siswa</button>
-            </a>
+            <div class="hero-content">
+                <div class="hero-title">Selamat Datang di <br>Website Si Ukur</div>
+                <div class="hero-sub">
+                    Media Pembelajaran Interaktif Berbasis Web Materi Pengukuran Kelas 1 SD Berkonteks Kearifan Lokal Lahan Basah
+                </div>
+                <a href="{{ route('login.siswa') }}">
+                    <button class="hero-btn">Masuk Sebagai Siswa</button>
+                </a>
+            </div>
+            <div class="hero-img">
+                <img src="{{ asset('images/borneo.png') }}" alt="Anak SD">
+            </div>
         </div>
-        <div class="hero-img">
-            <img src="{{ asset('images/siswa-cewe.png') }}" alt="Anak SD">
-        </div>
+    </section>
+    <!-- Fitur Section -->
+    <div class="fitur-title">Fitur-Fitur</div>
+    <div class="fitur-desc">
+        Media pembelajaran ini memiliki beberapa fitur sebagai berikut.
     </div>
-    {{-- 4 GRID WARNA --}}
     <div class="main-grid">
-        <!-- INFORMASI -->
+        <!-- MATERI -->
         <div class="card-box red-card">
-            <div class="card-title">Informasi</div>
+            <div class="card-title">Materi</div>
             <div class="card-content">
-                Si Ukur adalah website pembelajaran interaktif yang dirancang khusus untuk siswa SD kelas 1. Fokus pada materi pengukuran dengan satuan tak baku, disajikan secara menarik dan mudah dipahami anak-anak.
+                Menyajikan penjelasan konsep pengukuran panjang, membandingkan benda, dan mengenalkan satuan tidak baku secara visual dan interaktif untuk siswa kelas 1 SD.
             </div>
         </div>
-        <!-- CAPAIAN PEMBELAJARAN -->
+        <!-- LATIHAN -->
         <div class="card-box yellow-card">
-            <div class="card-title">Capaian Pembelajaran</div>
-            <div class="card-content" style="color:#906500">
-                Peserta didik dapat membandingkan panjang. Mereka dapat mengukur dan mengestimasi panjang benda menggunakan satuan tidak baku.
-            </div>
-        </div>
-        <!-- TENTANG PEMBUAT -->
-        <div class="card-box green-card">
-            <div class="card-title">Tentang Pembuat</div>
-            <div class="card-content" style="margin-bottom: 12px;">
-                <b>Pembuat:</b> Ana Maria Parasantii<br>
-                <b>NIM:</b> 211013320009<br>
-                <b>Pembimbing 1:</b> Dr. R. Ati Sukmawati, M.Kom.<br>
-                <b>Pembimbing 2:</b> Deliska Pramata Sari, M.Pd.<br>
-                <b>Prodi:</b> Pendidikan Komputer<br>
-                <b>Fakultas:</b> Keguruan dan Ilmu Pendidikan<br>
-                <b>Universitas:</b> Lambung Mangkurat<br>
-                <b>Email:</b> 211013320009@ulm.ac.id
-            </div>
-        </div>
-        <!-- DAFTAR PUSTAKA -->
-        <div class="card-box blue-card">
-            <div class="card-title">Daftar Pustaka</div>
+            <div class="card-title">Latihan</div>
             <div class="card-content">
-                <ul class="card-list">
-                    <li>Purnomosidi, Wiyanto, & Endang, S. (2008). <i>Matematika Untuk SD/MI Kelas 1</i>. Jakarta: Pusat Perbukuan, Departemen Pendidikan Nasional.</li>
-                    <li>Retno, D., & Rasfitawati, Y.W. (2022). <i>Matematika SD/MI Kelas 1</i>. Pusat Perbukuan Badan Standar, Kurikulum, dan Asesmen Pendidikan Kemdikbud.</li>
-                </ul>
-                <a href="https://buku.kemdikbud.go.id/" target="_blank">https://buku.kemdikbud.go.id/</a>
+                Berisi soal-soal interaktif untuk melatih pemahaman siswa terhadap materi pengukuran, membandingkan panjang, serta menggunakan satuan tidak baku dalam kehidupan sehari-hari.
+            </div>
+        </div>
+        <!-- EVALUASI -->
+        <div class="card-box blue-card">
+            <div class="card-title">Evaluasi</div>
+            <div class="card-content">
+                Mengukur pencapaian belajar siswa melalui serangkaian soal evaluasi untuk mengetahui penguasaan konsep dan kemampuan menerapkan pengukuran sederhana.
             </div>
         </div>
     </div>

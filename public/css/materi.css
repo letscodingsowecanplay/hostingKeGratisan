@@ -1,0 +1,360 @@
+html, body {
+    min-height: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+body {
+    font-family: 'Montserrat', Arial, sans-serif;
+    background-color: #fffbe9;
+    background-image:
+        linear-gradient(0deg, #e3caa5 1.5px, transparent 1.5px),
+        linear-gradient(90deg, #e3caa5 1.5px, transparent 1.5px);
+    background-size: 40px 40px;
+    background-position: center;
+    min-height: 100vh;
+    color: #222;
+}
+.materi-main-container {
+    max-width: 820px;
+    margin: 48px auto 30px auto;
+    background: #fff;
+    border-radius: 28px;
+    box-shadow: 0 6px 36px #284b632a;
+    padding: 38px 32px 30px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 26px;
+}
+
+.navbar-materi-menu {
+    width: 100%;
+    background: #fffbe9;
+    box-shadow: 0 2px 12px #d1a46921;
+    display: flex;
+    align-items: center;
+    padding: 14px 0 8px 0;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    min-height: 54px;
+}
+
+.nav-menu-link {
+    display: flex;
+    align-items: center;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: #284b63;
+    text-decoration: none;
+    margin-left: 28px;
+    transition: color 0.15s;
+    border-radius: 16px;
+    padding: 5px 18px 5px 8px;
+}
+
+.nav-menu-link:hover {
+    background: #ffe9b9;
+    color: #f57f17;
+    text-decoration: none;
+}
+
+@media (max-width: 600px) {
+    .navbar-materi-menu {
+        padding: 10px 0 6px 0;
+        min-height: 40px;
+    }
+    .nav-menu-link {
+        font-size: 0.98rem;
+        margin-left: 8px;
+        padding: 5px 11px 5px 7px;
+    }
+}
+
+/* Label warna-warni */
+.warna-label {
+    display: inline-block;
+    padding: 8px 22px 8px 18px;
+    border-radius: 16px 16px 0 16px;
+    font-size: 1.10rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 10px #00000010;
+    vertical-align: middle;
+    line-height: 1;
+    color: #fff !important;
+}
+.yellow-card { background: linear-gradient(120deg, #ffe145 85%, #fbd046 100%);}
+.green-card  { background: linear-gradient(120deg, #20b484 85%, #43cea2 100%);}
+.blue-card   { background: linear-gradient(120deg, #3f73d3 80%, #43a1e2 100%);}
+.purple-card { background: linear-gradient(120deg, #786fa6 85%, #a8c0ff 100%);}
+.orange-card { background: linear-gradient(120deg, #ffa36c 85%, #fcb67c 100%);}
+.red-card {
+    background: linear-gradient(120deg, #f76c6c 85%, #ffb3b3 100%);
+}
+
+.materi-section { margin-bottom: 18px; }
+.materi-section:last-child { margin-bottom: 0; }
+.materi-content {
+    font-size: 1.08rem;
+    font-weight: 500;
+    color: #222;
+    margin-bottom: 0;
+    margin-top: 8px;
+}
+.materi-list {
+    margin-top: 7px;
+    margin-bottom: 0;
+    padding-left: 25px;
+}
+.btn-audio {
+    margin-left: 8px;
+    border-radius: 9px;
+    padding: 3px 13px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    box-shadow: 0 1px 6px #3f73d329;
+    cursor: pointer;
+    background: #284b63;
+    color: #fff;
+    transition: background .13s;
+    vertical-align: middle;
+    display: inline-block;
+}
+.btn-audio:hover, .btn-audio[data-playing="true"] {
+    background: #ffe145;
+    color: #444;
+}
+.materi-image-row {
+    display: flex;
+    gap: 26px;
+    margin: 24px 0 12px 0;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.materi-image-col {
+    flex: 1 1 0;
+    min-width: 240px;
+    max-width: 340px;
+    text-align: center;
+}
+.materi-image-col img {
+    max-width: 100%;
+    max-height: 340px;
+    border-radius: 18px;
+    box-shadow: 0 2px 18px #786fa68a;
+    margin-bottom: 8px;
+    background: #fffbe9;
+}
+.materi-caption {
+    font-size: 1.04rem;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 0;
+    margin-top: 4px;
+    text-align: center;
+}
+.materi-nav-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    gap: 14px;
+}
+.btn-nav {
+    border-radius: 13px;
+    padding: 8px 30px;
+    font-size: 1.07rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 8px #fbd04633;
+    transition: background .13s, color .13s;
+    text-decoration: none;
+    background: linear-gradient(120deg, #e3caa5 85%, #c3a878 100%);
+    color: #444;
+}
+.btn-nav:hover {
+    background: linear-gradient(120deg, #ffe145 90%, #ffd16b 100%);
+    color: #222;
+}
+.btn-next {
+    background: linear-gradient(120deg, #fbb954 80%, #f57f17 100%);
+    color: #fff;
+}
+.btn-next:hover {
+    background: linear-gradient(120deg, #ffd95c 80%, #fbb954 100%);
+    color: #222;
+}
+
+/* DRAG & DROP SOAL */
+.block-option {
+    min-width: 44px;
+    min-height: 44px;
+    font-size: 1.13rem;
+    font-weight: 700;
+    color: #222;
+    background: #e3caa5;
+    border: 2px solid #e3caa5;
+    border-radius: 14px;
+    box-shadow: 0 2px 9px #e3caa53b;
+    text-align: center;
+    line-height: 1.2;
+    transition: border .14s, box-shadow .13s, background .13s;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    margin: 0 10px 0 0;
+    padding: 7px 24px;
+}
+.block-option:last-child { margin-right: 0; }
+.block-option:active {
+    background: #ffe145;
+    color: #444;
+    cursor: grabbing;
+}
+.block-option.bg-success, .block-option.bg-danger {
+    color: #fff !important;
+    border-color: transparent !important;
+    box-shadow: 0 2px 14px #28a74525;
+    background: linear-gradient(90deg, #43cea2 80%, #20b484 100%);
+}
+.block-option.bg-danger {
+    background: linear-gradient(90deg, #f5515f 85%, #f67262 100%);
+    box-shadow: 0 2px 14px #f5515f1a;
+}
+@media (max-width: 600px) {
+    .block-option { padding: 5px 17px; font-size: 1rem;}
+}
+
+.drop-area-style {
+    min-height: 110px !important;
+    background: #fffbe9;
+    border: 2px dashed #e3caa5;
+    border-radius: 13px;
+    box-shadow: 0 2px 9px #e3caa524;
+    padding: 14px 8px 10px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: min-height .36s cubic-bezier(.85,0,.5,1), padding .36s cubic-bezier(.85,0,.5,1), background .18s;
+    margin-bottom: 8px;
+    position: relative;
+    overflow: visible;
+}
+.drop-area-style.highlight {
+    border-color: #fbb954;
+    background: #fff3cd;
+}
+.drop-area-style .drop-gambar-fit {
+    display: block;
+    margin: 0 auto;
+    border-radius: 14px;
+    background: transparent;
+    transition: max-width .32s, max-height .32s, box-shadow .19s;
+    box-shadow: 0 0 0 4px #b0d6f7;
+    max-width: 98%;
+    max-height: 148px;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain;
+}
+@media (max-width: 600px) {
+    .drop-area-style { min-height: 70px !important; }
+    .drop-area-style .drop-gambar-fit { max-height: 76px; }
+}
+
+/* Label warna contoh/soal */
+.warna-label { margin-bottom: 0 !important; vertical-align: middle; }
+.card.card-body {
+    font-size: 1.04rem;
+    border-radius: 17px;
+    box-shadow: 0 2px 12px #fbb9541a;
+}
+
+/* PILIHAN GANDA 3 OPSI */
+.soal-pg-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px #e3caa524;
+    padding: 18px 20px 12px 20px;
+    margin-bottom: 26px;
+    border: 1.7px solid #e3caa5;
+}
+.soal-pg-card .soal-gambar {
+    max-width: 340px;
+    display: block;
+    margin: 13px auto 8px auto;
+    border-radius: 13px;
+    box-shadow: 0 2px 10px #fbb95414;
+}
+.pilihan-radio-pg {
+    background: #fffbe9;
+    border-radius: 13px;
+    border: 1.6px solid #e3caa5;
+    padding: 13px 18px 10px 13px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 7px #e3caa52a;
+    transition: border-color .15s, background .15s;
+    font-size: 1.04rem;
+    color: #222;
+    font-weight: 500;
+}
+.pilihan-radio-pg input[type="radio"] {
+    accent-color: #fbb954;
+    width: 22px;
+    height: 22px;
+    margin-right: 17px;
+    margin-top: 0;
+}
+.pilihan-radio-pg.selected,
+.pilihan-radio-pg.bg-success,
+.pilihan-radio-pg.bg-danger {
+    color: #fff !important;
+    background: linear-gradient(90deg, #43cea2 80%, #20b484 100%);
+    border-color: #20b484;
+}
+.pilihan-radio-pg.bg-danger {
+    background: linear-gradient(90deg, #f5515f 85%, #f67262 100%);
+    border-color: #f5515f;
+}
+.pilihan-radio-pg.bg-success {
+    background: linear-gradient(90deg, #43cea2 80%, #20b484 100%);
+    border-color: #20b484;
+}
+.pilihan-radio-pg .badge {
+    font-size: 0.97rem;
+    font-weight: 700;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+.pilihan-radio-pg .btn {
+    margin-left: 16px;
+    font-size: 1.04rem;
+    padding: 2px 10px;
+}
+
+@media (max-width: 600px) {
+    .soal-pg-card { padding: 8px 2vw 7px 2vw;}
+    .soal-pg-card .soal-gambar { max-width: 97vw;}
+    .pilihan-radio-pg { font-size: 0.99rem; padding: 9px 3vw 7px 3vw;}
+}
+@media (max-width: 900px) {
+    .materi-main-container { padding: 21px 5vw 20px 5vw;}
+    .materi-image-row { gap: 13px;}
+}
+@media (max-width: 600px) {
+    .materi-main-container { padding: 10px 0.9vw 13px 0.9vw; }
+    .materi-image-col { min-width: 0; }
+    .materi-caption { font-size: 0.99rem; }
+}

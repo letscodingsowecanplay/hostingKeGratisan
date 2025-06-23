@@ -1,92 +1,125 @@
-@extends('layouts.app')
+@extends('layouts.main')
+
+@section('title', 'Register Siswa')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card bg-coklat text-center fs-5">
-                <div class="card-header"><b>{{ __('Daftar Akun Siswa') }}</b></div>
+<div class="register-page-wrap">
+    <div class="register-card-color">
+        <div class="login-logo register-logo">
+            <img src="{{ asset('images/Logo-Si-Ukur.png') }}" alt="Logo Si Ukur">
+        </div>
+        <div class="register-title">
+            Register Siswa
+        </div>
+        <form method="POST" action="{{ route('register') }}" class="register-form-multicolor">
+            @csrf
+            <div class="register-form-grid">
+                <div class="input-group-custom">
+                    <label for="name">Nama</label>
+                    <div class="input-nisn">
+                        <input
+                            id="name"
+                            type="text"
+                            name="name"
+                            value="{{ old('name') }}"
+                            class="@error('name') is-invalid @enderror"
+                            required autofocus
+                            placeholder="Nama lengkap"
+                        >
+                    </div>
+                    @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+                <div class="input-group-custom">
+                    <label for="email">Email</label>
+                    <div class="input-nip">
+                        <input
+                            id="email"
+                            type="email"
+                            name="email"
+                            value="{{ old('email') }}"
+                            class="@error('email') is-invalid @enderror"
+                            required
+                            placeholder="Email aktif"
+                        >
+                    </div>
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Nama') }}</label>
+                <div class="input-group-custom">
+                    <label for="nisn">NISN</label>
+                    <div class="input-nisn">
+                        <input
+                            id="nisn"
+                            type="text"
+                            name="nisn"
+                            value="{{ old('nisn') }}"
+                            class="@error('nisn') is-invalid @enderror"
+                            required
+                            placeholder="Masukkan NISN"
+                        >
+                    </div>
+                    @error('nisn')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                <div class="input-group-custom">
+                    <label for="password">Kata Sandi</label>
+                    <div class="input-sandi">
+                        <input
+                            id="password"
+                            type="password"
+                            name="password"
+                            class="@error('password') is-invalid @enderror"
+                            required
+                            placeholder="Kata sandi minimal 6 karakter"
+                        >
+                    </div>
+                    @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="nisn" class="col-md-4 col-form-label text-md-end">NISN</label>
-
-                            <div class="col-md-6">
-                                <input type="text" name="nisn" id="nisn" class="form-control @error('nisn') is-invalid @enderror" value="{{ old('nisn') }}" required>
-
-                                @error('nisn')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Kata Sandi') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Ulangi Kata Sandi') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn bg-coklap btn-masuk fs-5">
-                                    {{ __('Daftar') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                <div class="input-group-custom full">
+                    <label for="password-confirm">Ulangi Kata Sandi</label>
+                    <div class="input-sandi">
+                        <input
+                            id="password-confirm"
+                            type="password"
+                            name="password_confirmation"
+                            required
+                            placeholder="Ulangi kata sandi"
+                        >
+                    </div>
                 </div>
             </div>
+            <button type="submit" class="btn-login-custom">
+                Daftar
+            </button>
+
+            @if ($errors->any())
+                <div class="invalid-feedback text-center mt-2">
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                </div>
+            @endif
+        </form>
+        <div class="login-footer-link">
+            Sudah punya akun? <a href="{{ route('login.siswa') }}">Login di sini</a>
         </div>
     </div>
 </div>

@@ -1,8 +1,8 @@
-@extends('layouts.master')
+@extends('layouts.master-guru')
 
 @section('content')
-    <div class="card bg-coklat fs-5">
-        <div class="card-header">
+    <div class="card bg-coklat fs-5" style="box-shadow: 0 3px 24px #0000000e;">
+        <div class="card-header d-flex justify-content-between align-items-center" style="background: none; border: none; font-size: 1.16em; font-weight: 700; color: #258fff;">
             <div class="float-start">
                 Data KKM
             </div>
@@ -10,7 +10,7 @@
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table border-dark">
+                <table class="table table-striped align-middle">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -34,7 +34,6 @@
                 </table>
             </div>
         </div>
-
         <div class="card-footer custom-pagination">
             {{ $kkm->links() }}
         </div>

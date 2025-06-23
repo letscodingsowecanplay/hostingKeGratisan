@@ -37,9 +37,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::get('materi/halaman-3', [MateriController::class, 'halamanTiga'])->name('materi.halaman3');
     Route::get('materi/halaman-4', [MateriController::class, 'halamanEmpat'])->name('materi.halaman4');
     Route::post('materi/halaman-4/simpan', [MateriController::class, 'simpanHalamanEmpat'])->name('materi.halaman4.simpan');
+    Route::post('materi/halaman4/jawab', [MateriController::class, 'jawabHal4'])
+    ->name('materi.halaman4.jawab');
     Route::delete('materi/halaman4/reset', [MateriController::class, 'resetHalamanEmpat'])->name('materi.halaman4.reset');
     Route::get('materi/halaman-5', [MateriController::class, 'halamanLima'])->name('materi.halaman5');
     Route::post('materi/halaman-5/simpan', [MateriController::class, 'simpanHalamanLima'])->name('materi.halaman5.simpan');
+    Route::post('materi/halaman5/jawab', [MateriController::class, 'jawabHal5'])->name('materi.halaman5.jawab'); 
     Route::delete('materi/halaman-5/reset', [MateriController::class, 'resetHalamanLima'])->name('materi.halaman5.reset');
     Route::get('materi/halaman-6', [MateriController::class, 'halamanEnam'])->name('materi.halaman6');
    
@@ -51,10 +54,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
     Route::get('materi/halaman-9', [MateriController::class, 'halaman9'])->name('materi.halaman9');
     Route::post('materi/halaman-9/simpan', [MateriController::class, 'simpanHalaman9'])->name('materi.halaman9.simpan');
-    Route::post('materi/halaman-9/reset', [MateriController::class, 'resetHalaman9'])->name('materi.halaman9.reset');
+    Route::post('materi/halaman9/jawab', [MateriController::class, 'jawabHalaman9'])->name('materi.halaman9.jawab'); 
+    Route::delete('materi/halaman-9/reset', [MateriController::class, 'resetHalaman9'])->name('materi.halaman9.reset');
 
     Route::get('materi/halaman-10', [MateriController::class, 'halaman10'])->name('materi.halaman10');
     Route::post('materi/halaman-10/submit', [MateriController::class, 'submitHalaman10'])->name('materi.halaman10.submit');
+    Route::post('materi/halaman10/jawab', [MateriController::class, 'jawabHalaman10'])->name('materi.halaman10.jawab');
     Route::post('materi/halaman-10/reset', [MateriController::class, 'resetHalaman10'])->name('materi.halaman10.reset');  
     
     Route::get('materi/halaman-11', [MateriController::class, 'halaman11'])->name('materi.halaman11');
@@ -63,7 +68,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::get('materi/halaman-14', [MateriController::class, 'halaman14'])->name('materi.halaman14');
     
     Route::get('materi/halaman-15', [MateriController::class, 'halaman15'])->name('materi.halaman15');
-    Route::post('materi/halaman-15/simpan', [MateriController::class, 'simpanHalaman15'])->name('materi.halaman15.simpan');
+    Route::post('materi/halaman15/jawab', [MateriController::class, 'jawabHalaman15'])->name('materi.halaman15.jawab');
     Route::delete('materi/halaman-15/reset', [MateriController::class, 'resetHalaman15'])->name('materi.halaman15.reset');
 
     Route::get('materi/halaman-16', [MateriController::class, 'halaman16'])->name('materi.halaman16');

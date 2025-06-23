@@ -18,9 +18,16 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-// Di routes/web.php (atau admin.php jika kamu pecah file route)
-Route::get('/login/guru', [App\Http\Controllers\Auth\LoginController::class, 'showGuruLoginForm'])->name('login.guru');
+// Menampilkan form login siswa
 Route::get('/login/siswa', [App\Http\Controllers\Auth\LoginController::class, 'showSiswaLoginForm'])->name('login.siswa');
+
+// Menampilkan form login guru
+Route::get('/login/guru', [App\Http\Controllers\Auth\LoginController::class, 'showGuruLoginForm'])->name('login.guru');
+
+
+Route::post('/login/siswa', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login.siswa');
+Route::post('/login/guru', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login.guru');
+
 
 Auth::routes();
 

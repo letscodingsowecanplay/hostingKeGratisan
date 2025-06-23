@@ -28,7 +28,8 @@ class AppServiceProvider extends ServiceProvider
         // Cek user login dan role siswa
         View::composer([
             'admin.includes.sidebar',
-            'admin.index', // tambahkan view lain jika perlu, bisa array
+            'admin.index',
+            'admin.materi.index', // tambahkan view lain jika perlu, bisa array
             // Tambah view lain yang ingin dapat $statusLulus
         ], function ($view) {
             $statusLulus = [];

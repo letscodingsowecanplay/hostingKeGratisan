@@ -1,246 +1,292 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="card bg-coklat">
-    <div class="card-header d-flex justify-content-between align-items-center">
-        <h4 class="mb-0 fs-5">Ayo Mencoba</h4>
+<div class="materi-main-container" id="halaman4-container">
+    <div class="materi-title" style="font-size:2rem; font-weight:800; color:#222; text-align:center; margin-bottom:12px;">
+        Ayo Mencoba
     </div>
-    <div class="card-body">
-        @if(session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
 
-        <div class="mb-5 fs-5">
-            <h5 class="mb-3 d-flex align-items-center">
-                <strong>Contoh Soal</strong>
-                <button onclick="toggleAudio(this)" 
-                        class="btn btn-sm btn-outline-dark bg-coklapbet text-white ms-2"
-                        data-id="index-1" data-playing="false">🔊</button>
-                <audio id="audio-index-1" src="{{ asset('sounds/materi/hal4/1.mp3') }}"></audio>
-            </h5>
-            <p>Amati gambar berikut dengan saksama!</p>
-            <p>
-                <strong>Pilih makanan dengan bentuk yang tinggi!</strong>
-                <button onclick="toggleAudio(this)" 
-                        class="btn btn-sm btn-outline-dark bg-coklapbet text-white ms-2"
-                        data-id="index-2" data-playing="false">🔊</button>
-                <audio id="audio-index-2" src="{{ asset('sounds/materi/hal4/2.mp3') }}"></audio>
-            </p>
-            <div class="position-relative mx-auto mb-3" style="max-width: 600px; height: 300px;">
-                <img src="{{ asset('images/materi/contoh-lat-1.png') }}" class="w-100 h-100 rounded shadow" style="object-fit: cover;">
-                <div class="position-absolute" style="top: 65%; left: 25%; transform: translate(-50%, -50%);">
-                    <img src="{{ asset('images/materi/contoh-lat-2.png') }}" width="120" height="120" class="shadow">
-                    <div class="text-center mt-1"><span class="badge bg-light text-dark border">...</span></div>
-                </div>
-                <div class="position-absolute" style="top: 65%; left: 75%; transform: translate(-50%, -50%);">
-                    <img src="{{ asset('images/materi/contoh-lat-3.png') }}" width="120" height="120" class="shadow">
-                    <div class="text-center mt-1"><span class="badge bg-success">✔</span></div>
-                </div>
+    <!-- Contoh Soal -->
+    <div class="materi-section mb-5 fs-5">
+        <div class="d-flex align-items-center mb-3">
+            <span class="warna-label yellow-card">Contoh Soal</span>
+            <button onclick="toggleAudio(this)" class="btn-audio ms-2" data-id="index-1" data-playing="false">🔊</button>
+            <audio id="audio-index-1" src="{{ asset('sounds/materi/hal4/1.mp3') }}"></audio>
+        </div>
+        <p>Amati gambar berikut dengan saksama!</p>
+        <p>
+            <span class="warna-label blue-card">Pilih bungkus minuman dengan bentuk yang tinggi!</span>
+            <button onclick="toggleAudio(this)" class="btn-audio ms-2" data-id="index-2" data-playing="false">🔊</button>
+            <audio id="audio-index-2" src="{{ asset('sounds/materi/hal4/2.mp3') }}"></audio>
+        </p>
+        <div class="position-relative mx-auto mb-3" style="max-width: 600px; height: 300px;">
+            <img src="{{ asset('images/materi/ayo-mencoba-1/contoh-lat-1.png') }}" class="w-100 h-100 rounded shadow" style="object-fit: cover;">
+            <div class="position-absolute" style="top: 65%; left: 25%; transform: translate(-50%, -50%);">
+                <img src="{{ asset('images/materi/ayo-mencoba-1/contoh-lat-2.png') }}" width="180" height="180" class="shadow">
+                <div class="text-center mt-1"><span class="badge warna-label yellow-card">...</span></div>
             </div>
-            <div class="mt-3">
-                <p>
-                    <strong>Penyelesaian:</strong><br>
-                    Ketika kita amati kedua makanan ini, pundut di sebelah kanan memiliki bentuk yang tinggi, sedangkan nasi kuning di sebelah kiri memiliki bentuk yang rendah. Oleh karena itu, kita memilih gambar pundut.
-                </p>
+            <div class="position-absolute" style="top: 65%; left: 75%; transform: translate(-50%, -50%);">
+                <img src="{{ asset('images/materi/ayo-mencoba-1/contoh-lat-3.png') }}" width="180" height="180" class="shadow">
+                <div class="text-center mt-1"><span class="badge warna-label green-card">✔</span></div>
             </div>
         </div>
-        <hr>
-        <h5 class="mb-3 d-flex align-items-center fs-5">
-            <strong>Ayo Mencoba</strong>
-                <button onclick="toggleAudio(this)" 
-                        class="btn btn-sm btn-outline-dark bg-coklapbet text-white ms-2"
-                        data-id="index-3" data-playing="false">🔊</button>
-                <audio id="audio-index-3" src="{{ asset('sounds/materi/hal4/3.mp3') }}"></audio>
-        </h5>
+        <div class="mt-3">
+            <p>
+                <span class="warna-label orange-card">Penyelesaian:</span><br>
+                Ketika kita amati kedua bungkus minuman ini, <b>kopi pasak bumi</b> di sebelah kiri memiliki bentuk yang lebih rendah, sedangkan <b>bubuk pasak bumi</b> di sebelah kanan memiliki bentuk yang lebih tinggi. Oleh karena itu, kita memilih gambar <b>teh pasak bumi</b> sebagai makanan dengan bentuk yang tinggi.
+            </p>
+        </div>
+    </div>
+    <div style="border-top: 2px solid #eee; margin: 10px 0 12px 0;"></div>
+
+    <!-- Ayo Mencoba -->
+    <div class="materi-section">
+        <div class="d-flex align-items-center mb-3 fs-5">
+            <span class="warna-label green-card">Ayo Mencoba</span>
+            <button onclick="toggleAudio(this)" class="btn-audio ms-2" data-id="index-3" data-playing="false">🔊</button>
+            <audio id="audio-index-3" src="{{ asset('sounds/materi/hal4/3.mp3') }}"></audio>
+        </div>
         <p class="fs-5">Amati gambar berikut dengan saksama!</p>
-
-        <form id="kuisForm" action="{{ route('admin.materi.halaman4.simpan') }}" method="POST">
-            @csrf
-
-            @php
-                $soalText = [
-                    1 => 'Pilih iwak dengan bentuknya yang panjang!',
-                    2 => 'Pilih olahan iwak wadi khas banjar dengan bentuknya yang pendek!',
-                    3 => 'Pilih tempat biji-bijian khas Kalimantan berdasarkan posisi gantungnya yang tinggi!',
-                    4 => 'Pilih jam dinding rotan oleh-oleh khas Kalimantan berdasarkan posisi gantungnya yang rendah!',
-                ];
-                $positions = [
-                    1 => ['a_top' => '60%', 'a_left' => '25%', 'b_top' => '60%', 'b_left' => '75%'],
-                    2 => ['a_top' => '65%', 'a_left' => '25%', 'b_top' => '65%', 'b_left' => '75%'],
-                    3 => ['a_top' => '55%', 'a_left' => '25%', 'b_top' => '35%', 'b_left' => '75%'],
-                    4 => ['a_top' => '55%', 'a_left' => '25%', 'b_top' => '35%', 'b_left' => '75%'],
-                ];
-                // Penjelasan benar/salah tiap soal
-                $penjelasan = [
-                    1 => [
-                        'benar' => 'Jawaban kamu benar. Pilihan B adalah ikan yang bentuknya panjang.',
-                        'salah' => 'Jawaban kamu salah. Yang benar adalah ikan pada pilihan B yang bentuknya panjang.',
-                    ],
-                    2 => [
-                        'benar' => 'Jawaban kamu benar. Pilihan A adalah olahan iwak wadi yang bentuknya pendek.',
-                        'salah' => 'Jawaban kamu salah. Yang benar adalah iwak wadi pada pilihan A yang bentuknya pendek.',
-                    ],
-                    3 => [
-                        'benar' => 'Jawaban kamu benar. Pilihan B adalah tempat biji-bijian yang tergantung tinggi.',
-                        'salah' => 'Jawaban kamu salah. Yang benar adalah tempat biji-bijian pada pilihan B yang tergantung paling tinggi.',
-                    ],
-                    4 => [
-                        'benar' => 'Jawaban kamu benar. Pilihan A adalah jam dinding rotan yang tergantung paling rendah.',
-                        'salah' => 'Jawaban kamu salah. Yang benar adalah jam dinding rotan pada pilihan A yang tergantung paling rendah.',
-                    ],
-                ];
-            @endphp
-
-            @foreach (range(1, 4) as $no)
-                <div class="mb-5 fs-5">
-
-                    <p class="mb-3"><strong>{{ $no }}. {{ $soalText[$no] }}</strong>
-                    <button 
-                        onclick="toggleAudio(this)" 
-                        type="button" 
-                        class="btn btn-sm btn-outline-dark bg-coklapbet text-white ms-2"
-                        data-id="hal4_{{ $no }}" 
-                        data-playing="false">
-                        🔊
-                    </button>
-                    <audio id="audio-hal4_{{ $no }}" src="{{ asset('sounds/materi/hal4/hal4_' . $no . '.mp3') }}"></audio>
-                    </p>
-
-                    <div class="position-relative mx-auto mb-3 soal-pilihan-gambar" style="max-width: 600px; height: 350px;">
-                        <img src="{{ asset('images/materi/soal'.$no.'_bg.png') }}" class="w-100 h-100 rounded shadow" style="object-fit: cover;">
-
-                        {{-- Gambar Pilihan A --}}
-                        <label for="soal{{ $no }}a" 
-                            class="soal-label-gambar position-absolute d-flex flex-column align-items-center"
-                            style="top: {{ $positions[$no]['a_top'] }}; left: {{ $positions[$no]['a_left'] }}; transform: translate(-50%, -50%); cursor: pointer; z-index: 10;">
-                            <img src="{{ asset('images/materi/soal'.$no.'_a.png') }}"
-                                width="140"
-                                height="140"
-                                class="shadow img-radio-pilihan
-                                @if($sudahMenjawab && (isset($jawabanUser['soal'.$no]) && $jawabanUser['soal'.$no]=='a'))
-                                    @if($kunci['soal'.$no] == 'a')
-                                        border border-3 border-success
-                                    @else
-                                        border border-3 border-danger
-                                    @endif
-                                @elseif(!$sudahMenjawab && old('jawaban.soal'.$no) === 'a')
-                                    border border-3 border-primary
-                                @endif"
-                                style="border-radius:14px; transition:.2s;">
-                            <input type="radio"
-                                class="form-check-input radio-pilihan mt-2"
-                                name="jawaban[soal{{ $no }}]"
-                                value="a"
-                                id="soal{{ $no }}a"
-                                required
-                                style="transform:scale(1.4); margin-top:7px; background:white;"
-                                @if(old('jawaban.soal'.$no) === 'a') checked @endif
-                                @if($sudahMenjawab) disabled @endif
-                            >
-                            <span class="badge bg-coklapbet text-white mt-1">A</span>
-                        </label>
-
-                        {{-- Gambar Pilihan B --}}
-                        <label for="soal{{ $no }}b" 
-                            class="soal-label-gambar position-absolute d-flex flex-column align-items-center"
-                            style="top: {{ $positions[$no]['b_top'] }}; left: {{ $positions[$no]['b_left'] }}; transform: translate(-50%, -50%); cursor: pointer; z-index: 10;">
-                            <img src="{{ asset('images/materi/soal'.$no.'_b.png') }}"
-                                width="140"
-                                height="140"
-                                class="shadow img-radio-pilihan
-                                @if($sudahMenjawab && (isset($jawabanUser['soal'.$no]) && $jawabanUser['soal'.$no]=='b'))
-                                    @if($kunci['soal'.$no] == 'b')
-                                        border border-3 border-success
-                                    @else
-                                        border border-3 border-danger
-                                    @endif
-                                @elseif(!$sudahMenjawab && old('jawaban.soal'.$no) === 'b')
-                                    border border-3 border-primary
-                                @endif"
-                                style="border-radius:14px; transition:.2s;">
-                            <input type="radio"
-                                class="form-check-input radio-pilihan mt-2"
-                                name="jawaban[soal{{ $no }}]"
-                                value="b"
-                                id="soal{{ $no }}b"
-                                style="transform:scale(1.4); margin-top:7px; background:white;"
-                                @if(old('jawaban.soal'.$no) === 'b') checked @endif
-                                @if($sudahMenjawab) disabled @endif
-                            >
-                            <span class="badge bg-coklapbet text-white mt-1">B</span>
-                        </label>
-
-                        {{-- Jawaban --}}
-                        @if($sudahMenjawab)
-                            <div class="position-absolute w-100 text-center" style="bottom: 12px; left: 0;">
-                                <span class="badge bg-warning text-dark">Jawaban Kamu: {{ strtoupper($jawabanUser['soal'.$no] ?? '-') }}</span>
-                                @if($skor >= $kkm)
-                                    <div class="mt-1">
-                                        <span class="badge bg-success">Kunci Jawaban: {{ strtoupper($kunci['soal'.$no]) }}</span>
-                                    </div>
-                                @endif
-                            </div>
-                        @endif
-                    </div>
-
-                    {{-- Penjelasan benar/salah tampil langsung setelah jawab --}}
-                    @if($sudahMenjawab && isset($jawabanUser['soal'.$no]))
-                        <div class="mt-2 mb-3">
-                            @php
-                                $jawabUser = $jawabanUser['soal'.$no] ?? null;
-                                $kunciJawab = $kunci['soal'.$no] ?? null;
-                                $isCorrect = $jawabUser === $kunciJawab;
-                                $explainType = $isCorrect ? 'benar' : 'salah';
-                                $explain = $penjelasan[$no][$explainType] ?? 'Belum memilih jawaban.';
-                            @endphp
-                            <span class="badge @if($isCorrect) bg-success @else bg-danger @endif text-white mb-1">
-                                Jawaban {{ $isCorrect ? 'Benar' : 'Salah' }}
-                            </span>
-                            <div class="card card-body border-info bg-light">
-                                {!! $explain !!}
-                            </div>
-                        </div>
-                    @endif
-
-                </div>
-            @endforeach
-
-            @if(!$sudahMenjawab)
-                <div class="d-flex justify-content-end">
-                    <button type="submit" id="submitBtn" class="btn bg-coklap2 text-white fs-5">Kirim Jawaban</button>
-                </div>
-            @endif
-        </form>
-
-        @if($sudahMenjawab && $skor < $kkm)
-            <form action="{{ route('admin.materi.halaman4.reset') }}" method="POST" class="mt-3">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger fs-5">Ulangi Kuis</button>
-            </form>
-            <div class="alert alert-warning mt-3 fs-5">
-                Nilai kamu belum mencapai KKM. Silakan ulangi kuis ini.
-            </div>
-        @elseif($sudahMenjawab && $skor >= $kkm)
-            <br>
-            <div class="text-center flex-grow-1 fs-5">
-                <div class="alert alert-info d-inline-block mb-0">
-                    Nilai Anda: {{ $skor }} / 100
-                </div>
-            </div>
-            <br><div class="alert alert-success mt-3 fs-5">
-                Selamat, kamu telah mencapai KKM. Kamu boleh melanjutkan ke halaman berikutnya.
-            </div>
-        @endif
     </div>
 
-    <div class="card-footer d-flex justify-content-between">
-        <a href="{{ route('admin.materi.halaman3') }}" class="btn bg-coklap2 text-white fs-5">← Sebelumnya</a>
+    {{-- Popup Feedback --}}
+    <div id="popup-feedback" style="display:none; position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1000; background:rgba(40,75,99,.13); align-items:center;justify-content:center;">
+        <div style="background:#fff; border-radius:16px; box-shadow:0 7px 38px #2223; padding:32px 38px; max-width:400px; width:98vw; text-align:center; position:relative;">
+            <img id="popup-img" src="" style="max-width:130px; max-height:130px; margin-bottom:15px; border-radius:15px; box-shadow:0 3px 15px #0002;">
+            <h4 id="popup-judul" style="font-weight:700;"></h4>
+            <p id="popup-text" style="font-size:1.1rem;margin-bottom:2px;"></p>
+            <div style="margin:7px auto 0 auto; font-size:1.13rem;" id="popup-kunci"></div>
+        </div>
+        <audio id="popup-audio" src=""></audio>
+    </div>
 
-        @if($sudahMenjawab && $skor >= $kkm)
-            <a href="{{ route('admin.materi.halaman5') }}" class="btn bg-coklap1 text-white fs-5">Selanjutnya →</a>
+    @php
+        $soalText = [
+            1 => 'Pilih iwak dengan bentuknya yang panjang!',
+            2 => 'Pilih olahan iwak wadi khas banjar dengan bentuknya yang pendek!',
+            3 => 'Pilih tempat biji-bijian khas Kalimantan berdasarkan posisi gantungnya yang tinggi!',
+            4 => 'Pilih jam dinding rotan oleh-oleh khas Kalimantan berdasarkan posisi gantungnya yang rendah!',
+        ];
+        $positions = [
+            1 => ['a_top' => '60%', 'a_left' => '25%', 'b_top' => '60%', 'b_left' => '75%'],
+            2 => ['a_top' => '65%', 'a_left' => '25%', 'b_top' => '65%', 'b_left' => '75%'],
+            3 => ['a_top' => '55%', 'a_left' => '25%', 'b_top' => '35%', 'b_left' => '75%'],
+            4 => ['a_top' => '55%', 'a_left' => '25%', 'b_top' => '35%', 'b_left' => '75%'],
+        ];
+        $totalSoal = 4;
+        $firstUnanswered = 1;
+        for($i=1;$i<=$totalSoal;$i++){ if(empty($jawabanUser['soal'.$i])) { $firstUnanswered = $i; break; } }
+        $audioPenjelasan = [
+            1 => asset('sounds/materi/hal4/penjelasan_1.mp3'),
+            2 => asset('sounds/materi/hal4/penjelasan_2.mp3'),
+            3 => asset('sounds/materi/hal4/penjelasan_3.mp3'),
+            4 => asset('sounds/materi/hal4/penjelasan_4.mp3'),
+        ];
+    @endphp
+
+    @if(count($jawabanUser) < $totalSoal)
+    <div id="stepper-soal">
+        <div class="d-flex justify-content-center gap-2 mb-4">
+            @for ($no = 1; $no <= $totalSoal; $no++)
+                <button type="button"
+                    class="btn btn-outline-primary px-3 py-1 stepper-btn @if($no === $firstUnanswered) btn-primary @endif"
+                    onclick="showStep({{ $no }})"
+                    id="btn-stepper-{{ $no }}">
+                    Soal {{ $no }}
+                </button>
+            @endfor
+        </div>
+        @for ($no = 1; $no <= $totalSoal; $no++)
+        <div class="materi-section mb-5 fs-5 soal-step" id="soal-step-{{ $no }}" style="@if($no !== $firstUnanswered)display:none;@endif">
+            <p class="mb-3 d-flex align-items-center">
+                <span class="warna-label blue-card" style="margin-right:9px;">{{ $no }}</span>
+                <strong>{{ $soalText[$no] }}</strong>
+                <button onclick="toggleAudio(this)" type="button" class="btn-audio ms-2" data-id="hal4_{{ $no }}" data-playing="false">🔊</button>
+                <audio id="audio-hal4_{{ $no }}" src="{{ asset('sounds/materi/hal4/hal4_' . $no . '.mp3') }}"></audio>
+            </p>
+            <div class="position-relative mx-auto mb-3 soal-pilihan-gambar" style="max-width: 660px; height: 370px;">
+                <img src="{{ asset('images/materi/ayo-mencoba-1/soal'.$no.'_bg.png') }}" class="w-100 h-100 rounded shadow" style="object-fit: cover;">
+                {{-- Pilihan A --}}
+                <label for="soal{{ $no }}a"
+                    class="soal-label-gambar position-absolute d-flex flex-column align-items-center"
+                    style="top: {{ $positions[$no]['a_top'] }}; left: {{ $positions[$no]['a_left'] }}; transform: translate(-50%, -50%); cursor: pointer; z-index: 10;">
+                    <img src="{{ asset('images/materi/ayo-mencoba-1/soal'.$no.'_a.png') }}"
+                        width="180"
+                        height="180"
+                        class="shadow img-radio-pilihan"
+                        style="border-radius:14px; transition:.2s;">
+                    <input type="radio"
+                        class="form-check-input radio-pilihan mt-2"
+                        name="jawaban[soal{{ $no }}]"
+                        value="a"
+                        id="soal{{ $no }}a"
+                        required
+                        data-no="{{ $no }}"
+                        @if(isset($jawabanUser['soal'.$no])) checked disabled @endif
+                    >
+                    <span class="badge warna-label orange-card mt-1">a</span>
+                </label>
+                {{-- Pilihan B --}}
+                <label for="soal{{ $no }}b"
+                    class="soal-label-gambar position-absolute d-flex flex-column align-items-center"
+                    style="top: {{ $positions[$no]['b_top'] }}; left: {{ $positions[$no]['b_left'] }}; transform: translate(-50%, -50%); cursor: pointer; z-index: 10;">
+                    <img src="{{ asset('images/materi/ayo-mencoba-1/soal'.$no.'_b.png') }}"
+                        width="180"
+                        height="180"
+                        class="shadow img-radio-pilihan"
+                        style="border-radius:14px; transition:.2s;">
+                    <input type="radio"
+                        class="form-check-input radio-pilihan mt-2"
+                        name="jawaban[soal{{ $no }}]"
+                        value="b"
+                        id="soal{{ $no }}b"
+                        data-no="{{ $no }}"
+                        @if(isset($jawabanUser['soal'.$no])) checked disabled @endif
+                    >
+                    <span class="badge warna-label purple-card mt-1">b</span>
+                </label>
+            </div>
+            <div id="penjelasan-{{ $no }}" class="mt-2 mb-3"></div>
+        </div>
+        @endfor
+    </div>
+    @endif
+
+    {{-- Review + Skor setelah selesai --}}
+    @if(count($jawabanUser) === $totalSoal)
+        <div id="review-area">
+            <div class="text-center mb-3">
+                <h4 class="fw-bold">Review Jawabanmu</h4>
+            </div>
+            <div class="mb-3 d-flex justify-content-center gap-2">
+                @for ($no = 1; $no <= $totalSoal; $no++)
+                    <button type="button" class="btn btn-outline-primary px-3 py-1" onclick="showReviewSoal({{ $no }})" id="btn-review-{{ $no }}">
+                        Soal {{ $no }}
+                    </button>
+                @endfor
+            </div>
+            @for ($no = 1; $no <= $totalSoal; $no++)
+            <div class="materi-section mb-5 fs-5 review-step" id="review-step-{{ $no }}" style="@if($no>1)display:none;@endif">
+                <p class="mb-3 d-flex align-items-center">
+                    <span class="warna-label blue-card" style="margin-right:9px;">{{ $no }}</span>
+                    <strong>{{ $soalText[$no] }}</strong>
+                    <button onclick="toggleAudio(this)" type="button" class="btn-audio ms-2" data-id="hal4_{{ $no }}" data-playing="false">🔊</button>
+                    <audio id="audio-hal4_{{ $no }}" src="{{ asset('sounds/materi/hal4/hal4_' . $no . '.mp3') }}"></audio>
+                </p>
+                <div class="position-relative mx-auto mb-3 soal-pilihan-gambar" style="max-width: 660px; height: 370px;">
+                    <img src="{{ asset('images/materi/ayo-mencoba-1/soal'.$no.'_bg.png') }}" class="w-100 h-100 rounded shadow" style="object-fit: cover;">
+                    <div class="soal-label-gambar position-absolute d-flex flex-column align-items-center"
+                        style="top: {{ $positions[$no]['a_top'] }}; left: {{ $positions[$no]['a_left'] }}; transform: translate(-50%, -50%); z-index: 10;">
+                        <img src="{{ asset('images/materi/ayo-mencoba-1/soal'.$no.'_a.png') }}"
+                            width="180"
+                            height="180"
+                            class="shadow img-radio-pilihan
+                            @if($jawabanUser['soal'.$no]=='a')
+                                @if($kunci['soal'.$no] == 'a') border border-3 border-success
+                                @else border border-3 border-danger
+                                @endif
+                            @endif"
+                            style="border-radius:14px; transition:.2s;">
+                        <span class="badge warna-label orange-card mt-1">a</span>
+                    </div>
+                    <div class="soal-label-gambar position-absolute d-flex flex-column align-items-center"
+                        style="top: {{ $positions[$no]['b_top'] }}; left: {{ $positions[$no]['b_left'] }}; transform: translate(-50%, -50%); z-index: 10;">
+                        <img src="{{ asset('images/materi/ayo-mencoba-1/soal'.$no.'_b.png') }}"
+                            width="180"
+                            height="180"
+                            class="shadow img-radio-pilihan
+                            @if($jawabanUser['soal'.$no]=='b')
+                                @if($kunci['soal'.$no] == 'b') border border-3 border-success
+                                @else border border-3 border-danger
+                                @endif
+                            @endif"
+                            style="border-radius:14px; transition:.2s;">
+                        <span class="badge warna-label purple-card mt-1">b</span>
+                    </div>
+                </div>
+                @php
+                    $benar = $jawabanUser['soal'.$no] == $kunci['soal'.$no];
+                    $kuncijawab = $kunci['soal'.$no];
+                    $explainType = $benar ? 'benar' : 'salah';
+                    $penjelasanText = [
+                        1 => [
+                            'benar' => 'Jawaban kamu benar. Pilihan B adalah ikan yang bentuknya panjang.',
+                            'salah' => 'Jawaban kamu salah. Yang benar adalah ikan pada pilihan B yang bentuknya panjang.',
+                        ],
+                        2 => [
+                            'benar' => 'Jawaban kamu benar. Pilihan A adalah olahan iwak wadi yang bentuknya pendek.',
+                            'salah' => 'Jawaban kamu salah. Yang benar adalah iwak wadi pada pilihan A yang bentuknya pendek.',
+                        ],
+                        3 => [
+                            'benar' => 'Jawaban kamu benar. Pilihan B adalah tempat biji-bijian yang tergantung tinggi.',
+                            'salah' => 'Jawaban kamu salah. Yang benar adalah tempat biji-bijian pada pilihan B yang tergantung tinggi.',
+                        ],
+                        4 => [
+                            'benar' => 'Jawaban kamu benar. Pilihan A adalah jam dinding rotan yang tergantung rendah.',
+                            'salah' => 'Jawaban kamu salah. Yang benar adalah jam dinding rotan pada pilihan A yang tergantung rendah.',
+                        ],
+                    ];
+                    $audioPenjelasan = [
+                        1 => asset('sounds/materi/hal4/penjelasan_1.mp3'),
+                        2 => asset('sounds/materi/hal4/penjelasan_2.mp3'),
+                        3 => asset('sounds/materi/hal4/penjelasan_3.mp3'),
+                        4 => asset('sounds/materi/hal4/penjelasan_4.mp3'),
+                    ];
+                @endphp
+                <div class="mt-2 mb-3">
+                    <span class="badge @if($benar) warna-label green-card @else warna-label red-card @endif mb-1">
+                        Jawaban {{ $benar ? 'Benar' : 'Salah' }}
+                        @if($benar)
+                            <span style="font-size:1.15em;vertical-align:middle;">✔</span>
+                        @else
+                            <span style="font-size:1.15em;vertical-align:middle;">✖</span>
+                        @endif
+                    </span>
+                    <span class="badge warna-label yellow-card mb-1">
+                        Kunci Jawaban:  {{ $kuncijawab }}
+                    </span>
+                    <div class="card card-body border-info bg-light d-flex align-items-center gap-3">
+                        <span>{!! $penjelasanText[$no][$explainType] !!} <button type="button" onclick="playPenjelasanAudio({{ $no }}, this)" class="btn btn-audio ms-2">
+                            🔊
+                        </button>
+                        <audio id="audio-penjelasan-{{ $no }}" src="{{ $audioPenjelasan[$no] }}"></audio></span>
+                    </div>
+                </div>
+            </div>
+            @endfor
+            <div id="skor-kkm-area" style="margin-top:10px;">
+                @if($skor < $kkm)
+                    <form action="{{ route('admin.materi.halaman4.reset') }}" method="POST" class="mt-3">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger fs-5">Ulangi Latihan</button>
+                    </form>
+                @endif
+                <div class="text-center flex-grow-1 fs-5">
+                    <div id="skor-anda" class="alert alert-info d-inline-block mb-0">
+                        Nilai Anda: {{ $skor }} / 100
+                    </div>
+                </div>
+                <div id="kkm-anda" class="alert alert-success mt-3 fs-5">
+                    @if($skor >= $kkm)
+                        Selamat, kamu telah mencapai KKM. Kamu boleh melanjutkan ke halaman berikutnya.
+                    @else
+                        Nilai kamu belum mencapai KKM. Silakan ulangi kuis ini.
+                    @endif
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <div class="materi-nav-footer" style="margin-top:32px;">
+        <a href="{{ route('admin.materi.halaman3') }}" class="btn-nav" style="min-width:160px">← Sebelumnya</a>
+        @if(count($jawabanUser) === $totalSoal && $skor >= $kkm)
+            <a href="{{ route('admin.materi.halaman5') }}" class="btn-nav btn-next" style="min-width:160px">Selanjutnya →</a>
         @else
-            <button class="btn bg-coklap1 text-white disabled">Selanjutnya →</button>
+            <button class="btn-nav btn-next" style="opacity:0.6; pointer-events:none; min-width:160px;">Selanjutnya →</button>
         @endif
     </div>
 </div>
@@ -249,85 +295,146 @@
 
 @section('scripts')
 <script>
-    let currentAudio = null;
-    let currentButton = null;
-
-    function toggleAudio(button) {
-        const id = button.getAttribute('data-id');
-        const audio = document.getElementById(`audio-${id}`);
-
-        // Hentikan semua audio selain yang sedang dipilih
-        document.querySelectorAll('audio').forEach(a => {
-            if (a !== audio) {
-                a.pause();
-                a.currentTime = 0;
-            }
-        });
-
-        // Reset semua tombol selain tombol aktif
-        document.querySelectorAll('button[data-id]').forEach(btn => {
-            if (btn !== button) {
-                btn.innerText = '🔊';
-                btn.setAttribute('data-playing', 'false');
-            }
-        });
-
-        if (audio.paused) {
-            audio.play();
-            button.innerText = '⏸️';
-            button.setAttribute('data-playing', 'true');
-            currentAudio = audio;
-            currentButton = button;
-        } else {
-            audio.pause();
-            button.innerText = '🔊';
-            button.setAttribute('data-playing', 'false');
-        }
-
-        audio.onended = function () {
-            button.innerText = '🔊';
-            button.setAttribute('data-playing', 'false');
-        };
+function toggleAudio(button) {
+    const id = button.getAttribute('data-id');
+    const audio = document.getElementById(`audio-${id}`);
+    document.querySelectorAll('audio').forEach(a => { if (a !== audio) { a.pause(); a.currentTime = 0; } });
+    document.querySelectorAll('.btn-audio').forEach(btn => {
+        if (btn !== button) { btn.innerText = '🔊'; btn.setAttribute('data-playing', 'false'); }
+    });
+    if (audio.paused) {
+        audio.play(); button.innerText = '⏸️'; button.setAttribute('data-playing', 'true');
+    } else {
+        audio.pause(); button.innerText = '🔊'; button.setAttribute('data-playing', 'false');
     }
+    audio.onended = function () { button.innerText = '🔊'; button.setAttribute('data-playing', 'false'); };
+}
 
-    // Highlight border gambar jika radio dipilih (belum submit)
-    document.addEventListener('DOMContentLoaded', function() {
-        @if(!$sudahMenjawab)
-        document.querySelectorAll('.radio-pilihan').forEach(function(radio) {
-            radio.addEventListener('change', function() {
-                let name = this.name;
-                document.querySelectorAll('[name="'+name+'"]').forEach(function(r){
-                    let img = r.closest('label').querySelector('.img-radio-pilihan');
-                    if (img) img.classList.remove('border', 'border-3', 'border-primary');
-                });
-                let img = this.closest('label').querySelector('.img-radio-pilihan');
-                if (img) img.classList.add('border', 'border-3', 'border-primary');
+function playPenjelasanAudio(no, btn){
+    const audio = document.getElementById('audio-penjelasan-' + no);
+    document.querySelectorAll('audio[id^="audio-penjelasan-"]').forEach(a => {
+        if(a !== audio){ a.pause(); a.currentTime = 0; }
+    });
+    if(audio.paused){
+        audio.play();
+        btn.innerText = "⏸️";
+    }else{
+        audio.pause();
+        btn.innerText = "🔊";
+    }
+    audio.onended = function(){ btn.innerText = "🔊"; }
+}
+
+const totalSoal = {{ $totalSoal }};
+let currentStep = {{ $firstUnanswered }};
+const answered = {!! json_encode($jawabanUser) !!};
+
+function showStep(no) {
+    for (let i = 1; i <= totalSoal; i++) {
+        document.getElementById('soal-step-' + i).style.display = (i === no ? '' : 'none');
+        let btn = document.getElementById('btn-stepper-' + i);
+        if(btn) btn.classList.toggle('btn-primary', i === no);
+    }
+    currentStep = no;
+}
+
+// Logic: ke soal berikutnya, atau soal pertama yg belum dijawab, jika semua sudah reload
+document.addEventListener('DOMContentLoaded', function() {
+    @if(count($jawabanUser) < $totalSoal)
+    document.querySelectorAll('.soal-step input[type=radio][name^="jawaban[soal"]').forEach(function(radio) {
+        radio.addEventListener('change', function(e) {
+            if (this.disabled) return;
+            let soalNo = parseInt(this.getAttribute('data-no'));
+            let jawaban = this.value;
+            let radios = document.querySelectorAll('input[name="jawaban[soal'+soalNo+']"]');
+            radios.forEach(x => x.disabled = true);
+            fetch('{{ route('admin.materi.halaman4.jawab') }}', {
+                method: 'POST',
+                headers: {'Content-Type':'application/json','X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                body: JSON.stringify({no: soalNo, jawaban: jawaban})
+            })
+            .then(res => res.json())
+            .then(res => {
+                if (!res.success) {
+                    alert(res.msg ?? 'Terjadi kesalahan!');
+                    window.location.reload();
+                    return;
+                }
+                showFeedbackPopup(res.feedback, soalNo);
+
+                setTimeout(() => {
+                    let penjelasanArea = document.getElementById('penjelasan-' + soalNo);
+                    if (penjelasanArea) {
+                        penjelasanArea.innerHTML =
+                            `<span class="badge warna-label ${res.benar ? 'green-card':'red-card'} mb-1">Jawaban ${res.benar ? 'Benar':'Salah'} ${res.benar ? '✔':'✖'}</span>
+                            <div class="card card-body border-info bg-light">${res.penjelasan}</div>
+                            <div class="mt-1"></div>`;
+                    }
+
+                    // --- Cek soal yang belum dijawab:
+                    fetch('{{ route('admin.materi.halaman4') }}', {headers: {'X-Requested-With': 'XMLHttpRequest'}})
+                    .then(response => response.text())
+                    .then(html => {
+                        // Cari firstUnanswered di html blade yang di-render ulang (tetap aman meski blade di-cache)
+                        let regex = /let currentStep = (\d+)/;
+                        let match = html.match(regex);
+                        let firstUnanswered = match ? parseInt(match[1]) : 1;
+                        // Cek apakah semua sudah dijawab?
+                        let allAnswered = false;
+                        if (typeof res.semua_sudah !== "undefined") allAnswered = res.semua_sudah;
+
+                        setTimeout(() => {
+                            if (allAnswered) {
+                                window.location.reload();
+                            } else {
+                                showStep(firstUnanswered);
+                            }
+                        }, 800);
+                    });
+
+                }, 1200);
             });
         });
-        @endif
     });
+    @endif
+});
+
+function showFeedbackPopup(feedback, soalNo) {
+    let popup = document.getElementById('popup-feedback');
+    let popupImg = document.getElementById('popup-img');
+    let popupJudul = document.getElementById('popup-judul');
+    let popupText = document.getElementById('popup-text');
+    let popupKunci = document.getElementById('popup-kunci');
+    let popupAudio = document.getElementById('popup-audio');
+
+    let isBenar = feedback.benar === true || (feedback.judul && feedback.judul.toLowerCase().includes('benar'));
+    popupImg.src = isBenar
+        ? '{{ asset('images/materi/ayo-mencoba-1/benar.png') }}'
+        : '{{ asset('images/materi/ayo-mencoba-1/salah.png') }}';
+
+    popupJudul.innerText = feedback.judul;
+    popupText.innerText = feedback.text;
+    popupKunci.innerHTML = `Kunci Jawaban: <b>${feedback.kunci}</b>`;
+
+    // -- Ganti audio popup berdasarkan feedback.audio (diset dari backend untuk tiap soal!)
+    popupAudio.src = feedback.audio || "";
+    popupAudio.currentTime = 0;
+    popupAudio.play();
+
+    popup.style.display = 'flex';
+    setTimeout(() => { popup.style.display = 'none'; popupAudio.pause(); }, 1700);
+
+    popupAudio.onended = function () { popup.style.display = 'none'; };
+}
+
+function showReviewSoal(no){
+    document.querySelectorAll('.review-step').forEach(function(el, i){
+        el.style.display = (i+1)==no ? '' : 'none';
+    });
+    for(let i=1;i<=totalSoal;i++){
+        let btn = document.getElementById('btn-review-'+i);
+        if(btn) btn.classList.toggle('btn-primary', i===no);
+    }
+}
 </script>
-<style>
-    .radio-pilihan {
-        accent-color: #D2691E;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-        border-width:2px;
-    }
-    .soal-label-gambar .img-radio-pilihan {
-        transition: border .2s, box-shadow .2s;
-        box-shadow: 0 0 6px 2px rgba(0,0,0,.08);
-        cursor: pointer;
-    }
-    .soal-label-gambar .img-radio-pilihan.border-primary {
-        box-shadow: 0 0 0 4px #D2691E55;
-    }
-    .soal-label-gambar .img-radio-pilihan.border-danger {
-        border-color: #dc3545 !important;
-        box-shadow: 0 0 0 4px #dc354533;
-    }
-    .soal-label-gambar .img-radio-pilihan.border-success {
-        border-color: #198754 !important;
-        box-shadow: 0 0 0 4px #19875433;
-    }
-</style>
 @endsection

@@ -1,13 +1,13 @@
-@extends('layouts.master')
+@extends('layouts.master-guru')
 
 @section('content')
-    <div class="card bg-coklat fs-5">
-        <div class="card-header d-flex justify-content-between align-items-center">
+    <div class="card bg-coklat fs-5" style="box-shadow: 0 3px 24px #0000000e;">
+        <div class="card-header d-flex justify-content-between align-items-center" style="background: none; border: none; font-size: 1.16em; font-weight: 700; color: #258fff;">
             <div class="float-start">
                 Data Latihan Siswa
             </div>
             <form method="GET" class="d-flex gap-2">
-                <select name="kuis_id" class="form-select form-select-sm fs-5">
+                <select name="kuis_id" class="form-select form-select-sm fs-5" style="max-width:200px;">
                     <option value="">-- Semua Latihan --</option>
                     @foreach($kuisIds as $kuis)
                         <option value="{{ $kuis }}" {{ $kuisDipilih == $kuis ? 'selected' : '' }}>
@@ -21,7 +21,7 @@
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table border-dark">
+                <table class="table table-striped align-middle">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -55,7 +55,6 @@
                 </table>
             </div>
         </div>
-
         <div class="card-footer custom-pagination">
             {{ $nilai->links() }}
         </div>

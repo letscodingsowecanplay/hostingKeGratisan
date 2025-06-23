@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master-guru')
 
 @section('content')
 <div class="card bg-coklat">
