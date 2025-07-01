@@ -16,7 +16,7 @@
         </div>
 
         
-        <div class="materi-image-row flex-wrap mb-3" style="gap:22px;">
+        <div class="materi-image-row flex-wrap mb-3 alat-grid-mobile">
             <?php
                 $alat = [
                     [
@@ -46,12 +46,12 @@
                 ];
             ?>
             <?php $__currentLoopData = $alat; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $a): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <div class="materi-image-col" style="max-width:180px">
+                <div class="materi-image-col alat-grid-col">
                     <img src="<?php echo e(asset('images/materi/' . $a['img'])); ?>" 
                         class="img-fluid shadow mb-2"
                         style="max-height: 100px; background: #fffbe9;"
                         alt="<?php echo e(ucfirst($a['label'])); ?>">
-                    <div class="materi-caption fw-semibold" style="margin-bottom: 0;">
+                    <div class="materi-caption fw-semibold alat-caption-mobile" style="margin-bottom: 0;">
                         <?php echo e($a['label']); ?>
 
                         <button onclick="toggleAudio(this)" 
@@ -65,7 +65,6 @@
     </div>
 
     <div class="materi-section shadow-sm rounded-3 py-3 px-3" style="background:#fff;">
-        <div class="warna-label green-card mb-3" style="font-size:1rem;">Catatan & Penjelasan</div>
         <div class="materi-content mb-3">
             <strong>Kalian bisa menggunakan benda lain di sekitar.</strong>
             <button onclick="toggleAudio(this)" 
@@ -73,7 +72,7 @@
                 data-id="index-10" data-playing="false" type="button">🔊</button>
             <audio id="audio-index-10" src="<?php echo e(asset('sounds/materi/hal12/10.mp3')); ?>"></audio>
         </div>
-        <div class="materi-content mb-2"><strong>Penjelasan:</strong></div>
+        <div class="warna-label orange-card"><strong>Penjelasan</strong></div>
         <ul class="materi-list">
             <li>Jengkal adalah menggunakan jari tangan.</li>
             <li>Hasta adalah jarak antara ujung jari tengah ke siku tangan.</li>
@@ -92,48 +91,38 @@
 
 <?php $__env->startSection('scripts'); ?>
 <script>
-    let currentAudio = null;
-    let currentButton = null;
-
     function toggleAudio(button) {
-        const id = button.getAttribute('data-id');
-        const audio = document.getElementById(`audio-${id}`);
+    const id = button.getAttribute('data-id');
+    const audio = document.getElementById('audio-' + id);
 
-        // Pause semua audio lain
-        document.querySelectorAll('audio').forEach(a => {
-            if (a !== audio) {
-                a.pause();
-                a.currentTime = 0;
-            }
-        });
-
-        // Reset semua tombol ke 🔊
-        document.querySelectorAll('button[data-id]').forEach(btn => {
-            if (btn !== button) {
-                btn.innerText = '🔊';
-                btn.setAttribute('data-playing', 'false');
-            }
-        });
-
-        // Toggle play/pause
-        if (audio.paused) {
-            audio.play();
-            button.innerText = '⏸️';
-            button.setAttribute('data-playing', 'true');
-            currentAudio = audio;
-            currentButton = button;
-        } else {
-            audio.pause();
-            button.innerText = '🔊';
-            button.setAttribute('data-playing', 'false');
+    document.querySelectorAll('audio').forEach(a => {
+        if (a !== audio && a.id !== 'bg-music') {
+            a.pause();
+            a.currentTime = 0;
         }
+    });
 
-        // Auto-reset ikon saat audio selesai
-        audio.onended = function () {
-            button.innerText = '🔊';
-            button.setAttribute('data-playing', 'false');
-        };
+    document.querySelectorAll('.btn-audio').forEach(btn => {
+        if (btn !== button) {
+            btn.innerText = '🔊';
+            btn.setAttribute('data-playing', 'false');
+        }
+    });
+
+    if (audio.paused) {
+        audio.play();
+        button.innerText = '⏸️';
+        button.setAttribute('data-playing', 'true');
+    } else {
+        audio.pause();
+        button.innerText = '🔊';
+        button.setAttribute('data-playing', 'false');
     }
+    audio.onended = function () {
+        button.innerText = '🔊';
+        button.setAttribute('data-playing', 'false');
+    };
+}
 </script>
 <?php $__env->stopSection(); ?>
 

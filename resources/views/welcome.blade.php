@@ -171,6 +171,7 @@
             box-sizing: border-box;
         }
         .card-box {
+            position: relative;
             border-radius: 22px;
             box-shadow: 0 4px 22px #00000011;
             color: #111;
@@ -178,57 +179,94 @@
             min-height: 200px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            position: relative;
+            align-items: center;
+            justify-content: center;
             font-size: 1.05rem;
             background: #fff;
+            cursor: pointer;
+            overflow: hidden;
+            transition: box-shadow .22s, transform .21s, background .18s;
+            z-index: 1;
+        }
+        .card-box:hover, .card-box.active {
+            box-shadow: 0 8px 28px #2222;
+            transform: scale(1.045);
+            filter: brightness(0.98);
         }
         .red-card    { background: linear-gradient(120deg, #f5515f 80%, #f67262 100%);}
         .yellow-card { background: linear-gradient(120deg, #ffe145 85%, #fbd046 100%);}
         .blue-card   { background: linear-gradient(120deg, #3f73d3 80%, #43a1e2 100%);}
+        .card-icon {
+            margin-bottom: 14px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+        }
         .card-title {
             font-size: 1.22rem;
             font-weight: 700;
-            margin-bottom: 13px;
+            margin-bottom: 0px;
             letter-spacing: 0.5px;
             text-shadow: 0 2px 8px #00000018;
+            text-align: center;
+            z-index: 2;
         }
-        .card-content {
-            font-size: 1.05rem;
-            line-height: 1.56;
-            color: rgb(0, 0, 0);
-            font-weight: 500;
+        .card-overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255,255,255,0.88);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity .29s;
+            padding: 38px 24px 28px 24px;
+            z-index: 3;
         }
+        .card-box:hover .card-overlay,
+        .card-box.active .card-overlay {
+            opacity: 1; pointer-events: auto;
+        }
+        .card-desc {
+            font-size: 1.08rem;
+            line-height: 1.48;
+            color: #222;
+            font-weight: 600;
+            text-align: center;
+            text-shadow: 0 2px 12px #fff9;
+            z-index: 5;
+        }
+        .card-content { display: none; }
 
-        /* RESPONSIVE BREAKPOINTS */
-        @media (max-width: 1100px) {
-            .navbar, .hero-content-wrap, .main-grid { max-width: 99vw; }
-            .main-grid { padding: 12px 8vw 30px 8vw; }
-            .hero-content-wrap { padding: 20px 5vw; }
-        }
+        /* MOBILE VERSION: size and layout revert to VERSI BARU */
         @media (max-width: 900px) {
-            .main-grid { grid-template-columns: 1fr; gap: 22px; padding: 12px 3vw 26px 3vw;}
-            .card-box { padding: 26px 4vw 18px 4vw; min-height: 140px;}
-            .hero-content-wrap { flex-direction: column; gap: 22px; min-height: 60vh; }
-            .hero-img { width: 88px; height: 98px;}
-            .hero-title { font-size: 1.8rem;}
+            .main-grid {
+                grid-template-columns: 1fr;
+                gap: 13px;
+                padding: 8px 8px 15px 8px;
+                max-width: 98vw;
+            }
+            .card-box {
+                padding: 15px 10px 10px 10px !important;
+                min-height: 110px !important;
+                font-size: 0.91rem !important;
+                border-radius: 13px !important;
+            }
+            .card-title { font-size: 0.97rem !important; }
+            .card-icon { width: 38px !important; height: 38px !important; margin-bottom: 8px !important; }
+            .card-overlay { padding: 15px 10px 10px 10px !important; }
+            .card-desc { font-size: 0.90rem !important; }
         }
-        @media (max-width: 650px) {
-            .navbar { flex-direction: column; gap: 5px; padding: 10px 2vw 0 2vw;}
-            .navbar-logo img { width: 74px; }
-            .hero-content-wrap { flex-direction: column; gap: 12px; min-height: 48vh; padding: 10px 2vw 12px 2vw;}
-            .main-grid { grid-template-columns: 1fr; padding: 8px 1vw 16px 1vw;}
-            .card-box { padding: 18px 4vw 14px 4vw;}
-            .hero-img { width: 60px; height: 70px;}
-            .hero-title { font-size: 1.18rem;}
-            .fitur-title { font-size: 1.08rem; margin-top: 22px; }
-            .fitur-desc { font-size: 0.97rem; margin-bottom: 17px; }
-            .guru-btn, .hero-btn { font-size: 1rem; padding: 10px 20px; }
+        @media (max-width: 730px) {
+            .navbar { padding: 12px 7px 0 7px;}
+            .navbar-logo img { width: 62px; }
+            .hero-content-wrap { padding: 11px 4px 4px 4px; gap: 10px;}
+            .hero-img { width: 54px; height: 65px; border-radius: 13px;}
+            .hero-title { font-size: 1.12rem;}
+            .hero-sub { font-size: 0.84rem; max-width: 320px;}
+            .hero-btn { font-size: 0.89rem; padding: 8px 18px;}
         }
-        @media (max-width: 400px) {
-            .card-title { font-size: 0.98rem;}
-            .fitur-title { font-size: 0.97rem; }
-            .main-grid, .card-box { padding: 4px 2vw; }
+        @media (max-width: 480px) {
+            .main-grid { gap: 8px; padding: 6px 3px 9px 3px; }
+            .fitur-title { font-size: 1.03rem; margin-top: 10px;}
+            .fitur-desc { font-size: 0.81rem;}
+            .card-box { border-radius: 11px !important; }
+            .card-title { font-size: 0.86rem !important;}
+            .card-desc { font-size: 0.83rem !important;}
         }
     </style>
 </head>
@@ -255,8 +293,24 @@
         window.addEventListener('pointerdown', playMusic, {passive:true});
         window.addEventListener('keydown', playMusic, {passive:true});
         window.addEventListener('touchstart', playMusic, {passive:true});
-    </script>
 
+        // Card tap untuk mobile: show/hide overlay
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.card-box');
+            cards.forEach(card => {
+                card.addEventListener('touchstart', function(e) {
+                    cards.forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+                });
+            });
+            // Close on tap outside
+            document.body.addEventListener('touchstart', function(e) {
+                if (!e.target.closest('.card-box')) {
+                    cards.forEach(c => c.classList.remove('active'));
+                }
+            });
+        });
+    </script>
     <!-- Navbar -->
     <div class="navbar">
         <div class="navbar-logo">
@@ -294,23 +348,50 @@
     <div class="main-grid">
         <!-- MATERI -->
         <div class="card-box red-card">
+            <div class="card-icon">
+                <!-- Icon Buku -->
+                <svg width="38" height="38" viewBox="0 0 32 32" fill="none"><rect x="3" y="5" width="26" height="22" rx="5" fill="#fff" stroke="#fff5f5" stroke-width="2"/><path d="M7 7h14a3 3 0 0 1 3 3v10.5" stroke="#f5515f" stroke-width="2.1" stroke-linecap="round"/><rect x="8" y="13" width="10" height="2.5" rx="1.2" fill="#f5515f"/><rect x="8" y="18" width="7" height="2.5" rx="1.2" fill="#f67262"/></svg>
+            </div>
             <div class="card-title">Materi</div>
             <div class="card-content">
                 Menyajikan penjelasan konsep pengukuran panjang, membandingkan benda, dan mengenalkan satuan tidak baku secara visual dan interaktif untuk siswa kelas 1 SD.
             </div>
+            <div class="card-overlay">
+                <div class="card-desc">
+                    Menyajikan penjelasan konsep pengukuran panjang, membandingkan benda, dan mengenalkan satuan tidak baku secara visual dan interaktif untuk siswa kelas 1 SD.
+                </div>
+            </div>
         </div>
         <!-- LATIHAN -->
         <div class="card-box yellow-card">
+            <div class="card-icon">
+                <!-- Icon Latihan -->
+                <svg width="38" height="38" viewBox="0 0 32 32" fill="none"><rect x="4" y="7" width="24" height="18" rx="6" fill="#fffbe9" stroke="#ffe145" stroke-width="2"/><rect x="9" y="13" width="9" height="2.7" rx="1.1" fill="#ffe145"/><rect x="9" y="18" width="13" height="2.7" rx="1.1" fill="#fbd046"/></svg>
+            </div>
             <div class="card-title">Latihan</div>
             <div class="card-content">
                 Berisi soal-soal interaktif untuk melatih pemahaman siswa terhadap materi pengukuran, membandingkan panjang, serta menggunakan satuan tidak baku dalam kehidupan sehari-hari.
             </div>
+            <div class="card-overlay">
+                <div class="card-desc">
+                    Berisi soal-soal interaktif untuk melatih pemahaman siswa terhadap materi pengukuran, membandingkan panjang, serta menggunakan satuan tidak baku dalam kehidupan sehari-hari.
+                </div>
+            </div>
         </div>
         <!-- EVALUASI -->
         <div class="card-box blue-card">
+            <div class="card-icon">
+                <!-- Icon Evaluasi -->
+                <svg width="38" height="38" viewBox="0 0 32 32" fill="none"><rect x="3" y="7" width="26" height="18" rx="7" fill="#eaf5ff" stroke="#3f73d3" stroke-width="2"/><path d="M9 13l5 5 8-8" stroke="#3f73d3" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
             <div class="card-title">Evaluasi</div>
             <div class="card-content">
                 Mengukur pencapaian belajar siswa melalui serangkaian soal evaluasi untuk mengetahui penguasaan konsep dan kemampuan menerapkan pengukuran sederhana.
+            </div>
+            <div class="card-overlay">
+                <div class="card-desc">
+                    Mengukur pencapaian belajar siswa melalui serangkaian soal evaluasi untuk mengetahui penguasaan konsep dan kemampuan menerapkan pengukuran sederhana.
+                </div>
             </div>
         </div>
     </div>

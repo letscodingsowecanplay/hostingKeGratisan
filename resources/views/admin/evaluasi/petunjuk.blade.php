@@ -9,11 +9,11 @@
     </div>
     <div class="dashboard-bar" style="gap:32px; flex-wrap:wrap;">
         {{-- Kolom 1: Profil dan Daftar Isi --}}
-        <div class="card-box green-card" style="max-width:340px; width:100%;">
+        <div class="card-box green-card text-white" style="max-width:340px; width:100%;">
             <div class="card-title d-flex align-items-center mb-2">
                 <i class="bi bi-info-circle me-2"></i> Evaluasi
                 <button onclick="toggleAudio(this)" 
-                        class="btn btn-sm card-btn ms-2 py-1"
+                        class="btn-audio-2 ms-2 py-1"
                         data-id="index-1" data-playing="false">🔊</button>
                 <audio id="audio-index-1" src="{{ asset('sounds/evaluasi/petunjuk/1.mp3') }}"></audio>
             </div>
@@ -27,11 +27,11 @@
         </div>
 
         {{-- Kolom 2: Petunjuk Kuis --}}
-        <div class="card-box orange-card" style="max-width:340px; width:100%;">
+        <div class="card-box orange-card text-white" style="max-width:340px; width:100%;">
             <div class="card-title d-flex align-items-center mb-2">
                 <i class="bi bi-info-circle me-2"></i> Petunjuk Evaluasi
                 <button onclick="toggleAudio(this)" 
-                        class="btn btn-sm card-btn ms-2 py-1"
+                        class="btn-audio-2 ms-2 py-1"
                         data-id="index-2" data-playing="false">🔊</button>
                 <audio id="audio-index-2" src="{{ asset('sounds/evaluasi/petunjuk/2.mp3') }}"></audio>
             </div>
@@ -45,7 +45,7 @@
                     <li>Semangat dan tetap fokus! Semoga mendapatkan hasil terbaik!</li>
                 </ol>
                 @if(session('error'))
-                <div class="alert alert-warning mt-3 mb-0 px-3 py-2">
+                <div class="alert alert-warning mt-3 mb-0 px-3 py-2 custom-alert-warning">
                     {{ session('error') }}
                 </div>
                 @endif
@@ -53,11 +53,11 @@
         </div>
 
         {{-- Kolom 3: Data Siswa dan Tombol --}}
-        <div class="card-box blue-card" style="max-width:340px; width:100%;">
+        <div class="card-box blue-card text-white" style="max-width:340px; width:100%;">
             <div class="card-title d-flex align-items-center mb-2">
                 <i class="bi bi-gear me-2"></i> Data Siswa
                 <button onclick="toggleAudio(this)" 
-                        class="btn btn-sm card-btn ms-2 py-1"
+                        class="btn-audio-2 ms-2 py-1"
                         data-id="index-3" data-playing="false">🔊</button>
                 <audio id="audio-index-3" src="{{ asset('sounds/evaluasi/petunjuk/3.mp3') }}"></audio>
             </div>
@@ -66,16 +66,17 @@
                 <p class="mb-1"><strong>Kelas:</strong> 1</p>
                 <p class="mb-1"><strong>Sekolah:</strong> SD Banjarmasin</p>
                 <p class="mb-3"><strong>Email:</strong> {{ $user->email }}</p>
-                <div class="w-100 d-flex flex-column flex-md-row gap-2 mt-3">
+                {{-- TOMBOL CENTER VERTIKAL DAN HORIZONTAL --}}
+                <div class="tombol-card-center w-100">
                     <a href="{{ route('admin.materi.index') }}" 
-                        class="card-btn btn-neutral rounded-pill text-center w-100 fs-5">Kembali ke Materi</a>
+                        class="card-btn btn-eval rounded-pill tombol-center-materi fs-5">Kembali ke Materi</a>
                     @if(count($kuisBelumSelesai) > 0)
-                        <button class="card-btn bg-coklap2 text-white rounded-pill w-100 fs-5" disabled>Lengkapi Terlebih Dahulu</button>
+                        <button class="card-btn bg-coklap2 text-white rounded-pill tombol-center-materi fs-5" disabled>Lengkapi Terlebih Dahulu</button>
                     @elseif($hasil && $hasil->status !== 'tidak_lulus')
-                        <button class="card-btn bg-coklap2 text-white rounded-pill w-100 fs-5" disabled>Sudah Dikerjakan</button>
+                        <button class="card-btn bg-coklap2 text-white rounded-pill tombol-center-materi fs-5" disabled>Sudah Dikerjakan</button>
                     @else
                         <a href="{{ route('admin.evaluasi.index') }}" 
-                            class="card-btn btn-neutral rounded-pill w-100 fs-5 text-center">Mulai Evaluasi</a>
+                            class="card-btn btn-eval rounded-pill tombol-center-materi fs-5">Mulai Evaluasi</a>
                     @endif
                 </div>
             </div>
@@ -84,7 +85,7 @@
     
     {{-- Warning jika ada kuis belum selesai --}}
     @if(count($kuisBelumSelesai) > 0)
-        <div class="alert alert-warning mt-3" style="max-width:880px;margin-left:auto;margin-right:auto;">
+        <div class="alert alert-warning custom-alert-warning mt-3" style="max-width:880px;margin-left:auto;margin-right:auto;">
             <strong>Perhatian!</strong> Kamu belum menyelesaikan bagian berikut ini:
             <ul class="mb-0">
                 @foreach ($kuisBelumSelesai as $kuis)
@@ -99,7 +100,7 @@
     @if($hasil)
     <div class="row justify-content-center mt-3">
         <div class="col-md-6">
-            <div class="card blue-card" style="border-radius:22px;">
+            <div class="card purple-card" style="border-radius:22px;">
                 <div class="card-title text-center pt-3" style="color:#fff;"><strong>Hasil Evaluasi</strong></div>
                 <div class="card-content-wrap w-100 px-4 py-3" style="color:#fff;">
                     <p class="mb-2"><strong>Nilai:</strong> {{ $hasil->skor_persen }} / 100</p>
@@ -117,18 +118,55 @@
 </div>
 
 <style>
-/* Neutral button (putih polos, baru berwarna saat hover) */
-.card-btn.btn-neutral, .card-btn.btn-neutral:visited {
-    background: #fff !important;
-    color: rgb(0, 0, 0) !important;
-    border: 2px solid #e3caa5 !important;
-    transition: background .18s, color .18s, border .18s;
-    font-weight: 700;
+/* Semua card isi font putih */
+.card-box,
+.card-box .card-content-wrap,
+.card-box .card-title {
+    color: #fff !important;
 }
-.card-btn.btn-neutral:hover, .card-btn.btn-neutral:focus {
-    background: linear-gradient(120deg, #ffe145 80%, #fbd046 100%) !important;
+.card-box .card-content-wrap p,
+.card-box .card-content-wrap li,
+.card-box .card-content-wrap strong,
+.card-box .card-content-wrap ol,
+.card-box .card-content-wrap ul {
+    color: #fff !important;
+}
+
+/* Tombol audio baru */
+.btn-audio-2 {
+    margin-left: 8px;
+    border-radius: 9px;
+    padding: 3px 13px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    box-shadow: 0 1px 6px #3f73d329;
+    cursor: pointer;
+    background: #ffe145;
+    color: #284b63;
+    transition: background .13s, color .13s;
+    vertical-align: middle;
+    display: inline-block;
+}
+.btn-audio-2:hover,
+.btn-audio-2[data-playing="true"] {
+    background: #fffbe9;
+    color: #111;
+}
+
+/* Tombol utama: kuning gradien, hover lebih terang */
+.card-btn.btn-eval, .card-btn.btn-eval:visited {
+    background: linear-gradient(120deg, #ffe145 85%, #fbd046 100%) !important;
     color: #4E1F00 !important;
     border: 2px solid #ffd426 !important;
+    transition: background .18s, color .18s, border .18s;
+    font-weight: 700;
+    text-decoration: none;
+}
+.card-btn.btn-eval:hover, .card-btn.btn-eval:focus {
+    background: linear-gradient(120deg, #fffbe9 85%, #ffe145 100%) !important;
+    color: #222 !important;
+    border: 2px solid #ffe145 !important;
     box-shadow: 0 2px 16px #ffd42641;
     text-decoration: none;
 }
@@ -137,39 +175,84 @@
     opacity: 0.68 !important;
     cursor: not-allowed !important;
 }
+
+/* Centering tombol dalam card biru */
+.tombol-card-center {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 170px;
+    gap: 16px;
+    width: 100%;
+}
+.tombol-center-materi {
+    min-width: 180px;
+    min-height: 58px;
+    font-size: 1.21rem;
+    font-weight: 700;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 !important;
+    text-align: center !important;
+    width: 100%;
+    max-width: 260px;
+}
+
+/* Custom Warning Alert: background gradien kuning, font putih */
+.alert-warning.custom-alert-warning {
+    background: linear-gradient(120deg, #ffe145 85%, #fbd046 100%) !important;
+    color: #fff !important;
+    border: none !important;
+}
+
 /* Pastikan hasil evaluasi font putih */
 .card.blue-card .card-content-wrap p {
     color: #fff !important;
 }
+
+@media (max-width: 768px) {
+    .tombol-card-center { min-height: 120px; }
+    .tombol-center-materi { min-height: 44px; font-size: 1.06rem; }
+}
 </style>
 
 <script>
-let currentAudio = null;
-let currentButton = null;
 function toggleAudio(button) {
-    const id = button.getAttribute('data-id');
-    const audio = document.getElementById(`audio-${id}`);
-    document.querySelectorAll('audio').forEach(a => {
-        if (a !== audio) { a.pause(); a.currentTime = 0; }
-    });
-    document.querySelectorAll('button[data-id]').forEach(btn => {
-        if (btn !== button) { btn.innerText = '🔊'; btn.setAttribute('data-playing', 'false'); }
-    });
-    if (audio.paused) {
-        audio.play();
-        button.innerText = '⏸️';
-        button.setAttribute('data-playing', 'true');
-        currentAudio = audio;
-        currentButton = button;
-    } else {
-        audio.pause();
-        button.innerText = '🔊';
-        button.setAttribute('data-playing', 'false');
+        const id = button.getAttribute('data-id');
+        const audio = document.getElementById('audio-' + id);
+
+        // Pause semua audio KECUALI background music
+        document.querySelectorAll('audio').forEach(a => {
+            if (a !== audio && a.id !== 'bg-music') {
+                a.pause();
+                a.currentTime = 0;
+            }
+        });
+
+        // Reset semua tombol audio KECUALI yang aktif
+        document.querySelectorAll('.btn-audio').forEach(btn => {
+            if (btn !== button) {
+                btn.innerText = '🔊';
+                btn.setAttribute('data-playing', 'false');
+            }
+        });
+
+        // Toggle play/pause untuk audio yang di-klik
+        if (audio.paused) {
+            audio.play();
+            button.innerText = '⏸️';
+            button.setAttribute('data-playing', 'true');
+        } else {
+            audio.pause();
+            button.innerText = '🔊';
+            button.setAttribute('data-playing', 'false');
+        }
+        audio.onended = function () {
+            button.innerText = '🔊';
+            button.setAttribute('data-playing', 'false');
+        };
     }
-    audio.onended = function () {
-        button.innerText = '🔊';
-        button.setAttribute('data-playing', 'false');
-    };
-}
 </script>
 @endsection

@@ -38,9 +38,39 @@
       </div>
       <div class="modal-body text-center" id="hasilModalBody"></div>
       <div class="modal-footer justify-content-center" id="hasilModalFooter"></div>
+      <!-- AUDIO FEEDBACK LULUS/TIDAK LULUS -->
+      <audio id="audio-feedback-eval"></audio>
     </div>
   </div>
 </div>   
+
+<style>
+/* Tombol audio style sama seperti petunjuk evaluasi */
+.btn-audio-2 {
+    margin-left: 8px;
+    border-radius: 9px;
+    padding: 3px 13px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    box-shadow: 0 1px 6px #3f73d329;
+    cursor: pointer;
+    background: #ffe145;
+    color: #284b63;
+    transition: background .13s, color .13s;
+    vertical-align: middle;
+    display: inline-block;
+}
+.btn-audio-2:hover,
+.btn-audio-2[data-playing="true"] {
+    background: #fffbe9;
+    color: #111;
+}
+/* Pilihan jawaban font hitam */
+.pilihan-jawaban-opsi, .question-title {
+    color: #222 !important;
+}
+</style>
 
 <script>
 const soalList = [
@@ -116,7 +146,7 @@ function tampilkanSoal() {
         <div style="font-weight:600; font-size:1.09em; color:#222; margin-bottom:8px;">
             Amati gambar berikut dengan saksama!
             <button onclick="toggleAudio(this)" 
-                    class="btn btn-sm btn-outline-dark bg-coklap text-white ms-2"
+                    class="btn-audio-2 ms-2"
                     title="Dengarkan soal"
                     data-id="kuis${data.id}" 
                     data-playing="false">🔊</button>
@@ -143,7 +173,7 @@ function tampilkanSoal() {
                 <input type="radio" name="jawaban${data.id}" value="${huruf}" ${isSelected ? 'checked' : ''} style="display:none;">
                 ${
                     soalDenganAudioPilihan.includes(data.id)
-                        ? `<button type="button" class="play-pilihan-audio" data-id="audio-${data.id}-${huruf}" data-audio="/sounds/evaluasi/index/pilihan/${data.id}-${huruf}.mp3">🔊</button>
+                        ? `<button type="button" class="play-pilihan-audio btn-audio-2" data-id="audio-${data.id}-${huruf}" data-audio="/sounds/evaluasi/index/pilihan/${data.id}-${huruf}.mp3">🔊</button>
                            <audio id="audio-${data.id}-${huruf}"></audio>`
                         : ''
                 }
@@ -286,6 +316,16 @@ function submitJawaban() {
         } else {
             hasilFooter.innerHTML = `<button class="btn btn-warning" id="ulangiKuis">Ulangi Kuis</button>`;
         }
+
+        // Play audio feedback KKM
+        const audioFeedback = document.getElementById('audio-feedback-eval');
+        if(data.skor_persen >= 70){
+            audioFeedback.src = "/sounds/evaluasi/index/benar.mp3";
+        } else {
+            audioFeedback.src = "/sounds/evaluasi/index/salah.mp3";
+        }
+        audioFeedback.currentTime = 0;
+        setTimeout(()=>audioFeedback.play(), 80);
 
         // Show modal
         const modalEl = document.getElementById('hasilModal');

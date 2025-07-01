@@ -62,18 +62,6 @@ body {
     text-decoration: none;
 }
 
-@media (max-width: 600px) {
-    .navbar-materi-menu {
-        padding: 10px 0 6px 0;
-        min-height: 40px;
-    }
-    .nav-menu-link {
-        font-size: 0.98rem;
-        margin-left: 8px;
-        padding: 5px 11px 5px 7px;
-    }
-}
-
 /* Label warna-warni */
 .warna-label {
     display: inline-block;
@@ -166,6 +154,67 @@ body {
     margin-top: 10px;
     gap: 14px;
 }
+
+/* === TOOLTIP PILIHAN BENAR/SALAH REVIEW SOAL === */
+.soal-tooltip-jawaban-wrap {
+    width: 200px;
+    height: 20px;
+    background: #f1f1f1;
+    border-radius: 8px;
+    position: relative;
+    margin: 0 auto;
+}
+.soal-tooltip-label-salah {
+    position: absolute;
+    left: 0;
+    top: 25px;
+    font-size: 13px;
+    color: #b91c1c;
+    font-weight: 500;
+}
+.soal-tooltip-label-benar {
+    position: absolute;
+    right: 0;
+    top: 25px;
+    font-size: 13px;
+    color: #388e3c;
+    font-weight: 500;
+}
+.soal-tooltip-indikator {
+    position: absolute;
+    top: -8px;
+}
+.soal-tooltip-indikator.benar { left: 170px; }
+.soal-tooltip-indikator.salah { left: 0; }
+.soal-tooltip-badge {
+    width: 32px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 1px 1px 3px #bbb;
+    font-size: 12px;
+    font-weight: bold;
+}
+.soal-tooltip-badge.benar {
+    background: #d0ebc6;
+    color: #388e3c;
+}
+.soal-tooltip-badge.salah {
+    background: #ffcfcf;
+    color: #b91c1c;
+}
+.soal-tooltip-review-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 38px;
+}
+.soal-tooltip-jawaban-kunci-row {
+    text-align: center;
+    margin-bottom: 38px;
+}
+
 .btn-nav {
     border-radius: 13px;
     padding: 8px 30px;
@@ -230,9 +279,6 @@ body {
     background: linear-gradient(90deg, #f5515f 85%, #f67262 100%);
     box-shadow: 0 2px 14px #f5515f1a;
 }
-@media (max-width: 600px) {
-    .block-option { padding: 5px 17px; font-size: 1rem;}
-}
 
 .drop-area-style {
     min-height: 110px !important;
@@ -266,10 +312,6 @@ body {
     width: auto !important;
     height: auto !important;
     object-fit: contain;
-}
-@media (max-width: 600px) {
-    .drop-area-style { min-height: 70px !important; }
-    .drop-area-style .drop-gambar-fit { max-height: 76px; }
 }
 
 /* Label warna contoh/soal */
@@ -344,17 +386,262 @@ body {
     padding: 2px 10px;
 }
 
-@media (max-width: 600px) {
-    .soal-pg-card { padding: 8px 2vw 7px 2vw;}
-    .soal-pg-card .soal-gambar { max-width: 97vw;}
-    .pilihan-radio-pg { font-size: 0.99rem; padding: 9px 3vw 7px 3vw;}
+/* MOBILE RESPONSIVE - TAMPILAN SAMA DENGAN DESKTOP */
+@media (max-width: 768px) {
+    .navbar-materi-menu {
+        padding: 12px 0 8px 0;
+        min-height: 50px;
+    }
+    
+    .nav-menu-link {
+        font-size: 1.05rem;
+        margin-left: 15px;
+        padding: 5px 15px 5px 8px;
+    }
+    
+    .materi-main-container { 
+        margin: 20px auto 20px auto;
+        padding: 25px 20px 20px 20px;
+        border-radius: 20px;
+        gap: 20px;
+    }
+    
+    .materi-content {
+        font-size: 1.05rem;
+    }
+    
+    .warna-label {
+        font-size: 1.05rem;
+        padding: 6px 18px 6px 15px;
+    }
+    
+    .btn-audio {
+        padding: 3px 10px;
+        font-size: 0.95rem;
+    }
+    
+    .materi-image-row { 
+        gap: 15px;
+        margin: 15px 0 10px 0;
+    }
+    
+    .materi-image-col { 
+        min-width: 200px;
+        max-width: 300px;
+    }
+    
+    .materi-caption { 
+        font-size: 1rem; 
+    }
+    
+    .btn-nav {
+        padding: 8px 25px;
+        font-size: 1.05rem;
+    }
+    
+    .materi-nav-footer {
+        gap: 10px;
+        margin-top: 15px;
+    }
+    
+    /* Block option tetap ukuran desktop */
+    .block-option { 
+        padding: 7px 20px; 
+        font-size: 1.1rem;
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    .drop-area-style { 
+        min-height: 100px !important;
+        padding: 12px 8px 8px 8px;
+    }
+    
+    .drop-area-style .drop-gambar-fit { 
+        max-height: 130px; 
+    }
+    
+    /* Soal PG responsive tapi tetap proporsional */
+    .soal-pg-card { 
+        padding: 15px 15px 10px 15px;
+        margin-bottom: 20px;
+    }
+    
+    .soal-pg-card .soal-gambar { 
+        max-width: 95vw;
+    }
+    
+    .pilihan-radio-pg { 
+        font-size: 1.02rem; 
+        padding: 12px 15px 9px 12px;
+        margin-bottom: 8px;
+    }
+    
+    .pilihan-radio-pg input[type="radio"] {
+        width: 20px;
+        height: 20px;
+        margin-right: 15px;
+    }
 }
-@media (max-width: 900px) {
-    .materi-main-container { padding: 21px 5vw 20px 5vw;}
-    .materi-image-row { gap: 13px;}
+
+/* UNTUK LAYAR SANGAT KECIL */
+@media (max-width: 480px) {
+    .nav-menu-link {
+        font-size: 1rem;
+        margin-left: 10px;
+        padding: 4px 12px 4px 6px;
+    }
+    
+    .materi-main-container { 
+        margin: 15px auto 15px auto;
+        padding: 20px 15px 15px 15px;
+        border-radius: 15px;
+    }
+    
+    .materi-content {
+        font-size: 1.02rem;
+    }
+    
+    .warna-label {
+        font-size: 1rem;
+        padding: 5px 15px 5px 12px;
+    }
+    
+    .btn-nav {
+        padding: 7px 20px;
+        font-size: 1rem;
+    }
+    
+    .materi-image-col { 
+        min-width: 0;
+        max-width: 95vw;
+    }
+    
+    .pilihan-radio-pg { 
+        font-size: 1rem; 
+        padding: 10px 12px 8px 10px;
+    }
 }
+
+/* Tambahan: Responsive Grid Alat Ukur Tidak Baku Halaman 12 */
+
 @media (max-width: 600px) {
-    .materi-main-container { padding: 10px 0.9vw 13px 0.9vw; }
-    .materi-image-col { min-width: 0; }
-    .materi-caption { font-size: 0.99rem; }
+    .alat-grid-mobile {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px 10px !important;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .alat-grid-col {
+        min-width: 0 !important;
+        max-width: 100% !important;
+        padding: 0 4px;
+        box-sizing: border-box;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .alat-grid-col img {
+        max-width: 100% !important;
+        height: auto !important;
+        max-height: 85px !important;
+        margin-bottom: 6px !important;
+        border-radius: 13px !important;
+    }
+    .alat-caption-mobile {
+        font-size: 0.98rem !important;
+        padding-bottom: 4px;
+        white-space: normal !important;
+        word-break: break-word;
+    }
+}
+@media (max-width: 430px) {
+    .alat-grid-mobile {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 4px !important;
+        margin: 0 !important;
+    }
+    .alat-grid-col {
+        min-width: 0 !important;
+        max-width: 100% !important;
+        padding: 0 2px !important;
+    }
+    .alat-grid-col img {
+        max-width: 100% !important;
+        max-height: 63px !important;
+        margin-bottom: 4px !important;
+    }
+    .alat-caption-mobile {
+        font-size: 0.91rem !important;
+    }
+    .materi-main-container {
+        padding: 12px 3vw 13px 3vw !important;
+    }
+    .materi-section {
+        padding: 8px 5vw 8px 5vw !important;
+    }
+}
+
+@media (max-width: 350px) {
+    .alat-grid-mobile {
+        grid-template-columns: 1fr;
+        gap: 8px 0 !important;
+    }
+    .alat-grid-col img {
+        max-height: 45px !important;
+    }
+}
+
+/* Responsive Grid Contoh Ukur (hal13) */
+
+@media (max-width: 600px) {
+    .grid-ukur-mobile {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 13px 8px !important;
+        margin-left: 0;
+        margin-right: 0;
+        justify-items: center;
+    }
+    .grid-ukur-col {
+        min-width: 0 !important;
+        max-width: 100% !important;
+        padding: 0 2vw;
+        box-sizing: border-box;
+        margin: 0;
+    }
+    .grid-ukur-col img {
+        max-width: 100% !important;
+        height: auto !important;
+        max-height: 250px !important;
+        margin-bottom: 5px !important;
+        border-radius: 12px !important;
+    }
+}
+@media (max-width: 430px) {
+    .grid-ukur-mobile {
+        grid-template-columns: 1fr 1fr;
+        gap: 7px 3px !important;
+        margin: 0 !important;
+    }
+    .grid-ukur-col img {
+        max-width: 100% !important;
+        max-height: 200px !important;
+        margin-bottom: 3px !important;
+    }
+    .materi-main-container {
+        padding: 13px 3vw 14px 3vw !important;
+    }
+    .materi-section {
+        padding: 8px 4vw 8px 4vw !important;
+    }
+}
+@media (max-width: 350px) {
+    .grid-ukur-mobile {
+        grid-template-columns: 1fr;
+        gap: 7px 0 !important;
+    }
+    .grid-ukur-col img {
+        max-height: 46px !important;
+    }
 }

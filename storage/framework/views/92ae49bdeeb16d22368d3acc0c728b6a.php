@@ -3,21 +3,19 @@
 <?php $__env->startSection('content'); ?>
 
 <!-- Petunjuk Audio di luar main container -->
-<div style="max-width:820px; margin: 28px auto 0 auto;">
-    <div class="petunjuk-audio shadow-sm"
-        style="background:#fff; border-radius:18px; padding:18px 22px; display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; box-shadow:0 2px 14px #b2b1af1a; border:1.5px solid #f1efeb;">
-        <div style="font-size:1.08em;">
-            <b>Petunjuk:</b> Kalau kamu ingin mendengar kalimatnya, tekan tombol 
-            <span style="font-size:1.12em; vertical-align:middle;">🔊</span> 
+<div class="materi-main-container">
+    <div class="petunjuk-audio materi-content">
+        <div>
+            <b>Petunjuk:</b> Kalau kamu ingin mendengar kalimatnya, tekan tombol 🔊
             yang ada di sebelah tulisan. Nanti akan ada suara yang membacakan materi untukmu!
-        </div>
-        <button onclick="toggleAudio(this)" 
+            <button onclick="toggleAudio(this)" 
                 class="btn-audio ms-3"
                 data-id="index-0" data-playing="false"
                 style="margin-left:24px;">
-            🔊
-        </button>
-        <audio id="audio-index-0" src="<?php echo e(asset('sounds/materi/index/0.mp3')); ?>"></audio>
+                🔊
+            </button>
+            <audio id="audio-index-0" src="<?php echo e(asset('sounds/materi/index/0.mp3')); ?>"></audio>
+        </div>
     </div>
 </div>
 
@@ -60,8 +58,8 @@
 
     <!-- Box Tahukah Kalian -->
     <div class="materi-section" style="margin-bottom: 0;">
-        <div class="kearifan-box" style="background: #fffde7; border-left: 5px solid #ffb300; padding: 16px 18px; border-radius: 10px; font-size: 1.06em; color: #775b08; margin-bottom: 18px; box-shadow: 0 2px 8px #ffb30018;">
-            <strong style="font-size:1.1em;">Tahukah Kalian?</strong>
+        <div class="kearifan-box" style="background: #fffde7; border-left: 5px solid #ffb300; padding: 16px 18px; border-radius: 10px; font-size: 1.08rem; color: #775b08; margin-bottom: 18px; box-shadow: 0 2px 8px #ffb30018;font-weight: 500;">
+            <strong>Tahukah Kalian?</strong>
             <br>
             Baju pengantin yang kalian lihat pada gambar adalah <b>baju pengantin Banjar</b>, baju ini dipakai oleh pengantin dalam upacara pernikahan adat di Kalimantan Selatan. Baju ini memiliki bentuk dan hiasan yang khas, serta digunakan untuk menunjukkan keindahan budaya masyarakat Banjar. Dengan memakai baju adat saat menikah, masyarakat Banjar ikut melestarikan dan mengenalkan tradisi daerah kepada generasi muda
             <button onclick="toggleAudio(this)" class="btn-audio" data-id="narasi-1" data-playing="false" style="margin-left:7px;">🔊</button>
@@ -81,7 +79,7 @@
                 </div>
             </div>
             <div class="materi-image-col">
-                <img src="<?php echo e(asset('images/materi/baju-sasi-panjang.svg')); ?>" class="img-fluid rounded shadow" alt="Gambar Pensil" style="width: 100%; max-width: 313px; height: auto; max-height:313px;">
+                <img src="<?php echo e(asset('images/materi/baju-sasi-panjang.png')); ?>" class="img-fluid rounded shadow" alt="Gambar Pensil">
                 <div class="materi-caption">
                     baju pengantin banjar lengan panjang
                     <button onclick="toggleAudio(this)" class="btn-audio" data-id="index-5" data-playing="false">🔊</button>
@@ -107,42 +105,43 @@
 <?php $__env->startSection('scripts'); ?>
 <script>
     function toggleAudio(button) {
-        const id = button.getAttribute('data-id');
-        const audio = document.getElementById(`audio-${id}`);
+    const id = button.getAttribute('data-id');
+    const audio = document.getElementById(`audio-${id}`);
 
-        // Pause semua audio lain
-        document.querySelectorAll('audio').forEach(a => {
-            if (a !== audio) {
-                a.pause();
-                a.currentTime = 0;
-            }
-        });
-
-        // Reset semua tombol ke 🔊
-        document.querySelectorAll('.btn-audio').forEach(btn => {
-            if (btn !== button) {
-                btn.innerText = '🔊';
-                btn.setAttribute('data-playing', 'false');
-            }
-        });
-
-        // Toggle play/pause
-        if (audio.paused) {
-            audio.play();
-            button.innerText = '⏸️';
-            button.setAttribute('data-playing', 'true');
-        } else {
-            audio.pause();
-            button.innerText = '🔊';
-            button.setAttribute('data-playing', 'false');
+    // Pause semua audio KECUALI background music
+    document.querySelectorAll('audio').forEach(a => {
+        // Cek id
+        if (a !== audio && a.id !== 'bg-music') {
+            a.pause();
+            a.currentTime = 0;
         }
+    });
 
-        // Auto-reset ikon saat audio selesai
-        audio.onended = function () {
-            button.innerText = '🔊';
-            button.setAttribute('data-playing', 'false');
-        };
+    // Reset semua tombol ke 🔊
+    document.querySelectorAll('.btn-audio').forEach(btn => {
+        if (btn !== button) {
+            btn.innerText = '🔊';
+            btn.setAttribute('data-playing', 'false');
+        }
+    });
+
+    // Toggle play/pause
+    if (audio.paused) {
+        audio.play();
+        button.innerText = '⏸️';
+        button.setAttribute('data-playing', 'true');
+    } else {
+        audio.pause();
+        button.innerText = '🔊';
+        button.setAttribute('data-playing', 'false');
     }
+
+    // Auto-reset ikon saat audio selesai
+    audio.onended = function () {
+        button.innerText = '🔊';
+        button.setAttribute('data-playing', 'false');
+    };
+}
 </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\si-ukur\resources\views/admin/materi/halaman2.blade.php ENDPATH**/ ?>

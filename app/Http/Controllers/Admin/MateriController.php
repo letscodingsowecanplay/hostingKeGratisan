@@ -210,7 +210,7 @@ class MateriController extends Controller
         $audio = $benar
             ? asset("sounds/materi/hal4/benar_{$no}.mp3")
             : asset("sounds/materi/hal4/salah_{$no}.mp3");
-
+        
         $feedbackText = [
             1 => [
                 'benar' => 'Jawaban kamu benar. Pilihan B adalah ikan yang bentuknya panjang.',
@@ -222,11 +222,11 @@ class MateriController extends Controller
             ],
             3 => [
                 'benar' => 'Jawaban kamu benar. Pilihan B adalah tempat biji-bijian yang tergantung tinggi.',
-                'salah' => 'Jawaban kamu salah. Yang benar adalah tempat biji-bijian pada pilihan B yang tergantung paling tinggi.',
+                'salah' => 'Jawaban kamu salah. Yang benar adalah tempat biji-bijian pada pilihan B yang tergantung tinggi.',
             ],
             4 => [
-                'benar' => 'Jawaban kamu benar. Pilihan A adalah jam dinding rotan yang tergantung paling rendah.',
-                'salah' => 'Jawaban kamu salah. Yang benar adalah jam dinding rotan pada pilihan A yang tergantung paling rendah.',
+                'benar' => 'Jawaban kamu benar. Pilihan A adalah jam dinding rotan yang tergantung rendah.',
+                'salah' => 'Jawaban kamu salah. Yang benar adalah jam dinding rotan pada pilihan A yang tergantung rendah.',
             ],
         ];
 
@@ -327,8 +327,8 @@ class MateriController extends Controller
 
         $penjelasan = [
             1 => [
-                'benar' => 'Jawaban kamu benar. Sendok nasi memang berukuran pendek daripada sutil.',
-                'salah' => 'Jawaban kamu salah. Perhatikan ukuran sendok nasi dengan sutil pada gambar.'
+                'benar' => 'Jawaban kamu benar. Sendok makan memang berukuran pendek daripada sutil.',
+                'salah' => 'Jawaban kamu salah. Perhatikan ukuran sendok makan dengan sutil pada gambar.'
             ],
             2 => [
                 'benar' => 'Jawaban kamu benar. Kotak tisu memang berukuran panjang dari kotak pensil.',
@@ -518,8 +518,8 @@ class MateriController extends Controller
 
         $penjelasan = [
             1 => [
-                'a' => 'Jawaban kamu benar. Badik Ashu A memang lebih panjang di antara pilihan.',
-                'b' => 'Jawaban kamu salah. Badik Ashu A lebih pendek daripada B.'
+                'a' => 'Jawaban kamu salah. Badik Ashu B lebih panjang daripada A.',
+                'b' => 'Jawaban kamu benar. Badik Ashu B memang lebih panjang di antara pilihan.'
             ],
             2 => [
                 'a' => 'Jawaban kamu benar. Guci A adalah yang lebih tinggi dibandingkan yang lain.',
@@ -964,19 +964,19 @@ class MateriController extends Controller
         $penjelasan = [
             1 => [
                 'benar' => 'Jawaban benar. Tinggi wadai cincin memang tidak setara dengan 3 stik es krim.',
-                'salah' => 'Jawaban kurang tepat. Tinggi wadai cincin pada gambar tidak sama dengan 3 stik es krim.'
+                'salah' => 'Jawaban salah. Tinggi wadai cincin pada gambar tidak sama dengan 3 stik es krim.'
             ],
             2 => [
                 'benar' => 'Jawaban benar. Diameter buah asam payak pada gambar tepat sama dengan 1 koin.',
-                'salah' => 'Jawaban kurang tepat. Diameter buah asam payak sebenarnya tepat sama dengan 1 koin.'
+                'salah' => 'Jawaban salah. Diameter buah asam payak sebenarnya tepat sama dengan 1 koin.'
             ],
             3 => [
                 'benar' => 'Jawaban benar. Panjang buah ulin di gambar tidak setara dengan 9 kotak.',
-                'salah' => 'Jawaban kurang tepat. Panjang buah ulin pada gambar tidak setara dengan 9 kotak.'
+                'salah' => 'Jawaban salah. Panjang buah ulin pada gambar tidak setara dengan 9 kotak.'
             ],
             4 => [
                 'benar' => 'Jawaban benar. Panjang tempat penyimpanan gaharu pada gambar sama dengan 1 pensil.',
-                'salah' => 'Jawaban kurang tepat. Panjang tempat penyimpanan gaharu sebenarnya sama dengan 1 pensil.'
+                'salah' => 'Jawaban salah. Panjang tempat penyimpanan gaharu sebenarnya sama dengan 1 pensil.'
             ]
         ];
 
@@ -1090,59 +1090,67 @@ class MateriController extends Controller
     }
 
     public function simpanHalaman16(Request $request)
-    {
-        $request->validate([
-            'jawaban.soal1' => 'required|numeric',
-            'jawaban.soal2' => 'required|numeric',
-            'jawaban.soal3' => 'required|numeric',
-            'jawaban.soal4' => 'required|numeric',
-            'jawaban.soal5' => 'required|numeric',
-        ]);
+{
+    $request->validate([
+        'soal' => 'required|integer|min:1|max:5',
+        'jawaban' => 'required|integer|min:0|max:20',
+    ]);
+    $userId = auth()->id();
+    $kuisId = 'ayo-berlatih-3';
+    $no = $request->input('soal');
+    $jawab = $request->input('jawaban');
 
-        $jawaban = $request->input('jawaban');
-        $userId = auth()->id();
-        $kuisId = 'ayo-berlatih-3';
+    // Ambil data jawaban lama (atau buat baru jika belum ada)
+    $nilai = \App\Models\Nilai::where('user_id', $userId)
+        ->where('kuis_id', $kuisId)
+        ->first();
 
-        $kunci = [
-            'soal1' => 5,
-            'soal2' => 5,
-            'soal3' => 4,
-            'soal4' => 7,
-            'soal5' => 7,
-        ];
+    $jawaban = $nilai ? $nilai->jawaban : [];
+    if (!is_array($jawaban)) $jawaban = [];
 
-        $jumlahBenar = 0;
-        foreach ($kunci as $soal => $jawabanBenar) {
-            if (isset($jawaban[$soal]) && (int)$jawaban[$soal] === $jawabanBenar) {
-                $jumlahBenar++;
-            }
+    $jawaban['soal'.$no] = $jawab;
+
+    // Penilaian (skor dan status, jika sudah lengkap)
+    $kunci = [
+        'soal1' => 5,
+        'soal2' => 5,
+        'soal3' => 4,
+        'soal4' => 7,
+        'soal5' => 7,
+    ];
+
+    $jumlahBenar = 0;
+    $jumlahTerisi = 0;
+    foreach ($kunci as $k => $benar) {
+        if (isset($jawaban[$k]) && $jawaban[$k] !== '' && $jawaban[$k] !== null) {
+            $jumlahTerisi++;
+            if ((int)$jawaban[$k] === $benar) $jumlahBenar++;
         }
-
-        $bobotPerSoal = 20;
-        $skor = $jumlahBenar * $bobotPerSoal;
-
-        $kkm = \App\Models\Kkm::where('kuis_id', $kuisId)->value('kkm') ?? 60;
-        $status = $skor >= $kkm ? 'lulus' : 'tidak_lulus';
-
-        \App\Models\Nilai::updateOrCreate(
-            ['user_id' => $userId, 'kuis_id' => $kuisId],
-            [
-                'skor' => $skor,
-                'total_soal' => count($kunci),
-                'jawaban' => $jawaban,
-                'status' => $status,
-                'updated_at' => now(),
-                'created_at' => now(),
-            ]
-        );
-
-        return response()->json([
-            'skor' => $skor,
-            'status' => $status,
-            'kkm' => $kkm
-        ]);
     }
+    $bobotPerSoal = 20;
+    $skor = $jumlahBenar * $bobotPerSoal;
+    $kkm = \App\Models\Kkm::where('kuis_id', $kuisId)->value('kkm') ?? 60;
+    $status = $jumlahTerisi === 5 ? ($skor >= $kkm ? 'lulus' : 'tidak_lulus') : null;
 
+    \App\Models\Nilai::updateOrCreate(
+        ['user_id' => $userId, 'kuis_id' => $kuisId],
+        [
+            'skor' => $skor,
+            'total_soal' => count($kunci),
+            'jawaban' => $jawaban,
+            'status' => $status,
+            'updated_at' => now(),
+            'created_at' => now(),
+        ]
+    );
+
+    return response()->json([
+        'jumlah_dijawab' => $jumlahTerisi,
+        'skor' => $skor,
+        'status' => $status,
+        'kkm' => $kkm,
+    ]);
+}
 
     public function resetHalaman16()
     {

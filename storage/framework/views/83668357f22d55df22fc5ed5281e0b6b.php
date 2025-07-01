@@ -48,5 +48,4 @@
         window.addEventListener('touchstart', playMusic, {passive:true});
     </script>
 </body>
-</html>
-<?php /**PATH C:\xampp\htdocs\si-ukur\resources\views/layouts/main.blade.php ENDPATH**/ ?>
+</html><?php /**PATH C:\xampp\htdocs\si-ukur\resources\views/layouts/main.blade.php ENDPATH**/ ?>

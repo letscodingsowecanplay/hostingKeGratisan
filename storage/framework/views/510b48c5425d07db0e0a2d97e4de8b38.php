@@ -2,6 +2,9 @@
 
 <?php $__env->startSection('content'); ?>
 <div class="materi-main-container fs-5" id="halaman15-container">
+    <div class="materi-title" style="font-size:2rem; font-weight:800; color:#222; text-align:center; margin-bottom:12px;">
+        Ayo Mencoba
+    </div>
 
     <?php
         $soal = [
@@ -13,40 +16,30 @@
         $penjelasan = [
             1 => [
                 'benar' => 'Jawaban benar. Tinggi wadai cincin memang tidak setara dengan 3 stik es krim.',
-                'salah' => 'Jawaban kurang tepat. Tinggi wadai cincin pada gambar tidak sama dengan 3 stik es krim.'
+                'salah' => 'Jawaban salah. Tinggi wadai cincin pada gambar tidak sama dengan 3 stik es krim.'
             ],
             2 => [
                 'benar' => 'Jawaban benar. Diameter buah asam payak pada gambar tepat sama dengan 1 koin.',
-                'salah' => 'Jawaban kurang tepat. Diameter buah asam payak sebenarnya tepat sama dengan 1 koin.'
+                'salah' => 'Jawaban salah. Diameter buah asam payak sebenarnya tepat sama dengan 1 koin.'
             ],
             3 => [
                 'benar' => 'Jawaban benar. Panjang buah ulin di gambar tidak setara dengan 9 kotak.',
-                'salah' => 'Jawaban kurang tepat. Panjang buah ulin pada gambar tidak setara dengan 9 kotak.'
+                'salah' => 'Jawaban salah. Panjang buah ulin pada gambar tidak setara dengan 9 kotak.'
             ],
             4 => [
                 'benar' => 'Jawaban benar. Panjang tempat penyimpanan gaharu pada gambar sama dengan 1 pensil.',
-                'salah' => 'Jawaban kurang tepat. Panjang tempat penyimpanan gaharu sebenarnya sama dengan 1 pensil.'
+                'salah' => 'Jawaban salah. Panjang tempat penyimpanan gaharu sebenarnya sama dengan 1 pensil.'
             ]
         ];
-        $audioFeedback = [
-            1 => ['benar' => asset('sounds/materi/hal15/feedback_benar_1.mp3'), 'salah' => asset('sounds/materi/hal15/feedback_salah_1.mp3')],
-            2 => ['benar' => asset('sounds/materi/hal15/feedback_benar_2.mp3'), 'salah' => asset('sounds/materi/hal15/feedback_salah_2.mp3')],
-            3 => ['benar' => asset('sounds/materi/hal15/feedback_benar_3.mp3'), 'salah' => asset('sounds/materi/hal15/feedback_salah_3.mp3')],
-            4 => ['benar' => asset('sounds/materi/hal15/feedback_benar_4.mp3'), 'salah' => asset('sounds/materi/hal15/feedback_salah_4.mp3')],
-        ];
-        $audioPenjelasan = [
-            1 => asset('sounds/materi/hal15/penjelasan_1.mp3'),
-            2 => asset('sounds/materi/hal15/penjelasan_2.mp3'),
-            3 => asset('sounds/materi/hal15/penjelasan_3.mp3'),
-            4 => asset('sounds/materi/hal15/penjelasan_4.mp3'),
-        ];
         $totalSoal = count($soal);
+        $kkm = $kkm ?? 70;
         $firstUnanswered = 1;
         for($i=1;$i<=$totalSoal;$i++){ if(empty($jawabanUser['soal'.$i])) { $firstUnanswered = $i; break; } }
-        $kkm = $kkm ?? 70;
+        $sudahMenjawab = count($jawabanUser) === $totalSoal;
+        $kunci = $kunci ?? [];
+        $skor = $skor ?? 0;
     ?>
 
-    
     <div id="popup-feedback" style="display:none; position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1000; background:rgba(40,75,99,.13); align-items:center;justify-content:center;">
         <div style="background:#fff; border-radius:16px; box-shadow:0 7px 38px #2223; padding:32px 38px; max-width:400px; width:98vw; text-align:center; position:relative;">
             <img id="popup-img" src="" style="max-width:110px; max-height:110px; margin-bottom:13px; border-radius:14px; box-shadow:0 3px 15px #0002;">
@@ -57,7 +50,6 @@
         <audio id="popup-audio" src=""></audio>
     </div>
 
-    
     <div class="materi-section shadow-sm rounded-3 py-3 px-3" style="background:#fff;">
         <div class="warna-label green-card mb-2" style="font-size:1rem;">Contoh Soal</div>
         <button onclick="toggleAudio(this)" class="btn-audio" data-id="index-1" data-playing="false">🔊</button>
@@ -69,15 +61,13 @@
             <div class="w-100" style="max-width: 600px;">
                 <div class="ratio ratio-16x9">
                     <iframe
-                        src="https://www.youtube.com/embed/pmvty6i3mxs?end=223&rel=0"
+                        src="https://www.youtube.com/embed/OYAGCtF3xi4?si=Gi9JwxQX7neGxrBq?end=223&rel=0"
                         title="Video Contoh Soal"
-                        allowfullscreen
-                        style="border:0; width:100%; max-width:560px; height:315px;">
+                        allowfullscreen>
                     </iframe>
                 </div>
             </div>
         </div>
-        <!-- Box Narasi: Ingatlah! -->
         <div class="materi-section" style="margin-bottom: 0;">
             <div class="kearifan-box" style="background: #fffde7; border-left: 5px solid #ffb300; padding: 16px 18px; border-radius: 10px; font-size: 1.06em; color: #775b08; margin-bottom: 18px; box-shadow: 0 2px 8px #ffb30018;">
                 <strong style="font-size:1.1em;">Ingatlah!</strong>
@@ -126,8 +116,17 @@
         <p class="materi-content">Penyelesaian: <br>Pernyataan yang diberikan sudah sesuai dengan apa yang ada di dalam gambar. Jadi, jawaban yang benar adalah Benar.</p>
     </div>
 
-    
-    <div id="stepper-soal" class="mb-4" <?php if(isset($sudahMenjawab) && $sudahMenjawab): ?> style="display:none;" <?php endif; ?>>
+    <div class="materi-section">
+        <div class="d-flex align-items-center mb-3 fs-5">
+            <span class="warna-label green-card">Ayo Mencoba</span>
+            <button onclick="toggleAudio(this)" class="btn-audio ms-2" data-id="index-3" data-playing="false">🔊</button>
+            <audio id="audio-index-3" src="<?php echo e(asset('sounds/materi/hal15/3.mp3')); ?>"></audio>
+        </div>
+        <p class="fs-5">Amati gambar berikut dengan saksama! Bacalah pernyataan yang diberikan. Hitung alat ukur yang ada pada gambar. Setelah itu, geser kotak kecil ke kiri jika menurutmu salah, atau ke kanan jika menurutmu benar.</p>
+    </div>
+
+    <?php if(!$sudahMenjawab): ?>
+    <div id="stepper-soal">
         <div class="d-flex justify-content-center gap-2 mb-2">
             <?php for($no = 1; $no <= $totalSoal; $no++): ?>
                 <button type="button"
@@ -140,26 +139,27 @@
             <?php endfor; ?>
         </div>
     </div>
+    <?php for($no = 1; $no <= $totalSoal; $no++): ?>
+        <?php
+            $userJawab = $jawabanUser['soal'.$no] ?? null;
+            $kunciJawab = $kunci['soal'.$no] ?? null;
+            $isAnswered = !empty($userJawab);
+            $isCorrect = $userJawab === $kunciJawab;
+            $explain = $isCorrect ? $penjelasan[$no]['benar'] : $penjelasan[$no]['salah'];
+        ?>
+        <div class="materi-section shadow-sm rounded-3 py-3 px-3 soal-step" id="soal-step-<?php echo e($no); ?>" style="<?php if($no !== $firstUnanswered): ?>display:none;<?php endif; ?>;background:#fff;">
+            <div class="materi-content fw-bold mb-2" style="font-size:1.09rem;">
+                <?php echo e($no); ?>. <?php echo e($soal[$no]['teks']); ?>
 
-    
-    <?php if(!$sudahMenjawab): ?>
-        <?php for($no = 1; $no <= $totalSoal; $no++): ?>
-            <?php
-                $userJawab = $jawabanUser['soal'.$no] ?? null;
-                $kunciJawab = $kunci['soal'.$no] ?? null;
-            ?>
-            <div class="materi-section shadow-sm rounded-3 py-3 px-3 soal-step" id="soal-step-<?php echo e($no); ?>" style="<?php if($no !== $firstUnanswered): ?>display:none;<?php endif; ?>;background:#fff;">
-                <div class="materi-content fw-bold mb-2" style="font-size:1.09rem;">
-                    <?php echo e($no); ?>. <?php echo e($soal[$no]['teks']); ?>
-
-                    <button type="button" onclick="toggleAudio(this)" class="btn-audio" title="Dengarkan" data-id="hal15-<?php echo e($no); ?>" data-playing="false">🔊</button>
-                    <audio id="hal15-<?php echo e($no); ?>" src="<?php echo e(asset('sounds/materi/hal15/hal15-' . $no . '.mp3')); ?>"></audio>
+                <button type="button" onclick="toggleAudio(this)" class="btn-audio" title="Dengarkan" data-id="hal15-<?php echo e($no); ?>" data-playing="false">🔊</button>
+                <audio id="hal15-<?php echo e($no); ?>" src="<?php echo e(asset('sounds/materi/hal15/hal15-' . $no . '.mp3')); ?>"></audio>
+            </div>
+            <div class="materi-image-row justify-content-center mb-2">
+                <div class="materi-image-col" style="max-width:330px">
+                    <img src="<?php echo e(asset('images/materi/ayo-mencoba-3/' . $soal[$no]['gambar'])); ?>" class="img-fluid materi-img rounded-4" alt="Soal <?php echo e($no); ?>" style="max-width:300px;">
                 </div>
-                <div class="materi-image-row justify-content-center mb-2">
-                    <div class="materi-image-col" style="max-width:330px">
-                        <img src="<?php echo e(asset('images/materi/ayo-mencoba-3/' . $soal[$no]['gambar'])); ?>" class="img-fluid materi-img rounded-4" alt="Soal <?php echo e($no); ?>" style="max-width:300px;">
-                    </div>
-                </div>
+            </div>
+            <?php if(!$isAnswered): ?>
                 <div class="d-flex justify-content-center mb-2" style="position:relative;">
                     <div style="width: 200px; height: 20px; background: #f1f1f1; border-radius: 8px; position: relative;">
                         <span style="position: absolute; left:0; top:25px; font-size:13px; color:#b91c1c; font-weight:500;">Salah</span>
@@ -175,12 +175,46 @@
                     </div>
                 </div>
                 <input type="hidden" name="jawaban[soal<?php echo e($no); ?>]" id="input-soal<?php echo e($no); ?>" required>
+            <?php else: ?>
+                <div id="penjelasan-<?php echo e($no); ?>" class="mt-2">
+                    <div class="soal-tooltip-review-row">
+                        <div class="soal-tooltip-jawaban-wrap">
+                            <span class="soal-tooltip-label-salah">Salah</span>
+                            <span class="soal-tooltip-label-benar">Benar</span>
+                            <div class="soal-tooltip-indikator <?php echo e($userJawab === 'benar' ? 'benar' : 'salah'); ?>">
+                                <div class="soal-tooltip-badge <?php echo e($userJawab === 'benar' ? 'benar' : 'salah'); ?>">
+                                    <?php echo e($userJawab ?? '-'); ?>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="soal-tooltip-jawaban-kunci-row">
+                        <span class="badge warna-label yellow-card">
+                            Kunci Jawaban: <?php echo e(ucfirst($kunciJawab)); ?>
+
+                        </span>
+                    </div>
+                    <div class="card card-body mt-2 border-info bg-light d-flex align-items-center gap-3"
+                        style="border:2px solid <?php echo e($isCorrect ? '#47cc69' : '#e74c3c'); ?>; background:<?php echo e($isCorrect ? '#eafaf3' : '#fff5f5'); ?>; color:<?php echo e($isCorrect ? '#169652' : '#b22727'); ?>;">
+                        <span><?php echo $explain; ?>
+
+                            <button type="button" onclick="playPenjelasanAudio(<?php echo e($no); ?>, this, <?php echo e($isCorrect ? 'true' : 'false'); ?>)" class="btn btn-audio ms-2">🔊</button>
+                            <audio id="audio-penjelasan-<?php echo e($no); ?>" src="<?php echo e(asset('sounds/materi/hal15/' . ($isCorrect ? 'benar' : 'salah') . $no . '.mp3')); ?>"></audio>
+                        </span>
+                    </div>
+                </div>
+            <?php endif; ?>
+            
+            <?php if(!$isAnswered): ?>
                 <div id="penjelasan-<?php echo e($no); ?>" class="mt-2"></div>
-            </div>
-        <?php endfor; ?>
+            <?php endif; ?>
+        </div>
+    <?php endfor; ?>
     <?php endif; ?>
 
     
+
     <?php if($sudahMenjawab): ?>
         <div id="review-area">
             <div class="text-center mb-3">
@@ -213,27 +247,30 @@
                             <img src="<?php echo e(asset('images/materi/ayo-mencoba-3/' . $soal[$no]['gambar'])); ?>" class="img-fluid materi-img rounded-4" alt="Soal <?php echo e($no); ?>" style="max-width:300px;">
                         </div>
                     </div>
-                    <div class="text-center mb-2">
-                        <?php if($userJawab): ?>
-                            <span class="badge warna-label <?php echo e($isCorrect ? 'green-card' : 'red-card'); ?>">
-                                Jawaban Kamu: <?php echo e(ucfirst($userJawab)); ?>
+                    <div class="soal-tooltip-review-row">
+                        <div class="soal-tooltip-jawaban-wrap">
+                            <span class="soal-tooltip-label-salah">Salah</span>
+                            <span class="soal-tooltip-label-benar">Benar</span>
+                            <div class="soal-tooltip-indikator <?php echo e($userJawab === 'benar' ? 'benar' : 'salah'); ?>">
+                                <div class="soal-tooltip-badge <?php echo e($userJawab === 'benar' ? 'benar' : 'salah'); ?>">
+                                    <?php echo e($userJawab ?? '-'); ?>
 
-                            </span>
-                            <span class="badge warna-label <?php echo e(($kunciJawab == $userJawab) ? 'green-card' : 'red-card'); ?> ms-2">
-                                Kunci Jawaban: <?php echo e(ucfirst($kunciJawab)); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="soal-tooltip-jawaban-kunci-row">
+                        <span class="badge warna-label yellow-card">
+                            Kunci Jawaban: <?php echo e(ucfirst($kunciJawab)); ?>
 
-                            </span>
-                        <?php else: ?>
-                            <span class="badge warna-label red-card">
-                                Jawaban Kamu: Belum dijawab
-                            </span>
-                        <?php endif; ?>
+                        </span>
                     </div>
                     <div class="card card-body mt-2 border-info bg-light d-flex align-items-center gap-3"
                          style="border:2px solid <?php echo e($isCorrect ? '#47cc69' : '#e74c3c'); ?>; background:<?php echo e($isCorrect ? '#eafaf3' : '#fff5f5'); ?>; color:<?php echo e($isCorrect ? '#169652' : '#b22727'); ?>;">
-                        <span><?php echo $explain; ?> 
-                            <button type="button" onclick="playPenjelasanAudio(<?php echo e($no); ?>, this)" class="btn btn-audio ms-2">🔊</button>
-                            <audio id="audio-penjelasan-<?php echo e($no); ?>" src="<?php echo e($audioPenjelasan[$no]); ?>"></audio>
+                        <span><?php echo $explain; ?>
+
+                            <button type="button" onclick="playPenjelasanAudio(<?php echo e($no); ?>, this, <?php echo e($isCorrect ? 'true' : 'false'); ?>)" class="btn btn-audio ms-2">🔊</button>
+                            <audio id="audio-penjelasan-<?php echo e($no); ?>" src="<?php echo e(asset('sounds/materi/hal15/' . ($isCorrect ? 'benar' : 'salah') . $no . '.mp3')); ?>"></audio>
                         </span>
                     </div>
                 </div>
@@ -244,7 +281,12 @@
                         <?php echo csrf_field(); ?>
                         <?php echo method_field('DELETE'); ?>
                         <button type="submit" class="btn btn-danger fs-5">Ulangi Kuis</button>
-                    </form>
+                    </form><br>
+                    <div class="text-center flex-grow-1">
+                        <div class="alert alert-info d-inline-block mb-0">
+                            Nilai Anda: <?php echo e($skor); ?> / 100
+                        </div>
+                    </div><br>
                     <div class="alert alert-warning mt-3">
                         Nilai kamu belum mencapai KKM. Silakan ulangi kuis ini.
                     </div>
@@ -264,13 +306,11 @@
 
     <div class="materi-nav-footer mt-3">
         <a href="<?php echo e(route('admin.materi.halaman14')); ?>" class="btn btn-nav fs-5">← Sebelumnya</a>
-        <span id="next-btn-area">
         <?php if($sudahMenjawab && $skor >= $kkm): ?>
             <a href="<?php echo e(route('admin.materi.halaman16')); ?>" class="btn btn-nav btn-next fs-5">Selanjutnya →</a>
         <?php else: ?>
             <button class="btn btn-nav btn-next fs-5" disabled>Selanjutnya →</button>
         <?php endif; ?>
-        </span>
     </div>
 </div>
 <br>
@@ -284,35 +324,8 @@ let sudahMenjawab = <?php echo json_encode($sudahMenjawab, 15, 512) ?>;
 let kunciJawaban = <?php echo json_encode($kunci, 15, 512) ?>;
 let totalSoal = <?php echo e($totalSoal); ?>;
 let firstUnanswered = <?php echo e($firstUnanswered); ?>;
-
-function showFeedbackPopup(feedback, idx) {
-    let popup = document.getElementById('popup-feedback');
-    document.getElementById('popup-img').src = feedback.img;
-    document.getElementById('popup-judul').innerText = feedback.judul;
-    document.getElementById('popup-text').innerText = feedback.text;
-    document.getElementById('popup-kunci').innerHTML = `Kunci Jawaban: <b>${feedback.kunci}</b>`;
-    let audio = document.getElementById('popup-audio');
-    audio.src = feedback.audio; audio.currentTime = 0; audio.play();
-    popup.style.display = 'flex';
-    setTimeout(() => { popup.style.display = 'none'; audio.pause(); }, 1500);
-    audio.onended = function () { popup.style.display = 'none'; };
-}
-
-function afterJawab(res, idx, val) {
-    let slider = document.getElementById('slider-'+idx);
-    if(slider && slider.noUiSlider) slider.setAttribute('disabled', 'true');
-    let penjelasan = document.getElementById('penjelasan-' + idx);
-    if (penjelasan) {
-        penjelasan.innerHTML =
-            `<span class="badge warna-label ${res.benar ? 'green-card':'red-card'} mb-1">Jawaban ${res.benar ? 'Benar':'Salah'}</span>
-            <div class="card card-body border-info bg-light mt-2 d-flex align-items-center gap-3">
-                ${res.penjelasan}
-                <button type="button" onclick="playPenjelasanAudio(${idx}, this)" class="btn btn-audio ms-2">🔊</button>
-                <audio id="audio-penjelasan-${idx}" src="${res.audioPenjelasan}"></audio>
-            </div>
-            <div class="mt-1"><span class="badge warna-label green-card">Kunci Jawaban: ${res.kunci}</span></div>`;
-    }
-}
+let jawabanUser = <?php echo json_encode($jawabanUser ?? [], 15, 512) ?>;
+let penjelasanBlade = <?php echo json_encode($penjelasan, 15, 512) ?>;
 
 function showStep(no) {
     for (let i = 1; i <= totalSoal; i++) {
@@ -320,6 +333,75 @@ function showStep(no) {
         if(el) el.style.display = (i === no ? '' : 'none');
         let btn = document.getElementById('btn-stepper-' + i);
         if(btn) btn.classList.toggle('btn-primary', i === no);
+    }
+    localStorage.setItem('hal15_last_soal', no);
+}
+
+function findNextUnanswered(jawabanUserObj) {
+    for(let i=1; i<=totalSoal; i++) {
+        if(!jawabanUserObj['soal'+i]) return i;
+    }
+    return null;
+}
+
+function showFeedbackPopup(feedback, idx, benar) {
+    let popup = document.getElementById('popup-feedback');
+    document.getElementById('popup-img').src = benar
+        ? "<?php echo e(asset('images/materi/ayo-berlatih-3/benar.png')); ?>"
+        : "<?php echo e(asset('images/materi/ayo-berlatih-3/salah.png')); ?>";
+    document.getElementById('popup-judul').innerText = feedback.judul;
+    document.getElementById('popup-text').innerText = feedback.text;
+    document.getElementById('popup-kunci').innerHTML = `Kunci Jawaban: <b>${feedback.kunci}</b>`;
+    let audio = document.getElementById('popup-audio');
+    audio.src = '<?php echo e(asset('sounds/materi/hal15/')); ?>/' + (benar ? 'benar' : 'salah') + idx + '.mp3';
+    audio.currentTime = 0;
+    popup.style.display = 'flex';
+    audio.play();
+    audio.onended = function () {
+        popup.style.display = 'none';
+        let nextIdx = window._nextSoalAfterPopup;
+        if(nextIdx) {
+            showStep(nextIdx);
+            window._nextSoalAfterPopup = null;
+        }
+    };
+}
+
+function afterJawab(res, idx, val) {
+    let slider = document.getElementById('slider-'+idx);
+    if(slider && slider.noUiSlider) slider.setAttribute('disabled', 'true');
+    // Render review style di penjelasan-idx (replace), hanya sekali (tidak dobel!)
+    let penjelasan = document.getElementById('penjelasan-' + idx);
+    if (penjelasan) {
+        let isCorrect = res.benar;
+        let kunciJawab = res.kunci;
+        let userJawab = val;
+        let explain = res.penjelasan;
+        penjelasan.innerHTML = `
+            <div class="soal-tooltip-review-row">
+                <div class="soal-tooltip-jawaban-wrap">
+                    <span class="soal-tooltip-label-salah">Salah</span>
+                    <span class="soal-tooltip-label-benar">Benar</span>
+                    <div class="soal-tooltip-indikator ${userJawab === 'benar' ? 'benar' : 'salah'}">
+                        <div class="soal-tooltip-badge ${userJawab === 'benar' ? 'benar' : 'salah'}">
+                            ${userJawab ?? '-'}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="soal-tooltip-jawaban-kunci-row">
+                <span class="badge warna-label yellow-card">
+                    Kunci Jawaban: ${kunciJawab.charAt(0).toUpperCase() + kunciJawab.slice(1)}
+                </span>
+            </div>
+            <div class="card card-body mt-2 border-info bg-light d-flex align-items-center gap-3"
+                style="border:2px solid ${isCorrect ? '#47cc69' : '#e74c3c'}; background:${isCorrect ? '#eafaf3' : '#fff5f5'}; color:${isCorrect ? '#169652' : '#b22727'};">
+                <span>${explain}
+                    <button type="button" onclick="playPenjelasanAudio(${idx}, this, ${isCorrect})" class="btn btn-audio ms-2">🔊</button>
+                    <audio id="audio-penjelasan-${idx}" src="<?php echo e(asset('sounds/materi/hal15/')); ?>/${isCorrect ? 'benar' : 'salah'}${idx}.mp3"></audio>
+                </span>
+            </div>
+        `;
     }
 }
 
@@ -331,9 +413,10 @@ function showReviewSoal(no){
         let btn = document.getElementById('btn-review-'+i);
         if(btn) btn.classList.toggle('btn-primary', i===no);
     }
+    localStorage.setItem('hal15_last_review', no);
 }
 
-function playPenjelasanAudio(no, btn){
+function playPenjelasanAudio(no, btn, benar){
     const audio = document.getElementById('audio-penjelasan-' + no);
     document.querySelectorAll('audio[id^="audio-penjelasan-"]').forEach(a => {
         if(a !== audio){ a.pause(); a.currentTime = 0; }
@@ -348,21 +431,51 @@ function playPenjelasanAudio(no, btn){
     audio.onended = function(){ btn.innerText = "🔊"; }
 }
 
-function findNextUnanswered(jawabanUserObj) {
-    // jawabanUserObj = {soal1:..., soal2:...}
-    for(let i=1; i<=totalSoal; i++) {
-        if(!jawabanUserObj['soal'+i]) return i;
+function toggleAudio(button) {
+    const id = button.getAttribute('data-id');
+    const audio = document.getElementById('audio-' + id);
+    document.querySelectorAll('audio').forEach(a => {
+        if (a !== audio && a.id !== 'bg-music') {
+            if (a.id !== 'bg-music') { a.pause(); a.currentTime = 0; }
+        }
+    });
+    document.querySelectorAll('.btn-audio').forEach(btn => {
+        if (btn !== button) {
+            btn.innerText = '🔊';
+            btn.setAttribute('data-playing', 'false');
+        }
+    });
+    if (audio.paused) {
+        audio.play();
+        button.innerText = '⏸️';
+        button.setAttribute('data-playing', 'true');
+    } else {
+        audio.pause();
+        button.innerText = '🔊';
+        button.setAttribute('data-playing', 'false');
     }
-    return null; // semua sudah terjawab
+    audio.onended = function () {
+        button.innerText = '🔊';
+        button.setAttribute('data-playing', 'false');
+    };
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    if (sudahMenjawab) return;
-    let jawabanUser = <?php echo json_encode($jawabanUser ?? [], 15, 512) ?>;
+    if (sudahMenjawab) {
+        let reviewLast = parseInt(localStorage.getItem('hal15_last_review') || "1");
+        showReviewSoal(isNaN(reviewLast)?1:reviewLast);
+        return;
+    }
+    let lastStep = parseInt(localStorage.getItem('hal15_last_soal') || firstUnanswered);
+    let nextUnanswered = findNextUnanswered(jawabanUser);
+    if (nextUnanswered) showStep(nextUnanswered);
+    else showStep(1);
+
     for (let i = 1; i <= totalSoal; i++) {
         const sliderBox = document.getElementById('slider-' + i);
         const input = document.getElementById('input-soal' + i);
-        if (sliderBox && input) {
+        let isAnswered = jawabanUser['soal'+i];
+        if (sliderBox && input && !isAnswered) {
             noUiSlider.create(sliderBox, {
                 start: 0.5,
                 step: 0.5,
@@ -393,42 +506,57 @@ document.addEventListener("DOMContentLoaded", function () {
                         sliderBox.noUiSlider.set(0.5);
                         return;
                     }
-                    // Update jawabanUser lokal
                     jawabanUser['soal'+i] = val;
-                    showFeedbackPopup(res.feedback, i);
-                    setTimeout(() => { afterJawab(res, i, val); }, 1500);
-                    setTimeout(() => {
-                        // Cari soal berikutnya yang belum dijawab (lokal saja, lebih cepat)
-                        let nextIdx = findNextUnanswered(jawabanUser);
-                        if(res.semua_sudah || nextIdx === null) {
-                            setTimeout(()=>{ window.location.reload(); }, 1000);
-                        } else {
-                            showStep(nextIdx);
-                        }
-                    }, 1600);
+                    let nextIdx = findNextUnanswered(jawabanUser);
+                    window._nextSoalAfterPopup = (res.semua_sudah || nextIdx === null) ? null : nextIdx;
+                    showFeedbackPopup(res.feedback, i, res.benar);
+                    setTimeout(() => { afterJawab(res, i, val); }, 300);
+                    if(res.semua_sudah || nextIdx === null) {
+                        setTimeout(()=>{ window.location.reload(); }, 1200);
+                    }
+                    else {
+                        localStorage.setItem('hal15_last_soal', nextIdx);
+                    }
                 });
             });
         }
+        // Render ulang penjelasan jika sudah dijawab (review style), hanya jika <div id="penjelasan-i"> kosong!
+        if (isAnswered) {
+            let penjelasan = document.getElementById('penjelasan-' + i);
+            if (penjelasan && !penjelasan.innerHTML.trim()) {
+                let userJawab = jawabanUser['soal'+i];
+                let kunciJawab = kunciJawaban['soal'+i];
+                let isCorrect = userJawab === kunciJawab;
+                let text = isCorrect ? penjelasanBlade[i]['benar'] : penjelasanBlade[i]['salah'];
+                penjelasan.innerHTML = `
+                    <div class="soal-tooltip-review-row">
+                        <div class="soal-tooltip-jawaban-wrap">
+                            <span class="soal-tooltip-label-salah">Salah</span>
+                            <span class="soal-tooltip-label-benar">Benar</span>
+                            <div class="soal-tooltip-indikator ${userJawab === 'benar' ? 'benar' : 'salah'}">
+                                <div class="soal-tooltip-badge ${userJawab === 'benar' ? 'benar' : 'salah'}">
+                                    ${userJawab ?? '-'}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="soal-tooltip-jawaban-kunci-row">
+                        <span class="badge warna-label yellow-card">
+                            Kunci Jawaban: ${kunciJawab.charAt(0).toUpperCase() + kunciJawab.slice(1)}
+                        </span>
+                    </div>
+                    <div class="card card-body mt-2 border-info bg-light d-flex align-items-center gap-3"
+                        style="border:2px solid ${isCorrect ? '#47cc69' : '#e74c3c'}; background:${isCorrect ? '#eafaf3' : '#fff5f5'}; color:${isCorrect ? '#169652' : '#b22727'};">
+                        <span>${text}
+                            <button type="button" onclick="playPenjelasanAudio(${i}, this, ${isCorrect})" class="btn btn-audio ms-2">🔊</button>
+                            <audio id="audio-penjelasan-${i}" src="<?php echo e(asset('sounds/materi/hal15/')); ?>/${isCorrect ? 'benar' : 'salah'}${i}.mp3"></audio>
+                        </span>
+                    </div>
+                `;
+            }
+        }
     }
 });
-
-// AUDIO
-function toggleAudio(button) {
-    const id = button.getAttribute('data-id');
-    const audio = document.getElementById(id.startsWith('index') ? 'audio-' + id : id);
-    document.querySelectorAll('audio').forEach(a => {
-        if (a !== audio) { a.pause(); a.currentTime = 0; }
-    });
-    document.querySelectorAll('button[data-id]').forEach(btn => {
-        if (btn !== button) { btn.innerText = '🔊'; btn.setAttribute('data-playing', 'false'); }
-    });
-    if (audio.paused) {
-        audio.play(); button.innerText = '⏸️'; button.setAttribute('data-playing', 'true');
-    } else {
-        audio.pause(); button.innerText = '🔊'; button.setAttribute('data-playing', 'false');
-    }
-    audio.onended = function () { button.innerText = '🔊'; button.setAttribute('data-playing', 'false'); };
-}
 </script>
 <?php $__env->stopPush(); ?>
 

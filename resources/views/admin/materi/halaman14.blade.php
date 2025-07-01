@@ -40,8 +40,8 @@
 
     <!-- Box Tahukah Kalian: Kamus Banjar -->
     <div class="materi-section" style="margin-bottom: 0;">
-        <div class="kearifan-box" style="background: #e3f2fd; border-left: 5px solid #1976d2; padding: 16px 18px; border-radius: 10px; font-size: 1.06em; color: #175093; margin-bottom: 18px; box-shadow: 0 2px 8px #1976d218;">
-            <strong style="font-size:1.1em;">Tahukah Kalian?</strong>
+        <div class="kearifan-box" style="background: #e3f2fd; border-left: 5px solid #1976d2; padding: 16px 18px; border-radius: 10px; font-size: 1.8r6em; color: #175093; margin-bottom: 18px; box-shadow: 0 2px 8px #1976d218;">
+            <strong>Tahukah Kalian?</strong>
             <br>
             Kamus bahasa Banjar adalah buku yang berisi kata-kata dalam bahasa Banjar dan artinya dalam bahasa Indonesia. Kamus ini membantu siswa memahami makna kata-kata dalam bahasa Banjar dan memperkaya kosa kata mereka.
             <button onclick="toggleAudio(this)" class="btn-audio" data-id="narasi-1" data-playing="false" style="margin-left:7px;">🔊</button>
@@ -59,43 +59,36 @@
 
 @section('scripts')
 <script>
-    let currentAudio = null;
-    let currentButton = null;
-
     function toggleAudio(button) {
         const id = button.getAttribute('data-id');
-        const audio = document.getElementById(`audio-${id}`);
+        const audio = document.getElementById('audio-' + id);
 
-        // Pause semua audio lain
+        // Pause semua audio KECUALI background music
         document.querySelectorAll('audio').forEach(a => {
-            if (a !== audio) {
+            if (a !== audio && a.id !== 'bg-music') {
                 a.pause();
                 a.currentTime = 0;
             }
         });
 
-        // Reset semua tombol ke 🔊
-        document.querySelectorAll('button[data-id]').forEach(btn => {
+        // Reset semua tombol audio KECUALI yang aktif
+        document.querySelectorAll('.btn-audio').forEach(btn => {
             if (btn !== button) {
                 btn.innerText = '🔊';
                 btn.setAttribute('data-playing', 'false');
             }
         });
 
-        // Toggle play/pause
+        // Toggle play/pause untuk audio yang di-klik
         if (audio.paused) {
             audio.play();
             button.innerText = '⏸️';
             button.setAttribute('data-playing', 'true');
-            currentAudio = audio;
-            currentButton = button;
         } else {
             audio.pause();
             button.innerText = '🔊';
             button.setAttribute('data-playing', 'false');
         }
-
-        // Reset ikon saat audio selesai
         audio.onended = function () {
             button.innerText = '🔊';
             button.setAttribute('data-playing', 'false');

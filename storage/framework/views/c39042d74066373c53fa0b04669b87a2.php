@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@15.6.1/dist/nouislider.min.css">
     <link rel="icon" sizes="180x180" href="<?php echo e(asset('ikon-si-ukur.ico')); ?>">
     <link href="<?php echo e(asset('css/materi.css')); ?>" rel="stylesheet">
-    <link href="<?php echo e(asset('css/dragdrop.css')); ?>" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@15.6.1/dist/nouislider.min.css">
 
     <?php echo $__env->yieldContent('styles'); ?>

@@ -29,8 +29,8 @@
     {{-- Grid Gambar --}}
     <div class="materi-section shadow-sm rounded-3 py-3 px-3" style="background:#fff;">
         <div class="warna-label yellow-card mb-3" style="font-size:1rem;">Contoh Gambar</div>
-        <div class="materi-image-row flex-wrap justify-content-center" style="gap:26px;">
-            <div class="materi-image-col" style="max-width:280px;">
+        <div class="materi-image-row grid-ukur-mobile flex-wrap justify-content-center" style="gap:26px;">
+            <div class="materi-image-col grid-ukur-col" style="max-width:280px;">
                 <img src="{{ asset('images/materi/ukur-salah-1.png') }}"
                      class="img-fluid materi-img rounded-4 shadow"
                      style="max-height: 200px; background: #fffbe9; cursor: pointer;"
@@ -39,7 +39,7 @@
                      data-bs-placement="top"
                      title="Alat ukur diletakkan renggang, tidak rapat pada ujung benda." />
             </div>
-            <div class="materi-image-col" style="max-width:280px;">
+            <div class="materi-image-col grid-ukur-col" style="max-width:280px;">
                 <img src="{{ asset('images/materi/ukur-benar.png') }}"
                      class="img-fluid materi-img rounded-4 shadow"
                      style="max-height: 200px; background: #fffbe9; cursor: pointer;"
@@ -48,7 +48,7 @@
                      data-bs-placement="top"
                      title="Alat ukur diletakkan rapat dan dimulai dari ujung benda dengan benar." />
             </div>
-            <div class="materi-image-col" style="max-width:280px;">
+            <div class="materi-image-col grid-ukur-col" style="max-width:280px;">
                 <img src="{{ asset('images/materi/ukur-salah-2.png') }}"
                      class="img-fluid materi-img rounded-4 shadow"
                      style="max-height: 200px; background: #fffbe9; cursor: pointer;"
@@ -57,7 +57,7 @@
                      data-bs-placement="top"
                      title="Alat ukur diletakkan dalam posisi miring, tidak lurus." />
             </div>
-            <div class="materi-image-col" style="max-width:280px;">
+            <div class="materi-image-col grid-ukur-col" style="max-width:280px;">
                 <img src="{{ asset('images/materi/ukur-salah-3.png') }}"
                      class="img-fluid materi-img rounded-4 shadow"
                      style="max-height: 200px; background: #fffbe9; cursor: pointer;"
@@ -71,8 +71,8 @@
 
     <!-- Box Tahukah Kalian: Fokus Papuyu -->
     <div class="materi-section" style="margin-bottom: 0;">
-        <div class="kearifan-box" style="background: #fffde7; border-left: 5px solid #ffb300; padding: 16px 18px; border-radius: 10px; font-size: 1.06em; color: #775b08; margin-bottom: 18px; box-shadow: 0 2px 8px #ffb30018;">
-            <strong style="font-size:1.1em;">Tahukah Kalian?</strong>
+        <div class="kearifan-box" style="background: #fffde7; border-left: 5px solid #ffb300; padding: 16px 18px; border-radius: 10px; font-size: 1.08rem; color: #775b08; margin-bottom: 18px; box-shadow: 0 2px 8px #ffb30018;">
+            <strong>Tahukah Kalian?</strong>
             <br>
             Papuyu adalah ikan yang biasa ditemukan di rawa-rawa dan sangat disukai oleh masyarakat Kalimantan Selatan, khususnya orang Banjar. Tubuh papuyu pipih dan gepeng, dengan warna sisik punggung hitam serta perut abu-abu kehijauan. Daging ikan ini dikenal enak, tetapi harus berhati-hati karena tulangnya tajam.
             <button onclick="toggleAudio(this)" class="btn-audio" data-id="narasi-1" data-playing="false" style="margin-left:7px;">🔊</button>
@@ -90,50 +90,38 @@
 
 @section('scripts')
 <script>
-    let currentAudio = null;
-    let currentButton = null;
-
     function toggleAudio(button) {
         const id = button.getAttribute('data-id');
-        const audio = document.getElementById(`audio-${id}`);
+        const audio = document.getElementById('audio-' + id);
 
-        // Pause semua audio lain
         document.querySelectorAll('audio').forEach(a => {
-            if (a !== audio) {
+            if (a !== audio && a.id !== 'bg-music') {
                 a.pause();
                 a.currentTime = 0;
             }
         });
 
-        // Reset semua tombol ke 🔊
-        document.querySelectorAll('button[data-id]').forEach(btn => {
+        document.querySelectorAll('.btn-audio').forEach(btn => {
             if (btn !== button) {
                 btn.innerText = '🔊';
                 btn.setAttribute('data-playing', 'false');
             }
         });
 
-        // Toggle play/pause
         if (audio.paused) {
             audio.play();
             button.innerText = '⏸️';
             button.setAttribute('data-playing', 'true');
-            currentAudio = audio;
-            currentButton = button;
         } else {
             audio.pause();
             button.innerText = '🔊';
             button.setAttribute('data-playing', 'false');
         }
-
-        // Auto-reset ikon saat audio selesai
         audio.onended = function () {
             button.innerText = '🔊';
             button.setAttribute('data-playing', 'false');
         };
     }
-
-    // Tooltip bootstrap
     document.addEventListener('DOMContentLoaded', function () {
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         tooltipTriggerList.forEach(function (tooltipTriggerEl) {

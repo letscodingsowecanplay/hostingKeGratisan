@@ -3,21 +3,19 @@
 @section('content')
 
 <!-- Petunjuk Audio di luar main container -->
-<div style="max-width:820px; margin: 28px auto 0 auto;">
-    <div class="petunjuk-audio shadow-sm"
-        style="background:#fff; border-radius:18px; padding:18px 22px; display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; box-shadow:0 2px 14px #b2b1af1a; border:1.5px solid #f1efeb;">
-        <div style="font-size:1.08em;">
-            <b>Petunjuk:</b> Kalau kamu ingin mendengar kalimatnya, tekan tombol 
-            <span style="font-size:1.12em; vertical-align:middle;">🔊</span> 
+<div class="materi-main-container">
+    <div class="petunjuk-audio materi-content">
+        <div>
+            <b>Petunjuk:</b> Kalau kamu ingin mendengar kalimatnya, tekan tombol 🔊
             yang ada di sebelah tulisan. Nanti akan ada suara yang membacakan materi untukmu!
-        </div>
-        <button onclick="toggleAudio(this)" 
+            <button onclick="toggleAudio(this)" 
                 class="btn-audio ms-3"
                 data-id="index-0" data-playing="false"
                 style="margin-left:24px;">
             🔊
         </button>
         <audio id="audio-index-0" src="{{ asset('sounds/materi/index/0.mp3') }}"></audio>
+        </div>
     </div>
 </div>
 
@@ -71,9 +69,9 @@
         </div>
     </div>
 
-    <div class="materi-nav-footer mt-3">
-        <a href="{{ route('admin.materi.halaman10') }}" class="btn btn-nav fs-5">← Sebelumnya</a>
-        <a href="{{ route('admin.materi.halaman12') }}" class="btn btn-nav btn-next fs-5">Selanjutnya →</a>
+    <div class="materi-nav-footer">
+        <a href="{{ route('admin.materi.halaman10') }}" class="btn btn-nav ">← Sebelumnya</a>
+        <a href="{{ route('admin.materi.halaman12') }}" class="btn btn-nav btn-next">Selanjutnya →</a>
     </div>
 </div>
 <br>
@@ -82,41 +80,39 @@
 @section('scripts')
 <script>
     function toggleAudio(button) {
-        const id = button.getAttribute('data-id');
-        const audio = document.getElementById(`audio-${id}`);
+    const id = button.getAttribute('data-id');
+    const audio = document.getElementById('audio-' + id);
 
-        // Pause semua audio lain
-        document.querySelectorAll('audio').forEach(a => {
-            if (a !== audio) {
-                a.pause();
-                a.currentTime = 0;
-            }
-        });
-
-        // Reset semua tombol ke 🔊
-        document.querySelectorAll('.btn-audio').forEach(btn => {
-            if (btn !== button) {
-                btn.innerText = '🔊';
-                btn.setAttribute('data-playing', 'false');
-            }
-        });
-
-        // Toggle play/pause
-        if (audio.paused) {
-            audio.play();
-            button.innerText = '⏸️';
-            button.setAttribute('data-playing', 'true');
-        } else {
-            audio.pause();
-            button.innerText = '🔊';
-            button.setAttribute('data-playing', 'false');
+    // Pause semua audio KECUALI background music
+    document.querySelectorAll('audio').forEach(a => {
+        if (a !== audio && a.id !== 'bg-music') {
+            a.pause();
+            a.currentTime = 0;
         }
+    });
 
-        // Auto-reset ikon saat audio selesai
-        audio.onended = function () {
-            button.innerText = '🔊';
-            button.setAttribute('data-playing', 'false');
-        };
+    // Reset semua tombol audio KECUALI yang aktif
+    document.querySelectorAll('.btn-audio').forEach(btn => {
+        if (btn !== button) {
+            btn.innerText = '🔊';
+            btn.setAttribute('data-playing', 'false');
+        }
+    });
+
+    // Toggle play/pause untuk audio yang di-klik
+    if (audio.paused) {
+        audio.play();
+        button.innerText = '⏸️';
+        button.setAttribute('data-playing', 'true');
+    } else {
+        audio.pause();
+        button.innerText = '🔊';
+        button.setAttribute('data-playing', 'false');
     }
+    audio.onended = function () {
+        button.innerText = '🔊';
+        button.setAttribute('data-playing', 'false');
+    };
+}
 </script>
 @endsection
