@@ -25,14 +25,14 @@
     @php
         $positions = [
             1 => ['a' => ['top'=>'62%','left'=>'31%'], 'b'=>['top'=>'66%','left'=>'73%']],
-            2 => ['a' => ['top'=>'60%','left'=>'38%'], 'b'=>['top'=>'66%','left'=>'67%']],
-            3 => ['a' => ['top'=>'65%','left'=>'37%'], 'b' => ['top'=>'60%','left'=>'69%']],
-            4 => ['a' => ['top'=>'66%','left'=>'29%'], 'b'=>['top'=>'62%','left'=>'74%']],
+            2 => ['a' => ['top'=>'60%','left'=>'25%'], 'b'=>['top'=>'66%','left'=>'75%']],
+            3 => ['a' => ['top'=>'50%','left'=>'25%'], 'b' => ['top'=>'60%','left'=>'75%']],
+            4 => ['a' => ['top'=>'66%','left'=>'29%'], 'b'=>['top'=>'30%','left'=>'74%']],
         ];
         $ukuranPilihan = [
             1 => ['a'=>['w'=>170,'h'=>170], 'b'=>['w'=>170,'h'=>170]],
             2 => ['a'=>['w'=>180,'h'=>180], 'b'=>['w'=>150,'h'=>150]],
-            3 => ['a'=>['w'=>155,'h'=>155], 'b'=>['w'=>170,'h'=>170]],
+            3 => ['a'=>['w'=>200,'h'=>200], 'b'=>['w'=>170,'h'=>170]],
             4 => ['a'=>['w'=>160,'h'=>160], 'b'=>['w'=>140,'h'=>140]],
         ];
         $soalList = [
@@ -53,7 +53,7 @@
         for($i=1;$i<=$totalSoal;$i++){ if(empty($jawabanUser['soal'.$i])) { $firstUnanswered = $i; break; } }
         $penjelasan = [
             1 => [
-                'a' => 'Jawaban kamu salah. Badik Ashu a lebih panjang daripada a.',
+                'a' => 'Jawaban kamu salah. Badik Ashu b lebih panjang daripada a.',
                 'b' => 'Jawaban kamu benar. Badik Ashu b memang lebih panjang di antara pilihan.'
             ],
             2 => [
@@ -87,9 +87,9 @@
                 <audio id="audio-index-2" src="{{ asset('sounds/materi/hal9/2.mp3') }}"></audio>
             </p>
             <div class="position-relative mx-auto mb-2" style="max-width: 420px; height: 235px;">
-                <img src="{{ asset('images/materi/ayo-mencoba-2/contoh_bg.png') }}" class="w-100 h-100 rounded shadow" style="object-fit:cover;">
-                <img src="{{ asset('images/materi/ayo-mencoba-2/contoh_a.png') }}" style="position:absolute;top:63%;left:32%;width:170px;height:170px;transform:translate(-50%,-50%);" class="rounded shadow">
-                <img src="{{ asset('images/materi/ayo-mencoba-2/contoh_b.png') }}" style="position:absolute;top:67%;left:73%;width:170px;height:170px;transform:translate(-50%,-50%);" class="rounded shadow">
+                <img src="{{ asset('images/materi/ayo-mencoba-2/contoh_bg.png') }}" class="w-100 h-100 rounded shadow soal9-img-bg" style="object-fit:cover;">
+                <img src="{{ asset('images/materi/ayo-mencoba-2/contoh_a.png') }}" class="rounded shadow soal9-img-pilihan" style="position:absolute;top:63%;left:32%;width:170px;height:170px;transform:translate(-50%,-50%);">
+                <img src="{{ asset('images/materi/ayo-mencoba-2/contoh_b.png') }}" class="rounded shadow soal9-img-pilihan" style="position:absolute;top:67%;left:73%;width:170px;height:170px;transform:translate(-50%,-50%);">
             </div>
             <div class="drop-area-style text-center mb-4">
                 <p class="text-muted mb-1">Jawaban yang benar:</p>
@@ -142,13 +142,13 @@
                         <audio id="audio-hal9-{{ $no }}" src="{{ asset('sounds/materi/hal9/hal9-' . $no . '.mp3') }}"></audio>
                     </div>
                     <div class="position-relative mx-auto mb-2" style="max-width: 440px; height: 240px;">
-                        <img src="{{ asset('images/materi/ayo-mencoba-2/' . $gambarList[$no]['bg']) }}" class="w-100 h-100 rounded shadow" style="object-fit:cover;">
+                        <img src="{{ asset('images/materi/ayo-mencoba-2/' . $gambarList[$no]['bg']) }}" class="w-100 h-100 rounded shadow soal9-img-bg" style="object-fit:cover;">
                         <img src="{{ asset('images/materi/ayo-mencoba-2/' . $gambarList[$no]['a']) }}"
                             id="option-{{ $no }}-a"
                             data-no="{{ $no }}"
                             data-val="a"
                             draggable="true"
-                            class="rounded shadow drag-opt"
+                            class="rounded shadow drag-opt soal9-img-pilihan"
                             style="position:absolute;
                                 top:{{ $positions[$no]['a']['top'] }};
                                 left:{{ $positions[$no]['a']['left'] }};
@@ -161,7 +161,7 @@
                             data-no="{{ $no }}"
                             data-val="b"
                             draggable="true"
-                            class="rounded shadow drag-opt"
+                            class="rounded shadow drag-opt soal9-img-pilihan"
                             style="position:absolute;
                                 top:{{ $positions[$no]['b']['top'] }};
                                 left:{{ $positions[$no]['b']['left'] }};
@@ -228,9 +228,19 @@
                         <div class="d-flex align-items-center mb-2">
                             <span class="warna-label green-card me-2">{{ $no }}</span>
                             <strong class="flex-grow-1">{{ $soalList[$no] }}</strong>
+                            <button
+                                type="button"
+                                onclick="toggleAudio(this)"
+                                class="btn-audio ms-2"
+                                title="Dengarkan"
+                                data-id="hal9-{{ $no }}"
+                                data-playing="false">
+                                🔊
+                            </button>
+                            <audio id="audio-hal9-{{ $no }}" src="{{ asset('sounds/materi/hal9/hal9-' . $no . '.mp3') }}"></audio>
                         </div>
                         <div class="position-relative mx-auto mb-2" style="max-width: 440px; height: 240px;">
-                            <img src="{{ asset('images/materi/ayo-mencoba-2/' . $gambarList[$no]['bg']) }}" class="w-100 h-100 rounded shadow" style="object-fit:cover;">
+                            <img src="{{ asset('images/materi/ayo-mencoba-2/' . $gambarList[$no]['bg']) }}" class="w-100 h-100 rounded shadow soal9-img-bg" style="object-fit:cover;">
                             <img src="{{ asset('images/materi/ayo-mencoba-2/' . $gambarList[$no]['a']) }}"
                                 style="position:absolute;
                                         top:{{ $positions[$no]['a']['top'] }};
@@ -239,7 +249,8 @@
                                         height:{{ $ukuranPilihan[$no]['a']['h'] }}px;
                                         transform:translate(-50%,-50%);
                                         z-index:9;
-                                        opacity:{{ ($jawabanUser['soal'.$no] ?? '')=='a' ? '1' : '.35' }};">
+                                        opacity:{{ ($jawabanUser['soal'.$no] ?? '')=='a' ? '1' : '.35' }};"
+                                class="soal9-img-pilihan">
                             <img src="{{ asset('images/materi/ayo-mencoba-2/' . $gambarList[$no]['b']) }}"
                                 style="position:absolute;
                                         top:{{ $positions[$no]['b']['top'] }};
@@ -248,7 +259,8 @@
                                         height:{{ $ukuranPilihan[$no]['b']['h'] }}px;
                                         transform:translate(-50%,-50%);
                                         z-index:9;
-                                        opacity:{{ ($jawabanUser['soal'.$no] ?? '')=='b' ? '1' : '.35' }};">
+                                        opacity:{{ ($jawabanUser['soal'.$no] ?? '')=='b' ? '1' : '.35' }};"
+                                class="soal9-img-pilihan">
                         </div>
                         <div class="drop-area-style text-center mb-3 feedback-identik" style="width:100%;">
                             @php
@@ -357,8 +369,11 @@ function showStep(no) {
     }
     currentStep = no;
 }
+
 document.addEventListener('DOMContentLoaded', function() {
     @if(count($jawabanUser) < $totalSoal)
+    let isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
     for(let no=1; no<=totalSoal; no++) {
         let dropArea = document.getElementById('drop-area-' + no);
         let jawabanDrop = document.getElementById('jawabanDrop' + no);
@@ -366,11 +381,127 @@ document.addEventListener('DOMContentLoaded', function() {
         ['a','b'].forEach(function(opt){
             let dragImg = document.getElementById(`option-${no}-${opt}`);
             if (!dragImg) return;
+
+            // DESKTOP DRAG & DROP
             dragImg.addEventListener('dragstart', function(e) {
                 e.dataTransfer.setData('text/plain', this.id);
                 e.dataTransfer.setData('soal-no', this.dataset.no);
                 e.dataTransfer.setData('jawab-val', this.dataset.val);
             });
+
+            // MOBILE TOUCH DRAG & DROP
+            if(isTouch) {
+                let ghost = null;
+                dragImg.addEventListener('touchstart', function(e){
+                    e.preventDefault();
+                    let startX = e.touches[0].clientX;
+                    let startY = e.touches[0].clientY;
+                    ghost = dragImg.cloneNode(true);
+                    ghost.style.position = 'fixed';
+                    ghost.style.pointerEvents = 'none';
+                    ghost.style.zIndex = 10001;
+                    ghost.style.left = (startX-30)+'px';
+                    ghost.style.top = (startY-30)+'px';
+                    ghost.style.width = dragImg.offsetWidth + 'px';
+                    ghost.style.opacity = 0.7;
+                    ghost.removeAttribute('id');
+                    document.body.appendChild(ghost);
+
+                    const moveHandler = function(ev){
+                        let moveX = ev.touches[0].clientX;
+                        let moveY = ev.touches[0].clientY;
+                        ghost.style.left = (moveX-30)+'px';
+                        ghost.style.top = (moveY-30)+'px';
+                    };
+                    const endHandler = function(ev){
+                        if(ghost){
+                            let touch = ev.changedTouches[0];
+                            let rect = dropArea.getBoundingClientRect();
+                            if(
+                                touch.clientX >= rect.left && touch.clientX <= rect.right &&
+                                touch.clientY >= rect.top && touch.clientY <= rect.bottom
+                            ){
+                                // Jalankan logika drop manual
+                                if (jawabanDrop.value) return;
+                                dropArea.querySelectorAll('img.drop-gambar-fit').forEach(el => el.remove());
+                                dropArea.querySelectorAll('.feedback-identik').forEach(el => el.remove());
+                                let hint = dropArea.querySelector('p.text-muted');
+                                if(hint) hint.style.opacity = '0.3';
+                                let imgAns = dragImg.cloneNode(true);
+                                imgAns.setAttribute('draggable', false);
+                                imgAns.className = 'drop-gambar-fit rounded shadow';
+                                imgAns.removeAttribute('style');
+                                let feedback = document.createElement('div');
+                                feedback.className = "feedback-identik";
+                                feedback.style.width = "100%";
+                                feedback.innerHTML = `<span class="badge warna-label mb-2" id="badge-feedback-${no}" style="font-size:1.18em;"></span>`;
+                                dropArea.appendChild(feedback);
+                                dropArea.appendChild(imgAns);
+                                setTimeout(() => {
+                                    dropArea.style.minHeight = Math.max(120, imgAns.offsetHeight + 40) + 'px';
+                                    dropArea.style.padding = "18px 0";
+                                    imgAns.style.opacity = '1';
+                                    setTimeout(() => {
+                                        jawabanDrop.value = opt;
+                                        fetch("{{ route('admin.materi.halaman9.jawab') }}", {
+                                            method: 'POST',
+                                            headers: {'Content-Type':'application/json','X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                                            body: JSON.stringify({ no: no, jawaban: opt })
+                                        })
+                                        .then(res => res.json())
+                                        .then(res => {
+                                            if (!res.success) {
+                                                alert(res.msg ?? 'Terjadi kesalahan!');
+                                                return;
+                                            }
+                                            let badge = document.getElementById('badge-feedback-' + no);
+                                            if(badge){
+                                                badge.classList.remove('green-card','red-card');
+                                                badge.classList.add(res.benar ? 'green-card':'red-card');
+                                                badge.innerHTML = res.benar ? 'Jawaban Benar &#10003;' : 'Jawaban Salah &#10007;';
+                                            }
+                                            let card = document.createElement('div');
+                                            card.className = "card card-body border-info bg-light mt-2 w-100";
+                                            card.innerHTML = `
+                                                <span>${res.penjelasan}
+                                                <button type="button" onclick="playPenjelasanAudio(${no}, this)" class="btn btn-audio ms-2">🔊</button>
+                                                <audio id="audio-penjelasan-${no}" src=""></audio></span>
+                                                <hr>
+                                                <span class="badge warna-label yellow-card" style="font-size:1.09em;">
+                                                    <strong>Kunci Jawaban:</strong> ${res.kunci.toUpperCase()}
+                                                </span>
+                                            `;
+                                            dropArea.appendChild(card);
+
+                                            showFeedbackPopupAutoAudio(res, no, function(){
+                                                fetch('{{ route('admin.materi.halaman9') }}', {headers: {'X-Requested-With': 'XMLHttpRequest'}})
+                                                .then(response => response.text())
+                                                .then(html => {
+                                                    let match = html.match(/let currentStep = (\d+)/);
+                                                    let nextUnanswered = match ? parseInt(match[1]) : 1;
+                                                    let allAnswered = !!res.semua_sudah;
+                                                    setTimeout(() => {
+                                                        showStep(nextUnanswered);
+                                                        if (allAnswered) {
+                                                            window.location.reload();
+                                                        }
+                                                    }, 100);
+                                                });
+                                            });
+                                        });
+                                    }, 350);
+                                }, 30);
+                            }
+                            document.body.removeChild(ghost);
+                            ghost = null;
+                        }
+                        document.removeEventListener('touchmove', moveHandler);
+                        document.removeEventListener('touchend', endHandler);
+                    };
+                    document.addEventListener('touchmove', moveHandler, {passive:false});
+                    document.addEventListener('touchend', endHandler);
+                });
+            }
         });
         dropArea.addEventListener('dragover', function(e) {
             e.preventDefault();
@@ -390,30 +521,20 @@ document.addEventListener('DOMContentLoaded', function() {
             if (jawabanDrop.value) return;
             const dragged = document.getElementById(draggedId);
             if (!dragged) return;
-            // Hapus gambar hasil drop sebelumnya (kalau ada)
             dropArea.querySelectorAll('img.drop-gambar-fit').forEach(el => el.remove());
-            // Hapus feedback sebelumnya (kalau ada)
             dropArea.querySelectorAll('.feedback-identik').forEach(el => el.remove());
-            // Tampilkan instruksi (tetap muncul walau selesai), tapi opacity 0.3 setelah jawab
             let hint = dropArea.querySelector('p.text-muted');
             if(hint) hint.style.opacity = '0.3';
-            // Kloning gambar jawaban
             let imgAns = dragged.cloneNode(true);
             imgAns.setAttribute('draggable', false);
             imgAns.className = 'drop-gambar-fit rounded shadow';
             imgAns.removeAttribute('style');
-            // Buat badge feedback
             let feedback = document.createElement('div');
             feedback.className = "feedback-identik";
             feedback.style.width = "100%";
-            feedback.innerHTML = `
-                <span class="badge warna-label mb-2" id="badge-feedback-${targetSoal}" style="font-size:1.18em;"></span>
-            `;
-            // Tambahkan badge feedback lebih dulu
+            feedback.innerHTML = `<span class="badge warna-label mb-2" id="badge-feedback-${targetSoal}" style="font-size:1.18em;"></span>`;
             dropArea.appendChild(feedback);
-            // Tambahkan gambar jawaban tepat di bawah badge
             dropArea.appendChild(imgAns);
-            // Lanjut request backend untuk ambil status dsb
             setTimeout(() => {
                 dropArea.style.minHeight = Math.max(120, imgAns.offsetHeight + 40) + 'px';
                 dropArea.style.padding = "18px 0";
@@ -431,14 +552,12 @@ document.addEventListener('DOMContentLoaded', function() {
                             alert(res.msg ?? 'Terjadi kesalahan!');
                             return;
                         }
-                        // Set badge text & warna
                         let badge = document.getElementById('badge-feedback-' + targetSoal);
                         if(badge){
                             badge.classList.remove('green-card','red-card');
                             badge.classList.add(res.benar ? 'green-card':'red-card');
                             badge.innerHTML = res.benar ? 'Jawaban Benar &#10003;' : 'Jawaban Salah &#10007;';
                         }
-                        // Tambahkan penjelasan setelah gambar
                         let card = document.createElement('div');
                         card.className = "card card-body border-info bg-light mt-2 w-100";
                         card.innerHTML = `
@@ -480,8 +599,8 @@ function showFeedbackPopupAutoAudio(res, soalNo, afterClose) {
     let popupImg = document.getElementById('popup-img');
     let benar = res.benar === true;
     popupImg.src = benar
-        ? '{{ asset('images/feedback/benar.png') }}'
-        : '{{ asset('images/feedback/salah.png') }}';
+        ? '{{ asset('images/materi/ayo-mencoba-2/benar.png') }}'
+        : '{{ asset('images/materi/ayo-mencoba-2/salah.png') }}';
     document.getElementById('popup-judul').innerText = res.feedback.judul;
     document.getElementById('popup-text').innerText = res.feedback.text;
     document.getElementById('popup-kunci').innerHTML = `Kunci Jawaban: <b>${res.kunci.toUpperCase()}</b>`;

@@ -274,11 +274,11 @@
     <audio id="bg-music" src="<?php echo e(asset('sounds/music.mp3')); ?>" loop preload="auto"></audio>
     <script>
         const bgMusic = document.getElementById('bg-music');
-        bgMusic.volume = 0.25;
+        bgMusic.volume = 0.15;
         let musicStarted = false;
         function playMusic() {
             if (musicStarted) return;
-            musicStarted = true;
+                musicStarted = true;
             if (bgMusic.readyState >= 2) {
                 bgMusic.play().catch(()=>{});
             } else {

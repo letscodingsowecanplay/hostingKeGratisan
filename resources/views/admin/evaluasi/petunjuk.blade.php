@@ -9,7 +9,7 @@
     </div>
     <div class="dashboard-bar" style="gap:32px; flex-wrap:wrap;">
         {{-- Kolom 1: Profil dan Daftar Isi --}}
-        <div class="card-box green-card text-white" style="max-width:340px; width:100%;">
+        <div class="card-box green-card" style="max-width:340px; width:100%;">
             <div class="card-title d-flex align-items-center mb-2">
                 <i class="bi bi-info-circle me-2"></i> Evaluasi
                 <button onclick="toggleAudio(this)" 
@@ -27,7 +27,7 @@
         </div>
 
         {{-- Kolom 2: Petunjuk Kuis --}}
-        <div class="card-box orange-card text-white" style="max-width:340px; width:100%;">
+        <div class="card-box orange-card" style="max-width:340px; width:100%;">
             <div class="card-title d-flex align-items-center mb-2">
                 <i class="bi bi-info-circle me-2"></i> Petunjuk Evaluasi
                 <button onclick="toggleAudio(this)" 
@@ -53,7 +53,7 @@
         </div>
 
         {{-- Kolom 3: Data Siswa dan Tombol --}}
-        <div class="card-box blue-card text-white" style="max-width:340px; width:100%;">
+        <div class="card-box blue-card" style="max-width:340px; width:100%;">
             <div class="card-title d-flex align-items-center mb-2">
                 <i class="bi bi-gear me-2"></i> Data Siswa
                 <button onclick="toggleAudio(this)" 
@@ -101,8 +101,8 @@
     <div class="row justify-content-center mt-3">
         <div class="col-md-6">
             <div class="card purple-card" style="border-radius:22px;">
-                <div class="card-title text-center pt-3" style="color:#fff;"><strong>Hasil Evaluasi</strong></div>
-                <div class="card-content-wrap w-100 px-4 py-3" style="color:#fff;">
+                <div class="card-title text-center pt-3"><strong>Hasil Evaluasi</strong></div>
+                <div class="card-content-wrap w-100 px-4 py-3">
                     <p class="mb-2"><strong>Nilai:</strong> {{ $hasil->skor_persen }} / 100</p>
                     <p class="mb-2"><strong>Persentase:</strong> {{ $hasil->skor_persen }}%</p>
                     @if($hasil->skor < 70)
@@ -122,14 +122,14 @@
 .card-box,
 .card-box .card-content-wrap,
 .card-box .card-title {
-    color: #fff !important;
+
 }
 .card-box .card-content-wrap p,
 .card-box .card-content-wrap li,
 .card-box .card-content-wrap strong,
 .card-box .card-content-wrap ol,
 .card-box .card-content-wrap ul {
-    color: #fff !important;
+
 }
 
 /* Tombol audio baru */
@@ -205,11 +205,6 @@
     background: linear-gradient(120deg, #ffe145 85%, #fbd046 100%) !important;
     color: #fff !important;
     border: none !important;
-}
-
-/* Pastikan hasil evaluasi font putih */
-.card.blue-card .card-content-wrap p {
-    color: #fff !important;
 }
 
 @media (max-width: 768px) {

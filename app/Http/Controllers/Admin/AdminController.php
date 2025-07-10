@@ -203,13 +203,48 @@ class AdminController extends Controller
 
     public function kkmEdit(Kkm $kkm)
     {
-        return view('admin.kkm.edit', compact('kkm'));
+        $soalPerKuis = [
+            'ayo-mencoba-1' => 4,
+            'ayo-berlatih-1' => 4,
+            'ayo-mencoba-2' => 4,
+            'ayo-berlatih-2' => 5,
+            'ayo-mencoba-3' => 4,
+            'ayo-berlatih-3' => 5,
+            'evaluasi-1'     => 10,
+        ];
+        $kuis_id = $kkm->kuis_id;
+        $jumlahSoal = $soalPerKuis[$kuis_id] ?? 4;
+        $nilaiPerSoal = 100 / $jumlahSoal;
+        $minKkm = $nilaiPerSoal;
+        $maxKkm = 100;
+
+        return view('admin.kkm.edit', compact('kkm', 'minKkm', 'maxKkm'));
     }
 
     public function kkmUpdate(Request $request, Kkm $kkm)
     {
+        // Mapping jumlah soal per kuis
+        $soalPerKuis = [
+            'ayo-mencoba-1' => 4,
+            'ayo-berlatih-1' => 4,
+            'ayo-mencoba-2' => 4,
+            'ayo-berlatih-2' => 5,
+            'ayo-mencoba-3' => 4,
+            'ayo-berlatih-3' => 5,
+            'evaluasi-1'     => 10,
+        ];
+
+        $kuis_id = $kkm->kuis_id;
+        $jumlahSoal = $soalPerKuis[$kuis_id] ?? 4; // default 4 jika tidak terdaftar
+        $nilaiPerSoal = 100 / $jumlahSoal;
+        $minKkm = $nilaiPerSoal;
+        $maxKkm = 100;
+
         $request->validate([
-            'kkm' => 'required|integer|min:1'
+            'kkm' => ['required', 'integer', "min:$minKkm", "max:$maxKkm"]
+        ], [
+            'kkm.min' => "KKM minimal adalah $minKkm untuk kuis ini.",
+            'kkm.max' => "KKM maksimal adalah $maxKkm."
         ]);
 
         $kkm->update([
@@ -217,18 +252,17 @@ class AdminController extends Controller
         ]);
 
         // Update status semua nilai yang pakai kuis ini
-        Nilai::where('kuis_id', $kkm->kuis_id)->get()->each(function ($nilai) use ($kkm) {
+        \App\Models\Nilai::where('kuis_id', $kkm->kuis_id)->get()->each(function ($nilai) use ($kkm) {
             $statusBaru = $nilai->skor >= $kkm->kkm ? 'lulus' : 'tidak_lulus';
             if ($nilai->status !== $statusBaru) {
                 $nilai->status = $statusBaru;
-                $nilai->save(); // observer tidak diperlukan karena logic jelas di sini
+                $nilai->save();
             }
         });
 
         flash()->addSuccess("KKM berhasil diperbarui dan status nilai diperbarui.");
         return redirect()->route('admin.kkm.index');
     }
-
 
     public function kkmDestroy(Kkm $kkm)
     {

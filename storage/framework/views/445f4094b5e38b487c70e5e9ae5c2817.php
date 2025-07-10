@@ -48,7 +48,6 @@
         Ayo Berlatih
     </div>
     <div class="materi-section shadow-sm rounded-3 py-3 px-3" style="background:#fff;">
-        <div class="warna-label orange-card mb-2" style="font-size:1rem;">Ayo Berlatih</div>
         <div class="materi-content mb-3">
             Amati gambar berikut dengan saksama! Susunlah benda-benda berikut untuk mengukur suatu objek secara tepat menggunakan satuan tidak baku!
             <button onclick="toggleAudio(this)" class="btn-audio" data-id="index-1" data-playing="false">🔊</button>
@@ -60,7 +59,6 @@
                 <li>Seret dan letakkan benda tersebut ke area dropzone pada objek yang akan diukur secara tepat dan sesuai.</li>
             </ul>
         </div>
-
         <div class="mb-4" id="stepper-soal-container" style="<?php echo e(count($jawabanUser ?? []) === $jumlahSoal ? 'display:none;' : ''); ?>">
             <div class="d-flex justify-content-center gap-2 mb-2" id="stepper-soal">
                 <?php for($no = 1; $no <= $jumlahSoal; $no++): ?>
@@ -74,7 +72,6 @@
                 <?php endfor; ?>
             </div>
         </div>
-
         <form id="kuisForm" autocomplete="off" style="<?php echo e(count($jawabanUser ?? []) === $jumlahSoal ? 'display:none;' : ''); ?>">
             <?php echo csrf_field(); ?>
             <input type="hidden" id="currentSoal" name="currentSoal" value="<?php echo e($firstUnanswered); ?>">
@@ -85,16 +82,16 @@
         <form action="<?php echo e(route('admin.materi.halaman16.reset')); ?>" method="POST" class="mt-3 text-center" id="formResetKuis" style="display:none;">
             <?php echo csrf_field(); ?>
             <?php echo method_field('DELETE'); ?>
-            <button type="submit" class="btn btn-danger fs-5" id="btn-reset-kuis">Ulangi Kuis</button>
+            <button type="submit" class="btn btn-danger fs-5" id="btn-reset-kuis">Ulangi Soal</button>
         </form>
         <div id="alertHasilKuis"></div>
     </div>
     <div class="materi-nav-footer mt-3">
-        <a href="<?php echo e(route('admin.materi.halaman15')); ?>" class="btn btn-nav fs-5" style="min-width:160px;">← Sebelumnya</a>
+        <a href="<?php echo e(route('admin.materi.halaman15')); ?>" class="btn btn-nav" style="min-width:160px;">← Sebelumnya</a>
         <?php if($sudahMenjawab && $skor >= $kkm): ?>
-            <a href="<?php echo e(route('admin.evaluasi.petunjuk')); ?>" class="btn btn-nav btn-next fs-5" style="min-width:160px;">Selanjutnya →</a>
+            <a href="<?php echo e(route('admin.evaluasi.petunjuk')); ?>" class="btn btn-nav btn-next" style="min-width:160px;">Selanjutnya →</a>
         <?php else: ?>
-            <button class="btn btn-nav btn-next fs-5" style="min-width:160px; opacity:.6; pointer-events:none;">Selanjutnya →</button>
+            <button class="btn btn-nav btn-next" style="min-width:160px; opacity:.6; pointer-events:none;">Selanjutnya →</button>
         <?php endif; ?>
     </div>
 </div>
@@ -122,6 +119,18 @@ let skorRes = <?php echo e($skor ?? 0); ?>;
 let statusKkmRes = "<?php echo e($status ?? ''); ?>";
 let kkmValue = <?php echo e($kkm ?? 60); ?>;
 let currentNo = <?php echo e($firstUnanswered); ?>;
+
+/**
+ * Pause semua audio materi, kecuali bg-music dan audio yang sedang akan play
+ */
+function pauseAllMateriAudio(exceptAudio = null) {
+    document.querySelectorAll('audio').forEach(function(a){
+        if (a !== exceptAudio && a.id !== 'bg-music') {
+            a.pause();
+            a.currentTime = 0;
+        }
+    });
+}
 
 function renderSoal(no) {
     for(let i=1;i<=jumlahSoal;i++){
@@ -203,9 +212,13 @@ function renderSoal(no) {
     if (sudahDiisi) { showPenjelasanSetelahPeriksa(no);}
 }
 
+/** PATCH: drag drop support mobile + desktop tanpa mengubah tampilan **/
 function setDragDrop(no){
     let dragged = null;
     let draggedSlot = null;
+    let isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+    // Desktop: standar drag-n-drop
     document.querySelectorAll(`#blokSoal${no} .alat-satuan[draggable="true"]`).forEach(function (el) {
         el.addEventListener('dragstart', function (e) {
             dragged = el;
@@ -240,6 +253,75 @@ function setDragDrop(no){
         zone.appendChild(clone);
         document.getElementById('jawabanDrop'+no).value = count + 1;
     });
+
+    // MOBILE: touch-based drag-n-drop fallback
+    if(isTouch){
+        document.querySelectorAll(`#blokSoal${no} .alat-satuan[draggable="true"]`).forEach(function(el){
+            let startX, startY, origParent;
+            let isDragging = false;
+            let ghost = null;
+            el.addEventListener('touchstart', function(e){
+                if (el.parentNode.classList.contains('satuan-slot') && el.parentNode.classList.contains('empty')) return;
+                isDragging = true;
+                dragged = el;
+                draggedSlot = el.parentNode;
+                origParent = el.parentNode;
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+
+                // Ghost image
+                ghost = el.cloneNode(true);
+                ghost.style.position = 'fixed';
+                ghost.style.pointerEvents = 'none';
+                ghost.style.zIndex = 10001;
+                ghost.style.left = (startX-30)+'px';
+                ghost.style.top = (startY-30)+'px';
+                ghost.style.width = el.offsetWidth + 'px';
+                ghost.style.opacity = 0.7;
+                document.body.appendChild(ghost);
+            });
+            el.addEventListener('touchmove', function(e){
+                if(!isDragging || !ghost) return;
+                e.preventDefault();
+                let moveX = e.touches[0].clientX;
+                let moveY = e.touches[0].clientY;
+                ghost.style.left = (moveX-30)+'px';
+                ghost.style.top = (moveY-30)+'px';
+            }, {passive:false});
+            el.addEventListener('touchend', function(e){
+                if(!isDragging) return;
+                isDragging = false;
+                if(ghost){
+                    // Cek overlap dropzone
+                    let touch = e.changedTouches[0];
+                    let dz = document.getElementById('drop-area-'+no);
+                    let rect = dz.getBoundingClientRect();
+                    if(
+                        touch.clientX >= rect.left && touch.clientX <= rect.right &&
+                        touch.clientY >= rect.top && touch.clientY <= rect.bottom
+                    ){
+                        let count = dz.querySelectorAll('img.alat-satuan:not(.opacity-50)').length;
+                        if(count < maxItems){
+                            if (draggedSlot && draggedSlot.classList.contains('satuan-slot')) {
+                                draggedSlot.innerHTML = '';
+                                draggedSlot.classList.add('empty');
+                            }
+                            let clone = el.cloneNode(true);
+                            clone.removeAttribute('id');
+                            clone.setAttribute('draggable', false);
+                            clone.classList.add('mb-1');
+                            clone.style.visibility = "visible";
+                            dz.appendChild(clone);
+                            document.getElementById('jawabanDrop'+no).value = count + 1;
+                        }
+                    }
+                    document.body.removeChild(ghost);
+                    ghost = null;
+                }
+                dragged = null; draggedSlot = null;
+            });
+        });
+    }
 }
 
 function periksaSoal(no){
@@ -299,6 +381,7 @@ function showFeedback(benar, penjelasanText, gambar, audioUrl, callback) {
     popup.style.display = 'flex';
     if(audioUrl){
         audio.src = audioUrl;
+        pauseAllMateriAudio(audio); // hanya feedback audio yg play
         audio.currentTime = 0; audio.play();
         audio.onended = function () {
             popup.style.display = 'none';
@@ -431,9 +514,7 @@ function showReviewSoal(no){
 function toggleAudio(button) { 
     const id = button.getAttribute('data-id');
     const audio = document.getElementById(`audio-${id}`);
-    document.querySelectorAll('audio').forEach(a => {
-        if (a !== audio) { a.pause(); a.currentTime = 0; }
-    });
+    pauseAllMateriAudio(audio);
     document.querySelectorAll('button[data-id]').forEach(btn => {
         if (btn !== button) {
             btn.innerText = '🔊';
@@ -456,9 +537,7 @@ function toggleAudio(button) {
 }
 function playPenjelasanAudio(no, btn, tipe){ 
     const audio = document.getElementById('audio-penjelasan-' + no + '-' + tipe);
-    document.querySelectorAll('audio[id^="audio-penjelasan-"]').forEach(a => {
-        if(a !== audio){ a.pause(); a.currentTime = 0; }
-    });
+    pauseAllMateriAudio(audio);
     if(audio.paused){
         audio.play();
         btn.innerText = "⏸️";

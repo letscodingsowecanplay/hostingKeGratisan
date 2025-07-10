@@ -19,8 +19,8 @@
                             d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m13-5a4 4 0 11-8 0 4 4 0 018 0zM7 8a4 4 0 100 8 4 4 0 000-8z" />
                     </svg>
                 </div>
-                <div class="card-title text-light">Selamat datang, <?php echo e(auth()->user()->name); ?></div>
-                <div class="card-content text-light">
+                <div class="card-title">Selamat datang, <?php echo e(auth()->user()->name); ?></div>
+                <div class="card-content">
                     <span style="font-size:0.97em;">
                         <?php
                             $roles = auth()->user()->getRoleNames()->toArray();
@@ -46,8 +46,8 @@
                         <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
                     </svg>
                 </div>
-                <div class="card-title text-light">Capaian Pembelajaran</div>
-                <div class="card-content text-light">
+                <div class="card-title">Capaian Pembelajaran</div>
+                <div class="card-content">
                     Pada akhir Fase A, peserta didik dapat membandingkan panjang dan berat benda secara langsung.<br>
                     Mereka dapat mengukur dan mengestimasi panjang benda menggunakan satuan tidak baku.
                 </div>
@@ -65,8 +65,8 @@
                         <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 8 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 5 15.4a1.65 1.65 0 0 0-1.51-1V13a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 5 8.6a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 8 4.6c.2-.09.41-.14.63-.14H12a1.65 1.65 0 0 0 1-.33z"/>
                     </svg>
                 </div>
-                <div class="card-title text-light" style="margin-bottom:18px;">Menu Guru</div>
-                <div class="admin-menu-grid text-light">
+                <div class="card-title" style="margin-bottom:18px;">Menu Guru</div>
+                <div class="admin-menu-grid">
                     <!-- Tombol Data Siswa -->
                     <a href="<?php echo e(route('admin.datasiswa.index')); ?>" class="menu-btn menu-btn-yellow">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="#bf9700" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 0 0-3-3.87M9 20H4v-2a4 4 0 0 1 3-3.87m13-5a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM7 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg>
@@ -158,8 +158,8 @@
                         <path d="M20 6.5V4A2.5 2.5 0 0 0 17.5 1.5H4"/>
                     </svg>
                 </div>
-                <div class="card-title text-light">Mulai Belajar</div>
-                <div class="card-content text-light">Akses materi pembelajaran dan latihan interaktif.</div>
+                <div class="card-title">Mulai Belajar</div>
+                <div class="card-content">Akses materi pembelajaran dan latihan interaktif.</div>
                 <a href="<?php echo e(route('admin.materi.index')); ?>" class="card-btn">Mulai Belajar</a>
             </div>
         </div>
@@ -172,8 +172,8 @@
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                     </svg>
                 </div>
-                <div class="card-title text-light">Mulai Evaluasi</div>
-                <div class="card-content text-light">Kerjakan evaluasi sebagai penutup pembelajaran.</div>
+                <div class="card-title">Mulai Evaluasi</div>
+                <div class="card-content">Kerjakan evaluasi sebagai penutup pembelajaran.</div>
                 <a id="card-evaluasi-link" href="<?php echo e(route('admin.evaluasi.petunjuk')); ?>" class="card-btn">Mulai Evaluasi</a>
                 <!-- Overlay Gembok -->
                 <div id="gembok-evaluasi-overlay" class="gembok-overlay d-none"

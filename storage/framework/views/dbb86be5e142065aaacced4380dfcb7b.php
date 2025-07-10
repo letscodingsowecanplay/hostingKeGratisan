@@ -1,11 +1,8 @@
 
-
 <?php $__env->startSection('title', 'Ayo Berlatih'); ?>
-
 <?php $__env->startSection('content'); ?>
 <div class="materi-main-container fs-5" id="hal10-container">
     <h2 class="fw-bold text-center mb-3" style="font-size: 2rem;">Ayo Berlatih</h2>
-
     <div id="popup-feedback" style="display:none; position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1000; background:rgba(40,75,99,.13); align-items:center;justify-content:center;">
         <div style="background:#fff; border-radius:16px; box-shadow:0 7px 38px #2223; padding:32px 38px; max-width:400px; width:98vw; text-align:center; position:relative;">
             <img id="popup-img" src="" style="max-width:130px; max-height:130px; margin-bottom:15px; border-radius:15px; box-shadow:0 3px 15px #0002;">
@@ -15,7 +12,6 @@
         </div>
         <audio id="popup-audio" src=""></audio>
     </div>
-
     <div class="materi-content">
         <p class="mb-4">
             Amati gambar berikut dengan saksama! Pilih salah satu jawaban yang benar dari pilihan A, B, atau C di bawah ini!
@@ -23,7 +19,6 @@
             <audio id="audio-index-1" src="<?php echo e(asset('sounds/materi/hal10/1.mp3')); ?>"></audio>
         </p>
     </div>
-
     <?php
         $totalSoal = count($soal);
         $firstUnanswered = 1;
@@ -53,12 +48,13 @@
         $kkm = $kkm ?? 70;
     ?>
 
-    <?php if(count($jawabanUser) < $totalSoal): ?>
-    <div id="stepper-soal">
+    
+    <div id="stepper-soal"
+         style="<?php if(count($jawabanUser) === $totalSoal): ?>display:none;<?php endif; ?>">
         <div class="d-flex justify-content-center gap-2 mb-4">
             <?php for($no = 1; $no <= $totalSoal; $no++): ?>
                 <button type="button"
-                    class="btn btn-outline-primary px-3 py-1 stepper-btn <?php if($no === $firstUnanswered): ?> btn-primary <?php endif; ?>"
+                    class="btn btn-outline-primary px-3 py-1 stepper-btn"
                     onclick="showStep(<?php echo e($no); ?>)"
                     id="btn-stepper-<?php echo e($no); ?>">
                     Soal <?php echo e($no); ?>
@@ -74,9 +70,8 @@
                 $penjelasanSoal = $penjelasan[$index] ?? ['benar' => '', 'salah' => ''];
                 $isBenar = ($userAnswer !== null && $userAnswer === $kunci);
             ?>
-
             <div class="mb-5 materi-section shadow-sm rounded-3 py-3 px-3 soal-step"
-                 id="soal-step-<?php echo e($no); ?>" style="<?php if($no !== $firstUnanswered): ?>display:none;<?php endif; ?>;background:#fff;">
+                 id="soal-step-<?php echo e($no); ?>" style="display:none;background:#fff;">
                 <div class="d-flex align-items-center mb-2" style="gap: 16px;">
                     <span class="warna-label yellow-card" style="font-size:1rem; margin-bottom:0; padding:6px 18px;">
                         <?php echo e($no); ?>.
@@ -144,7 +139,7 @@
                                         <?php if($isUserAnswer): ?>
                                             <span class="badge bg-light text-dark ms-2">Jawaban Kamu</span>
                                         <?php endif; ?>
-                                        <button type="button" onclick="playRadioAudio(this)" class="btn btn-sm btn-outline-dark bg-coklapbet text-white ms-2" data-audio-id="<?php echo e($audioId); ?>" data-playing="false">🔊</button>
+                                        <button type="button" onclick="playRadioAudio(this)" class="btn-audio" data-audio-id="<?php echo e($audioId); ?>" data-playing="false">🔊</button>
                                         <audio id="<?php echo e($audioId); ?>" src="<?php echo e($audioPilihan); ?>"></audio>
                                     </div>
                                 <?php endif; ?>
@@ -152,7 +147,6 @@
                         </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
-                
                 <div id="penjelasan-<?php echo e($index); ?>" class="mt-2">
                 <?php if($userAnswer !== null): ?>
                     <span class="badge warna-label <?php echo e($isBenar ? 'green-card':'red-card'); ?> mb-1">
@@ -180,8 +174,8 @@
             </div>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
-    <?php endif; ?>
 
+    
     <?php if(count($jawabanUser) === $totalSoal): ?>
         <div id="review-area">
             <div class="text-center mb-3">
@@ -212,6 +206,16 @@
                         <?php echo e($item['pertanyaan']); ?>
 
                     </span>
+                    <button
+                        type="button"
+                        onclick="toggleAudio(this)"
+                        class="btn-audio ms-2"
+                        title="Dengarkan"
+                        data-id="hal10-<?php echo e($no); ?>"
+                        data-playing="false">
+                        🔊
+                    </button>
+                    <audio id="audio-hal10-<?php echo e($no); ?>" src="<?php echo e(asset('sounds/materi/hal10/hal10-' . $no . '.mp3')); ?>"></audio>
                 </div>
                 <?php if(!empty($item['gambar'])): ?>
                     <div class="materi-image-row justify-content-center my-2">
@@ -278,7 +282,7 @@
                 <?php if($skor < $kkm): ?>
                     <form action="<?php echo e(route('admin.materi.halaman10.reset')); ?>" method="POST" class="mt-3">
                         <?php echo csrf_field(); ?>
-                        <button type="submit" class="btn btn-danger fs-5">Ulangi Kuis</button>
+                        <button type="submit" class="btn btn-danger fs-5">Ulangi Soal</button>
                     </form><br>
                 <?php endif; ?>
                 <div class="text-center flex-grow-1 fs-5">
@@ -296,7 +300,6 @@
             </div>
         </div>
     <?php endif; ?>
-
     <div class="materi-nav-footer" style="margin-top:32px;">
         <a href="<?php echo e(route('admin.materi.halaman9')); ?>" class="btn-nav" style="min-width:160px">← Sebelumnya</a>
         <?php if(count($jawabanUser) === $totalSoal && $skor >= $kkm): ?>
@@ -399,113 +402,6 @@ function showStep(no) {
         if(btn) btn.classList.toggle('btn-primary', i === no);
     }
     currentStep = no;
-    setTimeout(() => {
-        const stepEl = document.getElementById('soal-step-' + no);
-        if (stepEl) stepEl.scrollIntoView({behavior:'smooth', block:'center'});
-    }, 20);
-}
-
-// Penjelasan update SETELAH popup audio selesai
-document.addEventListener('DOMContentLoaded', function() {
-    <?php if(count($jawabanUser) < $totalSoal): ?>
-    document.querySelectorAll('.soal-step input[type=radio][name^="jawaban_"]').forEach(function(radio) {
-        radio.addEventListener('change', function(e) {
-            if (this.disabled) return;
-            let index = parseInt(this.getAttribute('data-index'));
-            let no = parseInt(this.getAttribute('data-no'));
-            let jawaban = this.value;
-            let radios = document.querySelectorAll('input[name="jawaban_'+index+'"]');
-            radios.forEach(x => x.disabled = true);
-            fetch('<?php echo e(route('admin.materi.halaman10.jawab')); ?>', {
-                method: 'POST',
-                headers: {'Content-Type':'application/json','X-CSRF-TOKEN': '<?php echo e(csrf_token()); ?>'},
-                body: JSON.stringify({index: index, jawaban: jawaban})
-            })
-            .then(res => res.json())
-            .then(res => {
-                if (!res.success) {
-                    alert(res.msg ?? 'Terjadi kesalahan!');
-                    window.location.reload();
-                    return;
-                }
-                showFeedbackPopupAudio(no, res.benar, res.feedback, res.kunci, null, function(){
-                    // Penjelasan update di bawah soal SETELAH popup feedback selesai
-                    let penjelasanArea = document.getElementById('penjelasan-' + index);
-                    let isBenar = res.benar;
-                    let kunci = res.kunci;
-                    let noSoal = no;
-                    let penjelasan = res.penjelasan;
-                    penjelasanArea.innerHTML =
-                        `<span class="badge warna-label ${isBenar ? 'green-card':'red-card'} mb-1">Jawaban ${isBenar ? 'Benar':'Salah'} ${isBenar ? '✔':'✖'}</span>
-                        <span class="badge warna-label yellow-card mb-1">Kunci Jawaban: ${kunci.toUpperCase()}</span>
-                        <div class="card card-body border-info bg-light d-flex align-items-center gap-3">
-                            <span>${penjelasan}
-                            <button type="button" onclick="playPenjelasanAudio(${noSoal}, this, ${isBenar ? 'true' : 'false'})" class="btn btn-audio ms-2">🔊</button>
-                            <audio id="audio-penjelasan-${noSoal}" src="<?php echo e(asset('sounds/materi/hal10/')); ?>/${isBenar ? 'benar' : 'salah'}${noSoal}.mp3"></audio>
-                            </span>
-                        </div>`;
-                    // Setelah update penjelasan, pindah ke soal berikut jika masih ada yang belum dijawab
-                    let allAnswered = true;
-                    for(let i=0;i<totalSoal;i++){
-                        if(!document.querySelector('input[name="jawaban_'+i+'"]:checked')) {
-                            allAnswered = false;
-                            break;
-                        }
-                    }
-                    if (allAnswered) {
-                        window.location.reload();
-                        return;
-                    }
-                    let nextUnanswered = null;
-                    for (let i = 0; i < totalSoal; i++) {
-                        let isAnswered = document.querySelector('input[name="jawaban_'+i+'"]:checked');
-                        if (!isAnswered) {
-                            nextUnanswered = i + 1;
-                            break;
-                        }
-                    }
-                    if (nextUnanswered) {
-                        showStep(nextUnanswered);
-                    }
-                });
-            });
-        });
-    });
-    <?php endif; ?>
-});
-
-function showFeedbackPopupAudio(no, benar, feedback, kunci, afterContent, afterAudio) {
-    let popup = document.getElementById('popup-feedback');
-    let popupImg = document.getElementById('popup-img');
-    let popupJudul = document.getElementById('popup-judul');
-    let popupText = document.getElementById('popup-text');
-    let popupKunci = document.getElementById('popup-kunci');
-    let popupAudio = document.getElementById('popup-audio');
-
-    popupImg.src = benar
-        ? '<?php echo e(asset('images/feedback/benar.png')); ?>'
-        : '<?php echo e(asset('images/feedback/salah.png')); ?>';
-
-    popupJudul.innerText = feedback.judul;
-    popupText.innerText = feedback.text;
-    popupKunci.innerHTML = `Kunci Jawaban: <b>${kunci}</b>`;
-
-    let audioSrc = benar
-        ? `<?php echo e(asset('sounds/materi/hal10/benar')); ?>` + no + `.mp3`
-        : `<?php echo e(asset('sounds/materi/hal10/salah')); ?>` + no + `.mp3`;
-
-    popupAudio.src = audioSrc;
-    popupAudio.currentTime = 0;
-    popup.style.display = 'flex';
-    popupAudio.play();
-
-    if(typeof afterContent === 'function'){
-        setTimeout(afterContent, 700);
-    }
-    popupAudio.onended = function () {
-        popup.style.display = 'none';
-        if(typeof afterAudio === 'function') afterAudio();
-    };
 }
 
 function showReviewSoal(no){
@@ -516,6 +412,123 @@ function showReviewSoal(no){
         let btn = document.getElementById('btn-review-'+i);
         if(btn) btn.classList.toggle('btn-primary', i===no);
     }
+}
+
+// --- INIT ON LOAD ---
+document.addEventListener('DOMContentLoaded', function() {
+    // --- logika restore step aktif (soal yang belum dijawab, atau review jika sudah selesai) ---
+    if (typeof answered === 'object' && Object.keys(answered).length === totalSoal) {
+        // Semua sudah dijawab → langsung tampil review
+        document.getElementById('stepper-soal') && (document.getElementById('stepper-soal').style.display = 'none');
+        document.getElementById('review-area') && (document.getElementById('review-area').style.display = '');
+        showReviewSoal(1);
+    } else {
+        // Belum selesai, tampilkan step soal yang belum dijawab
+        let firstUnanswered = 1;
+        for(let i=0;i<totalSoal;i++) {
+            if(typeof answered[i] === 'undefined' || answered[i] === null) {
+                firstUnanswered = i+1; break;
+            }
+        }
+        showStep(firstUnanswered);
+        document.getElementById('stepper-soal').style.display = '';
+        document.getElementById('review-area') && (document.getElementById('review-area').style.display = 'none');
+    }
+
+    // Event handler untuk input radio (jawab soal)
+    if(typeof answered === 'object' && Object.keys(answered).length < totalSoal){
+        document.querySelectorAll('.soal-step input[type=radio][name^="jawaban_"]').forEach(function(radio) {
+            radio.addEventListener('change', function(e) {
+                if (this.disabled) return;
+                let index = parseInt(this.getAttribute('data-index'));
+                let no = parseInt(this.getAttribute('data-no'));
+                let jawaban = this.value;
+                let radios = document.querySelectorAll('input[name="jawaban_'+index+'"]');
+                radios.forEach(x => x.disabled = true);
+                fetch('<?php echo e(route('admin.materi.halaman10.jawab')); ?>', {
+                    method: 'POST',
+                    headers: {'Content-Type':'application/json','X-CSRF-TOKEN': '<?php echo e(csrf_token()); ?>'},
+                    body: JSON.stringify({index: index, jawaban: jawaban})
+                })
+                .then(res => res.json())
+                .then(res => {
+                    if (!res.success) {
+                        alert(res.msg ?? 'Terjadi kesalahan!');
+                        window.location.reload();
+                        return;
+                    }
+                    showFeedbackPopupAudio(no, res.benar, res.feedback, res.kunci, null, function(){
+                        let penjelasanArea = document.getElementById('penjelasan-' + index);
+                        let isBenar = res.benar;
+                        let kunci = res.kunci;
+                        let noSoal = no;
+                        let penjelasan = res.penjelasan;
+                        penjelasanArea.innerHTML =
+                            `<span class="badge warna-label ${isBenar ? 'green-card':'red-card'} mb-1">Jawaban ${isBenar ? 'Benar':'Salah'} ${isBenar ? '✔':'✖'}</span>
+                            <span class="badge warna-label yellow-card mb-1">Kunci Jawaban: ${kunci.toUpperCase()}</span>
+                            <div class="card card-body border-info bg-light d-flex align-items-center gap-3">
+                                <span>${penjelasan}
+                                <button type="button" onclick="playPenjelasanAudio(${noSoal}, this, ${isBenar ? 'true' : 'false'})" class="btn btn-audio ms-2">🔊</button>
+                                <audio id="audio-penjelasan-${noSoal}" src="<?php echo e(asset('sounds/materi/hal10/')); ?>/${isBenar ? 'benar' : 'salah'}${noSoal}.mp3"></audio>
+                                </span>
+                            </div>`;
+                        let allAnswered = true;
+                        for(let i=0;i<totalSoal;i++){
+                            if(!document.querySelector('input[name="jawaban_'+i+'"]:checked')) {
+                                allAnswered = false;
+                                break;
+                            }
+                        }
+                        if (allAnswered) {
+                            window.location.reload();
+                            return;
+                        }
+                        let nextUnanswered = null;
+                        for (let i = 0; i < totalSoal; i++) {
+                            let isAnswered = document.querySelector('input[name="jawaban_'+i+'"]:checked');
+                            if (!isAnswered) {
+                                nextUnanswered = i + 1;
+                                break;
+                            }
+                        }
+                        if (nextUnanswered) {
+                            showStep(nextUnanswered);
+                        }
+                    });
+                });
+            });
+        });
+    }
+});
+
+// Popup feedback audio
+function showFeedbackPopupAudio(no, benar, feedback, kunci, afterContent, afterAudio) {
+    let popup = document.getElementById('popup-feedback');
+    let popupImg = document.getElementById('popup-img');
+    let popupJudul = document.getElementById('popup-judul');
+    let popupText = document.getElementById('popup-text');
+    let popupKunci = document.getElementById('popup-kunci');
+    let popupAudio = document.getElementById('popup-audio');
+    popupImg.src = benar
+        ? '<?php echo e(asset('images/materi/ayo-berlatih-2/benar.png')); ?>'
+        : '<?php echo e(asset('images/materi/ayo-berlatih-2/salah.png')); ?>';
+    popupJudul.innerText = feedback.judul;
+    popupText.innerText = feedback.text;
+    popupKunci.innerHTML = `Kunci Jawaban: <b>${kunci}</b>`;
+    let audioSrc = benar
+        ? `<?php echo e(asset('sounds/materi/hal10/benar')); ?>` + no + `.mp3`
+        : `<?php echo e(asset('sounds/materi/hal10/salah')); ?>` + no + `.mp3`;
+    popupAudio.src = audioSrc;
+    popupAudio.currentTime = 0;
+    popup.style.display = 'flex';
+    popupAudio.play();
+    if(typeof afterContent === 'function'){
+        setTimeout(afterContent, 700);
+    }
+    popupAudio.onended = function () {
+        popup.style.display = 'none';
+        if(typeof afterAudio === 'function') afterAudio();
+    };
 }
 </script>
 <?php $__env->stopSection(); ?>

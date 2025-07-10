@@ -65,7 +65,7 @@
             Tentunya, kamu harus mengukur panjang kain sasiranganmu, lalu mengukur panjang kain sasirangan temanmu. Setelah itu, hasil pengukuran dapat dibandingkan untuk mengetahui mana yang lebih panjang.
         </div>
         <div class="materi-content mt-2">
-            Metode ini disebut membandingkan secara tidak langsung, karena memerlukan alat ukur.
+            Cara ini disebut membandingkan secara tidak langsung, karena memerlukan alat ukur.
         </div>
     </div>
 

@@ -21,14 +21,14 @@
             <button onclick="toggleAudio(this)" class="btn-audio ms-2" data-id="index-2" data-playing="false">🔊</button>
             <audio id="audio-index-2" src="<?php echo e(asset('sounds/materi/hal4/2.mp3')); ?>"></audio>
         </p>
-        <div class="position-relative mx-auto mb-3" style="max-width: 600px; height: 300px;">
-            <img src="<?php echo e(asset('images/materi/ayo-mencoba-1/contoh-lat-1.png')); ?>" class="w-100 h-100 rounded shadow" style="object-fit: cover;">
-            <div class="position-absolute" style="top: 65%; left: 25%; transform: translate(-50%, -50%);">
-                <img src="<?php echo e(asset('images/materi/ayo-mencoba-1/contoh-lat-2.png')); ?>" width="180" height="180" class="shadow">
+        <div class="position-relative mx-auto mb-3 contoh-gambar-h4" style="max-width: 600px; height: 300px;">
+            <img src="<?php echo e(asset('images/materi/ayo-mencoba-1/contoh-lat-1.png')); ?>" class="w-100 h-100 rounded shadow contoh-gambar-bg" style="object-fit: cover;">
+            <div class="position-absolute contoh-gambar-kiri" style="top: 65%; left: 25%; transform: translate(-50%, -50%);">
+                <img src="<?php echo e(asset('images/materi/ayo-mencoba-1/contoh-lat-2.png')); ?>" width="180" height="180" class="shadow contoh-gambar-pilihan">
                 <div class="text-center mt-1"><span class="badge warna-label yellow-card">...</span></div>
             </div>
-            <div class="position-absolute" style="top: 65%; left: 75%; transform: translate(-50%, -50%);">
-                <img src="<?php echo e(asset('images/materi/ayo-mencoba-1/contoh-lat-3.png')); ?>" width="180" height="180" class="shadow">
+            <div class="position-absolute contoh-gambar-kanan" style="top: 65%; left: 75%; transform: translate(-50%, -50%);">
+                <img src="<?php echo e(asset('images/materi/ayo-mencoba-1/contoh-lat-3.png')); ?>" width="180" height="180" class="shadow contoh-gambar-pilihan">
                 <div class="text-center mt-1"><span class="badge warna-label green-card">✔</span></div>
             </div>
         </div>
@@ -284,7 +284,7 @@
                         <?php echo csrf_field(); ?>
                         <?php echo method_field('DELETE'); ?>
                         <button type="submit" class="btn btn-danger fs-5">Ulangi Latihan</button>
-                    </form>
+                    </form><br>
                 <?php endif; ?>
                 <div class="text-center flex-grow-1 fs-5">
                     <div id="skor-anda" class="alert alert-info d-inline-block mb-0">

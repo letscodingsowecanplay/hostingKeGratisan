@@ -75,14 +75,12 @@
             <h5 class="mb-2 d-flex align-items-center">
                 <span class="warna-label blue-card" style="margin-right:10px;">{{ $no }}</span>
             </h5>
-            <div class="row mb-2 align-items-center justify-content-center">
+            <div class="row mb-2 align-items-center justify-content-center soal-gambar-pasangan">
                 <div class="col-6 text-center">
-                    <img src="{{ asset("images/materi/ayo-berlatih-1/soal{$no}a.png") }}" class="img-fluid rounded shadow"
-                         style="max-width:180px; max-height:200px; width:180px; height:180px; object-fit:cover;">
+                    <img src="{{ asset("images/materi/ayo-berlatih-1/soal{$no}a.png") }}" class="img-fluid rounded shadow soal-gambar" style="max-width:180px; max-height:200px; width:180px; height:180px; object-fit:cover;">
                 </div>
                 <div class="col-6 text-center">
-                    <img src="{{ asset("images/materi/ayo-berlatih-1/soal{$no}b.png") }}" class="img-fluid rounded shadow"
-                         style="max-width:180px; max-height:200px; width:180px; height:180px; object-fit:cover;">
+                    <img src="{{ asset("images/materi/ayo-berlatih-1/soal{$no}b.png") }}" class="img-fluid rounded shadow soal-gambar" style="max-width:180px; max-height:200px; width:180px; height:180px; object-fit:cover;">
                 </div>
             </div>
             <p>
@@ -164,23 +162,23 @@
                 <h5 class="mb-2 d-flex align-items-center">
                     <span class="warna-label blue-card" style="margin-right:10px;">{{ $no }}</span>
                 </h5>
-                <div class="row mb-2 align-items-center justify-content-center">
+                <div class="row mb-2 align-items-center justify-content-center soal-gambar-pasangan">
                     <div class="col-6 text-center">
-                        <img src="{{ asset("images/materi/ayo-berlatih-1/soal{$no}a.png") }}" class="img-fluid rounded shadow"
-                             style="max-width:180px; max-height:200px; width:180px; height:180px; object-fit:cover;">
+                        <img src="{{ asset("images/materi/ayo-berlatih-1/soal{$no}a.png") }}" class="img-fluid rounded shadow soal-gambar" style="max-width:180px; max-height:200px; width:180px; height:180px; object-fit:cover;">
                     </div>
                     <div class="col-6 text-center">
-                        <img src="{{ asset("images/materi/ayo-berlatih-1/soal{$no}b.png") }}" class="img-fluid rounded shadow"
-                             style="max-width:180px; max-height:200px; width:180px; height:180px; object-fit:cover;">
+                        <img src="{{ asset("images/materi/ayo-berlatih-1/soal{$no}b.png") }}" class="img-fluid rounded shadow soal-gambar" style="max-width:180px; max-height:200px; width:180px; height:180px; object-fit:cover;">
                     </div>
                 </div>
                 <p>
                     {!! match($no) {
-                        1 => 'Sendok nasi dari kayu ulin ini berukuran <strong>________</strong> jika dibandingkan sutil dari kayu ulin.',
+                        1 => 'Sendok makan dari kayu ulin ini berukuran <strong>________</strong> jika dibandingkan sutil dari kayu ulin.',
                         2 => 'Kotak tisu yang terbuat dari batok kelapa ini memiliki ukuran <strong>________</strong> jika dibandingkan kotak pensil kain motif Dayak di sebelahnya.',
                         3 => 'Tugu Obor Api Tabalong yang berada di Kalimantan Selatan ini berukuran <strong>________</strong> jika dibandingkan versi miniaturnya.',
                         4 => 'Miniatur perisai dayak itu sangat <strong>________</strong> jika dibandingkan versi aslinya.',
                     } !!}
+                    <button onclick="toggleAudio(this)" type="button" class="btn-audio ms-2" data-id="hal5-{{ $no }}" data-playing="false">🔊</button>
+                    <audio id="audio-hal5-{{ $no }}" src="{{ asset('sounds/materi/hal5/hal5-' . $no . '.mp3') }}"></audio>
                 </p>
                 <div class="mb-2">
                     @php

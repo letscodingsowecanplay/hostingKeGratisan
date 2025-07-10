@@ -59,12 +59,19 @@
         </div>
         <div class="materi-image-row justify-content-center mb-2">
             <div class="w-100" style="max-width: 600px;">
-                <div class="ratio ratio-16x9">
-                    <iframe
-                        src="https://www.youtube.com/embed/OYAGCtF3xi4?si=Gi9JwxQX7neGxrBq?end=223&rel=0"
-                        title="Video Contoh Soal"
-                        allowfullscreen>
-                    </iframe>
+                <div style="position:relative;width:100%;padding-top:56.25%;"> 
+                    <video 
+                        src="/videos/materi/hal15/1.mp4"
+                        controls 
+                        style="
+                            position:absolute;
+                            top:0; left:0; width:100%; height:100%;
+                            border-radius: 12px;
+                            background: #000;
+                        "
+                        title="Video Contoh Soal">
+                        Browser Anda tidak mendukung video HTML5.
+                    </video>
                 </div>
             </div>
         </div>
@@ -150,7 +157,7 @@
             <div class="materi-content fw-bold mb-2" style="font-size:1.09rem;">
                 {{ $no }}. {{ $soal[$no]['teks'] }}
                 <button type="button" onclick="toggleAudio(this)" class="btn-audio" title="Dengarkan" data-id="hal15-{{ $no }}" data-playing="false">🔊</button>
-                <audio id="hal15-{{ $no }}" src="{{ asset('sounds/materi/hal15/hal15-' . $no . '.mp3') }}"></audio>
+                <audio id="audio-hal15-{{ $no }}" src="{{ asset('sounds/materi/hal15/hal15-' . $no . '.mp3') }}"></audio>
             </div>
             <div class="materi-image-row justify-content-center mb-2">
                 <div class="materi-image-col" style="max-width:330px">
@@ -207,9 +214,6 @@
         </div>
     @endfor
     @endif
-
-    {{-- ...section review, nav footer, script, dll, TIDAK ADA YANG DIUBAH... --}}
-
     @if($sudahMenjawab)
         <div id="review-area">
             <div class="text-center mb-3">
@@ -232,8 +236,16 @@
                 <div class="materi-section shadow-sm rounded-3 py-3 px-3 review-step" id="review-step-{{ $no }}" style="@if($no>1)display:none;@endif;background:#fff;">
                     <div class="materi-content fw-bold mb-2" style="font-size:1.09rem;">
                         {{ $no }}. {{ $soal[$no]['teks'] }}
-                        <button type="button" onclick="toggleAudio(this)" class="btn-audio" title="Dengarkan" data-id="hal15-{{ $no }}" data-playing="false">🔊</button>
-                        <audio id="hal15-{{ $no }}" src="{{ asset('sounds/materi/hal15/hal15-' . $no . '.mp3') }}"></audio>
+                        <button
+                            type="button"
+                            onclick="toggleAudio(this)"
+                            class="btn-audio ms-2"
+                            title="Dengarkan"
+                            data-id="hal15-{{ $no }}"
+                            data-playing="false">
+                            🔊
+                        </button>
+                        <audio id="audio-hal15-{{ $no }}" src="{{ asset('sounds/materi/hal15/hal15-' . $no . '.mp3') }}"></audio>
                     </div>
                     <div class="materi-image-row justify-content-center mb-2">
                         <div class="materi-image-col" style="max-width:330px">
@@ -270,7 +282,7 @@
                     <form action="{{ route('admin.materi.halaman15.reset') }}" method="POST" class="mt-3">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger fs-5">Ulangi Kuis</button>
+                        <button type="submit" class="btn btn-danger fs-5">Ulangi Latihan</button>
                     </form><br>
                     <div class="text-center flex-grow-1">
                         <div class="alert alert-info d-inline-block mb-0">
@@ -295,11 +307,11 @@
     @endif
 
     <div class="materi-nav-footer mt-3">
-        <a href="{{ route('admin.materi.halaman14') }}" class="btn btn-nav fs-5">← Sebelumnya</a>
+        <a href="{{ route('admin.materi.halaman14') }}" class="btn btn-nav">← Sebelumnya</a>
         @if($sudahMenjawab && $skor >= $kkm)
-            <a href="{{ route('admin.materi.halaman16') }}" class="btn btn-nav btn-next fs-5">Selanjutnya →</a>
+            <a href="{{ route('admin.materi.halaman16') }}" class="btn btn-nav btn-next">Selanjutnya →</a>
         @else
-            <button class="btn btn-nav btn-next fs-5" disabled>Selanjutnya →</button>
+            <button class="btn btn-nav btn-next" disabled>Selanjutnya →</button>
         @endif
     </div>
 </div>

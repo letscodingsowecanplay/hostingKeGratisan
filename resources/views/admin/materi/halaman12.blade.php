@@ -81,8 +81,8 @@
     </div>
 
     <div class="materi-nav-footer mt-3">
-        <a href="{{ route('admin.materi.halaman11') }}" class="btn btn-nav fs-5">← Sebelumnya</a>
-        <a href="{{ route('admin.materi.halaman13') }}" class="btn btn-nav btn-next fs-5">Selanjutnya →</a>
+        <a href="{{ route('admin.materi.halaman11') }}" class="btn btn-nav">← Sebelumnya</a>
+        <a href="{{ route('admin.materi.halaman13') }}" class="btn btn-nav btn-next">Selanjutnya →</a>
     </div>
 </div>
 <br>

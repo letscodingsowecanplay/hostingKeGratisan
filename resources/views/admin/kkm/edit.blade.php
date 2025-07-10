@@ -8,8 +8,16 @@
             @csrf
             @method('PUT')
             <div class="mb-3">
-                <label>KKM</label>
-                <input type="number" name="kkm" class="form-control" value="{{ $kkm->kkm }}" required>
+                <label>KKM <small class="text-muted">(minimal {{ $minKkm }}, maksimal {{ $maxKkm }})</small></label>
+                <input type="number" name="kkm" class="form-control"
+                       min="{{ $minKkm }}" max="{{ $maxKkm }}"
+                       value="{{ $kkm->kkm }}" required step="1">
+                <small class="form-text text-muted">
+                    Nilai KKM minimal = {{ $minKkm }} (benar 1 soal), maksimal = 100.
+                </small>
+                @error('kkm')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
             <button type="submit" class="btn btn-primary fs-5">Update</button>
             <a href="{{ route('admin.kkm.index') }}" class="btn btn-secondary fs-5">Kembali</a>

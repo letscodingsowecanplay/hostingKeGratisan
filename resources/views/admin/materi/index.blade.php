@@ -20,7 +20,7 @@
                         <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
                     </svg>
                 </div>
-                <div class="card-title text-light">SubBab 1
+                <div class="card-title ">SubBab 1
                     <button onclick="toggleAudio(this)" 
                         class="btn-audio ms-3"
                         data-id="index-0" data-playing="false"
@@ -29,7 +29,7 @@
                 </button>
                 <audio id="audio-index-0" src="{{ asset('sounds/materi/index/1.mp3') }}"></audio>
                 </div>
-                <div class="card-content text-light">Membandingkan dan Mengurutkan Panjang Benda</div>
+                <div class="card-content ">Membandingkan dan Mengurutkan Panjang Benda</div>
                 <a href="{{ route('admin.materi.halaman2') }}" class="card-btn">Buka Materi</a>
             </div>
         </div>
@@ -44,7 +44,7 @@
                         <path d="M6 8v8M10 8v8M14 8v8M18 8v8" stroke-width="1.4"/>
                     </svg>
                 </div>
-                <div class="card-title text-light">SubBab 2
+                <div class="card-title ">SubBab 2
                     <button onclick="toggleAudio(this)" 
                         class="btn-audio ms-3"
                         data-id="index-1" data-playing="false"
@@ -53,7 +53,7 @@
                 </button>
                 <audio id="audio-index-1" src="{{ asset('sounds/materi/index/3.mp3') }}"></audio>
                 </div>
-                <div class="card-content text-light">Mengukur Panjang Benda
+                <div class="card-content ">Mengukur Panjang Benda
                 </div>
                 <a id="link-subbab-2" href="{{ route('admin.materi.halaman11') }}" class="card-btn">Buka Materi</a>
                 <!-- Overlay Gembok -->

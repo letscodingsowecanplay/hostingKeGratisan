@@ -12,8 +12,8 @@
                 Kita bandingkan lukisan a, b, c, dan d.
                 <button onclick="toggleAudio(this)"
                         class="btn-audio ms-2"
-                        data-id="index-1" data-playing="false">🔊</button>
-                <audio id="audio-index-1" src="<?php echo e(asset('sounds/materi/hal7/1.mp3')); ?>"></audio>
+                        data-id="index-2" data-playing="false">🔊</button>
+                <audio id="audio-index-2" src="<?php echo e(asset('sounds/materi/hal7/2.mp3')); ?>"></audio>
             </p>
         </div>
     </div>
@@ -28,6 +28,10 @@
 
     <div class="materi-section">
         <div class="materi-content">
+            <button onclick="toggleAudio(this)"
+                    class="btn-audio ms-2"
+                    data-id="index-1" data-playing="false">🔊</button>
+            <audio id="audio-index-1" src="<?php echo e(asset('sounds/materi/hal7/1.mp3')); ?>"></audio>
             <p class="mt-2 ">
                 Lukisan a lebih tinggi dari lukisan b, c, dan d.<br>
                 Jadi, lukisan a paling tinggi.
@@ -47,6 +51,10 @@
 
             <!-- Tambahan warna-label dan judul sebelum penjelasan mengurutkan -->
             <span class="warna-label orange-card">Mengurutkan Benda</span>
+            <button onclick="toggleAudio(this)"
+                    class="btn-audio ms-2"
+                    data-id="index-3" data-playing="false">🔊</button>
+            <audio id="audio-index-3" src="<?php echo e(asset('sounds/materi/hal7/3.mp3')); ?>"></audio>
             <p class="mt-2 ">
                 Mengurutkan panjang, pendek, tinggi, dan rendah adalah proses menyusun benda-benda berdasarkan ukurannya, baik dari segi jarak maupun ketinggian. Dalam pengurutan ini, kita bisa mulai dari yang paling kecil hingga yang paling besar atau sebaliknya, tergantung kebutuhan. Benda yang lebih panjang atau lebih tinggi ditempatkan di salah satu ujung urutan, sementara yang lebih pendek atau lebih rendah berada di ujung lainnya.
             </p>

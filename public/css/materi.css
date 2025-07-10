@@ -7,7 +7,7 @@ html, body {
 }
 body {
     font-family: 'Montserrat', Arial, sans-serif;
-    background-color: #fffbe9;
+    background: #fffbe9;
     background-image:
         linear-gradient(0deg, #e3caa5 1.5px, transparent 1.5px),
         linear-gradient(90deg, #e3caa5 1.5px, transparent 1.5px);
@@ -522,6 +522,147 @@ body {
         padding: 10px 12px 8px 10px;
     }
 }
+
+/* Tambahan khusus responsif gambar pada hal4, tanpa mengubah desktop */
+@media (max-width: 428px) {
+    /* Gambar contoh utama */
+    .contoh-gambar-h4 {
+        max-width: 98vw !important;
+        height: auto !important;
+        min-height: 180px;
+    }
+    .contoh-gambar-bg {
+        max-width: 100vw !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 100px;
+        border-radius: 12px !important;
+    }
+    .contoh-gambar-pilihan {
+        width: 35vw !important;
+        max-width: 130px !important;
+        height: auto !important;
+        min-width: 70px;
+        min-height: 60px;
+        border-radius: 11px !important;
+    }
+    /* Penempatan badge label tetap responsif */
+    .contoh-gambar-kiri, .contoh-gambar-kanan {
+        max-width: 45vw !important;
+    }
+
+    /* Responsive gambar pada soal pilihan (a, b, bg) */
+    .soal-pilihan-gambar {
+        max-width: 99vw !important;
+        height: auto !important;
+        min-height: 160px;
+    }
+    .soal-label-gambar img {
+        width: 33vw !important;
+        max-width: 120px !important;
+        min-width: 58px;
+        height: auto !important;
+        border-radius: 11px !important;
+    }
+    .soal-pilihan-gambar > img {
+        border-radius: 12px !important;
+        min-width: 100px;
+        min-height: 80px;
+        width: 100% !important;
+        max-width: 100vw !important;
+        height: auto !important;
+    }
+}
+@media (max-width: 350px) {
+    .contoh-gambar-pilihan,
+    .soal-label-gambar img {
+        width: 50vw !important;
+        max-width: 90px !important;
+    }
+    .contoh-gambar-h4,
+    .soal-pilihan-gambar {
+        min-height: 90px !important;
+    }
+}
+
+/* Responsive gambar pasangan pada hal5 (step & review) */
+@media (max-width: 428px) {
+    .soal-gambar-pasangan {
+        margin-bottom: 10px !important;
+    }
+    .soal-gambar-pasangan .col-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .soal-gambar {
+        width: 38vw !important;
+        max-width: 128px !important;
+        min-width: 66px;
+        height: auto !important;
+        max-height: 130px !important;
+        border-radius: 11px !important;
+        object-fit: cover;
+        margin-bottom: 7px;
+    }
+}
+@media (max-width: 350px) {
+    .soal-gambar {
+        width: 82vw !important;
+        max-width: 90px !important;
+        min-width: 48px;
+        max-height: 80px !important;
+    }
+}
+
+/* ==== Responsive khusus gambar posisi absolute drag pada hal9 ==== */
+@media (max-width: 428px) {
+    .soal9-img-bg {
+        width: 100% !important;
+        height: 150px !important;
+        min-height: 100px;
+        object-fit: cover !important;
+        padding-bottom: 100px;
+    }
+    .soal9-img-pilihan {
+        width: 32vw !important;
+        min-width: 62px !important;
+        max-width: 112px !important;
+        height: 32vw !important;
+        max-height: 112px !important;
+        min-height: 62px !important;
+        border-radius: 10px !important;
+        z-index: 12;
+    }
+    /* Atur area agar tidak overflow */
+    .position-relative.mx-auto.mb-2,
+    .position-relative.mx-auto.mb-2[style*="max-width"] {
+        max-width: 98vw !important;
+        height: 120px !important;
+        min-height: 90px;
+    }
+}
+@media (max-width: 350px) {
+    .soal9-img-pilihan {
+        width: 70vw !important;
+        max-width: 86px !important;
+        min-width: 42px !important;
+        height: 70vw !important;
+        max-height: 86px !important;
+        min-height: 42px !important;
+    }
+    .soal9-img-bg {
+        height: 80px !important;
+        min-height: 60px !important;
+    }
+    .position-relative.mx-auto.mb-2,
+    .position-relative.mx-auto.mb-2[style*="max-width"] {
+        height: 80px !important;
+        min-height: 60px !important;
+    }
+}
+
 
 /* Tambahan: Responsive Grid Alat Ukur Tidak Baku Halaman 12 */
 

@@ -193,9 +193,10 @@ function inisialisasiAudioPilihan() {
             const audioId = btn.getAttribute('data-id');
             const src = btn.getAttribute('data-audio');
             const audioEl = document.getElementById(audioId);
+            // Hanya pause audio selain bg-music
             document.querySelectorAll('.play-pilihan-audio').forEach(b => { b.innerText = '🔊'; });
-            document.querySelectorAll('.pilihan-jawaban-opsi audio').forEach(a => {
-                if (a !== audioEl) { a.pause(); a.currentTime = 0; }
+            document.querySelectorAll('audio').forEach(a => {
+                if (a !== audioEl && a.id !== 'bg-music') { a.pause(); a.currentTime = 0; }
             });
             if (!audioEl.src || !audioEl.src.includes(src)) {
                 audioEl.src = src;
@@ -255,11 +256,13 @@ function updateNavState() {
     document.getElementById('btnNext').disabled = indexSoal === soalList.length - 1;
 }
 
+// REVISI DI SINI: Pastikan audio soal/pilihan tidak mem-pause bg-music
 function toggleAudio(button) {
     const id = button.getAttribute('data-id');
     const audio = document.getElementById(`audio-${id}`);
+    // Hanya pause audio selain bg-music dan audio yang dipilih
     document.querySelectorAll('audio').forEach(a => {
-        if (a !== audio) { a.pause(); a.currentTime = 0; }
+        if (a !== audio && a.id !== 'bg-music') { a.pause(); a.currentTime = 0; }
     });
     document.querySelectorAll('button[data-id]').forEach(btn => {
         if (btn !== button) { btn.innerText = '🔊'; btn.setAttribute('data-playing', 'false'); }
