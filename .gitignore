@@ -20,3 +20,4 @@
 # .DS_Store
 # yarn.lock
 # package-lock.json
+/public/vendor.zip
