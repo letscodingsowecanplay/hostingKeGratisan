@@ -1,32 +1,22 @@
-FROM php:8.2-apache
+FROM php:8.2-fpm
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    unzip \
-    git \
-    curl
+    git curl libpng-dev libonig-dev libxml2-dev zip unzip \
+    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd
 
-# PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd
-
-# Enable apache rewrite
-RUN a2enmod rewrite
-
-# Set document root to public
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
-
-# Install composer
+# Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-WORKDIR /var/www/html
+WORKDIR /var/www
+
 COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
-RUN chown -R www-data:www-data storage bootstrap/cache
+RUN php artisan key:generate
 
-EXPOSE 80
+# Permissions
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+
+EXPOSE 9000
+CMD ["php-fpm"]
