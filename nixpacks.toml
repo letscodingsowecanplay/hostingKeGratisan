@@ -1,5 +1,7 @@
 [phases.install]
-cmds = []
+cmds = [
+  "mkdir -p vendor/phpunit/phpunit/src"
+]
 
 [phases.build]
 cmds = [
