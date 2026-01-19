@@ -1,0 +1,11 @@
+[phases.install]
+cmds = []
+
+[phases.build]
+cmds = [
+  "composer install --no-dev --no-autoloader --ignore-platform-reqs",
+  "composer dump-autoload -o"
+]
+
+[start]
+cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
