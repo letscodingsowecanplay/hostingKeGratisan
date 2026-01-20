@@ -1,4 +1,4 @@
-# Gunakan base image dengan Apache (atau Nginx)
+# Gunakan base image dengan Apache
 FROM php:8.2-apache
 
 # Install dependensi sistem
@@ -20,20 +20,29 @@ COPY . .
 # Install PHP dependencies
 RUN composer install --no-dev --no-interaction --optimize-autoloader
 
-# Install NPM dependencies dan build assets
-RUN npm ci --only=production && npm run build
+# Install NPM dependencies dan build assets (jika ada package.json)
+RUN if [ -f "package.json" ]; then npm ci --only=production && npm run build; fi
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 storage bootstrap/cache
 
-# Copy konfigurasi Apache jika perlu
-COPY ./docker/apache.conf /etc/apache2/sites-available/000-default.conf
+# Konfigurasi Apache untuk Laravel
+RUN echo '<VirtualHost *:8080>\n\
+    DocumentRoot /var/www/html/public\n\
+    <Directory /var/www/html/public>\n\
+        AllowOverride All\n\
+        Require all granted\n\
+    </Directory>\n\
+</VirtualHost>' > /etc/apache2/sites-available/000-default.conf
 
-# Port yang digunakan
+# Aktifkan mod rewrite
+RUN a2enmod rewrite
+
+# Port untuk Railway
 EXPOSE 8080
 
-# Entrypoint yang lebih fleksibel
-COPY docker/entrypoint.sh /usr/local/bin/
+# Entrypoint sederhana
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
