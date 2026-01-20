@@ -41,4 +41,14 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
 
 EXPOSE 8080
 
-CMD ["sh", "-c", "php artisan serve --host=0.0.0.0 --port=8080"]
+CMD ["sh", "-c", "\
+echo 'Waiting for MySQL...'; \
+for i in 1 2 3 4 5 6 7 8 9 10; do \
+  php -r \"new PDO('mysql:host=' . getenv('DB_HOST') . ';port=' . getenv('DB_PORT'), getenv('DB_USERNAME'), getenv('DB_PASSWORD'));\" \
+  && echo 'MySQL is ready!' && break; \
+  echo 'MySQL not ready, retrying...'; \
+  sleep 3; \
+done; \
+php artisan serve --host=0.0.0.0 --port=8080 \
+"]
+
