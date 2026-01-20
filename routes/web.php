@@ -35,3 +35,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/health', function () {
     return response()->json(['status' => 'healthy', 'timestamp' => now()]);
 });
+
+Route::get('/db-test', function () {
+    DB::connection()->getPdo();
+    return config('database.connections.mysql');
+});
