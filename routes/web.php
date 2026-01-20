@@ -37,6 +37,10 @@ Route::get('/health', function () {
 });
 
 Route::get('/db-test', function () {
-    DB::connection()->getPdo();
-    return config('database.connections.mysql');
+    return [
+        'DB_HOST' => env('DB_HOST'),
+        'DB_PORT' => env('DB_PORT'),
+        'MYSQLHOST' => env('MYSQLHOST'),
+        'MYSQLPORT' => env('MYSQLPORT'),
+    ];
 });
