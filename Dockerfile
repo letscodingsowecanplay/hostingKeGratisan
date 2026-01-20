@@ -1,19 +1,39 @@
-FROM php:8.2-fpm
+# Gunakan base image dengan Apache (atau Nginx)
+FROM php:8.2-apache
 
+# Install dependensi sistem
 RUN apt-get update && apt-get install -y \
     git curl libpng-dev libonig-dev libxml2-dev zip unzip \
-    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd
+    libzip-dev nodejs npm \
+    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip \
+    && a2enmod rewrite
 
+# Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-WORKDIR /var/www
+# Set working directory
+WORKDIR /var/www/html
 
+# Copy aplikasi
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader
-RUN php artisan key:generate
+# Install PHP dependencies
+RUN composer install --no-dev --no-interaction --optimize-autoloader
 
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+# Install NPM dependencies dan build assets
+RUN npm ci --only=production && npm run build
 
-EXPOSE 9000
-CMD ["php-fpm"]
+# Set permissions
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 storage bootstrap/cache
+
+# Copy konfigurasi Apache jika perlu
+COPY ./docker/apache.conf /etc/apache2/sites-available/000-default.conf
+
+# Port yang digunakan
+EXPOSE 8080
+
+# Entrypoint yang lebih fleksibel
+COPY docker/entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
