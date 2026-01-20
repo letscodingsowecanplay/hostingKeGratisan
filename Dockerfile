@@ -20,9 +20,6 @@ COPY . .
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 storage bootstrap/cache
 
-RUN if [ -f ".env.example" ] && [ ! -f ".env" ]; then \
-    cp .env.example .env; \
-    fi
 
 RUN composer install --no-dev --no-interaction --optimize-autoloader --no-scripts \
     && composer dump-autoload --optimize
