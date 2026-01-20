@@ -1,45 +1,58 @@
-FROM php:8.2-apache
+# GANTI: Gunakan PHP-CLI dengan built-in server (hindari Apache conflict)
+FROM php:8.2-cli
 
-# Install dependensi dengan Node.js 20 LTS
+# 1. INSTALL SYSTEM DEPENDENCIES
 RUN apt-get update && apt-get install -y \
     git curl libpng-dev libonig-dev libxml2-dev zip unzip \
-    libzip-dev gnupg \
-    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs \
-    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip \
-    && a2enmod rewrite
+    libzip-dev gnupg libfreetype6-dev libjpeg62-turbo-dev libwebp-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install -j$(nproc) gd pdo pdo_mysql mbstring exif pcntl bcmath zip \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# 2. INSTALL NODE.js 20 LTS (untuk vite build)
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g npm@latest
+
+# 3. INSTALL COMPOSER
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+# 4. SET WORKING DIRECTORY
 WORKDIR /var/www/html
+
+# 5. COPY APLIKASI (dengan .dockerignore yang tepat)
 COPY . .
 
-RUN composer install --no-dev --no-interaction --optimize-autoloader
-
-# FIX: Install semua dependencies (termasuk dev) untuk build
-RUN if [ -f "package.json" ]; then npm ci && npm run build; fi
-
+# 6. SET PERMISSIONS SEBELUM INSTALL
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 storage bootstrap/cache
 
-# Konfigurasi Apache
-RUN echo '<VirtualHost *:8080>\n\
-    DocumentRoot /var/www/html/public\n\
-    <Directory /var/www/html/html/public>\n\
-        AllowOverride All\n\
-        Require all granted\n\
-    </Directory>\n\
-</VirtualHost>' > /etc/apache2/sites-available/000-default.conf
+# 7. COPY .env.example JIKA .env TIDAK ADA
+RUN if [ -f ".env.example" ] && [ ! -f ".env" ]; then \
+    cp .env.example .env; \
+    fi
 
+# 8. INSTALL PHP DEPENDENCIES (dengan optimization)
+RUN composer install --no-dev --no-interaction --optimize-autoloader --no-scripts \
+    && composer dump-autoload --optimize
+
+# 9. INSTALL NODE DEPENDENCIES & BUILD ASSETS
+RUN if [ -f "package.json" ]; then \
+    npm ci --no-audit --prefer-offline && \
+    npm run build; \
+    fi
+
+# 10. RUN LARAVEL OPTIMIZATION
+RUN php artisan config:clear \
+    && php artisan cache:clear \
+    && php artisan view:clear
+
+# 11. HEALTH CHECK UNTUK RAILWAY
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
+    CMD curl -f http://localhost:8080/health || exit 1
+
+# 12. EXPOSE PORT UNTUK RAILWAY
 EXPOSE 8080
 
-# Entrypoint
-RUN echo '#!/bin/bash\n\
-set -e\n\
-if [ -z "${APP_KEY}" ] || [ "${APP_KEY}" = "" ]; then\n\
-    php artisan key:generate --force\n\
-fi\n\
-exec apache2-foreground' > /usr/local/bin/entrypoint.sh
-
-RUN chmod +x /usr/local/bin/entrypoint.sh
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+# 13. START COMMAND YANG OPTIMAL
+CMD ["sh", "-c", "php artisan config:cache && php artisan serve --host=0.0.0.0 --port=8080"]

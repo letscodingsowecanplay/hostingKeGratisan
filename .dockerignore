@@ -1,7 +1,11 @@
 /node_modules
 /vendor
+.env
 .git
 .gitignore
-.env
-docker-compose.yml
-README.md
+*.md
+*.txt
+docker-compose*
+Dockerfile*
+docker/
+tests/

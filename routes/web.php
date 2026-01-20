@@ -32,3 +32,6 @@ Route::post('/login/guru', [App\Http\Controllers\Auth\LoginController::class, 'l
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/health', function () {
+    return response()->json(['status' => 'healthy', 'timestamp' => now()]);
+});
