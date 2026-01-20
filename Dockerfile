@@ -42,6 +42,7 @@ RUN if [ -f "package.json" ]; then \
     npm run build; \
     fi
 
+
 # 10. RUN LARAVEL OPTIMIZATION
 RUN php artisan config:clear \
     && php artisan cache:clear \
