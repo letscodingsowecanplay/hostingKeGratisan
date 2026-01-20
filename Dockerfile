@@ -1,29 +1,22 @@
-FROM php:8.2-apache
+FROM php:8.2-cli
 
 RUN apt-get update && apt-get install -y \
-    libpng-dev libonig-dev libxml2-dev zip unzip \
+    curl libpng-dev libonig-dev libxml2-dev zip unzip \
     libzip-dev default-mysql-client nodejs npm \
     && docker-php-ext-install pdo pdo_mysql mbstring gd zip \
-    && a2enmod rewrite
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 WORKDIR /var/www/html
-
 COPY . .
 
+RUN chmod -R 775 storage bootstrap/cache
 
-RUN chown -R www-data:www-data storage bootstrap/cache \
-    && chmod -R 775 storage bootstrap/cache
-
-RUN curl -sS https://getcomposer.org/installer | php \
-    -- --install-dir=/usr/local/bin --filename=composer
+EXPOSE 8080
 
 RUN composer install --no-dev --optimize-autoloader
 
 RUN if [ -f "package.json" ]; then npm ci && npm run build; fi
 
-COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
 
-EXPOSE 80
 
-CMD ["entrypoint.sh"]
