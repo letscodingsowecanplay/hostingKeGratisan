@@ -51,3 +51,8 @@ Route::get('/db-test', function () {
         'MYSQLPORT' => env('MYSQLPORT'),
     ];
 });
+
+Route::get('/bukti', function () {
+    Auth::login(\App\Models\User::first());
+    return Auth::check();
+});
