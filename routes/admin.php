@@ -22,9 +22,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::put('update-password', [ProfileController::class, 'updatePassword'])->name('password.update');
 
     // User, Role, Permission
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class)->except(['edit', 'update']);
     Route::get('users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
-    Route::put('users/{id}', [UserController::class, 'update'])->name('users.update');  
+    Route::put('users/{id}', [UserController::class, 'update'])->name('users.update');
     Route::get('user-ban-unban/{id}/{status}', [UserController::class, 'banUnban'])->name('user.banUnban');
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
@@ -42,31 +42,31 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::delete('materi/halaman4/reset', [MateriController::class, 'resetHalamanEmpat'])->name('materi.halaman4.reset');
     Route::get('materi/halaman-5', [MateriController::class, 'halamanLima'])->name('materi.halaman5');
     Route::post('materi/halaman-5/simpan', [MateriController::class, 'simpanHalamanLima'])->name('materi.halaman5.simpan');
-    Route::post('materi/halaman5/jawab', [MateriController::class, 'jawabHal5'])->name('materi.halaman5.jawab'); 
+    Route::post('materi/halaman5/jawab', [MateriController::class, 'jawabHal5'])->name('materi.halaman5.jawab');
     Route::delete('materi/halaman-5/reset', [MateriController::class, 'resetHalamanLima'])->name('materi.halaman5.reset');
     Route::get('materi/halaman-6', [MateriController::class, 'halamanEnam'])->name('materi.halaman6');
-   
+
     Route::get('materi/halaman-7', [MateriController::class, 'halaman7'])->name('materi.halaman7');
 
 
     Route::get('materi/halaman-8', [MateriController::class, 'halaman8'])->name('materi.halaman8');
-    
+
 
     Route::get('materi/halaman-9', [MateriController::class, 'halaman9'])->name('materi.halaman9');
     Route::post('materi/halaman-9/simpan', [MateriController::class, 'simpanHalaman9'])->name('materi.halaman9.simpan');
-    Route::post('materi/halaman9/jawab', [MateriController::class, 'jawabHalaman9'])->name('materi.halaman9.jawab'); 
+    Route::post('materi/halaman9/jawab', [MateriController::class, 'jawabHalaman9'])->name('materi.halaman9.jawab');
     Route::delete('materi/halaman-9/reset', [MateriController::class, 'resetHalaman9'])->name('materi.halaman9.reset');
 
     Route::get('materi/halaman-10', [MateriController::class, 'halaman10'])->name('materi.halaman10');
     Route::post('materi/halaman-10/submit', [MateriController::class, 'submitHalaman10'])->name('materi.halaman10.submit');
     Route::post('materi/halaman10/jawab', [MateriController::class, 'jawabHalaman10'])->name('materi.halaman10.jawab');
-    Route::post('materi/halaman-10/reset', [MateriController::class, 'resetHalaman10'])->name('materi.halaman10.reset');  
-    
+    Route::post('materi/halaman-10/reset', [MateriController::class, 'resetHalaman10'])->name('materi.halaman10.reset');
+
     Route::get('materi/halaman-11', [MateriController::class, 'halaman11'])->name('materi.halaman11');
     Route::get('materi/halaman-12', [MateriController::class, 'halaman12'])->name('materi.halaman12');
     Route::get('materi/halaman-13', [MateriController::class, 'halaman13'])->name('materi.halaman13');
     Route::get('materi/halaman-14', [MateriController::class, 'halaman14'])->name('materi.halaman14');
-    
+
     Route::get('materi/halaman-15', [MateriController::class, 'halaman15'])->name('materi.halaman15');
     Route::post('materi/halaman15/jawab', [MateriController::class, 'jawabHalaman15'])->name('materi.halaman15.jawab');
     Route::delete('materi/halaman-15/reset', [MateriController::class, 'resetHalaman15'])->name('materi.halaman15.reset');
