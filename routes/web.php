@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
 
-/*
+    /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -14,17 +15,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+    Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
 // Menampilkan form login siswa
+
 Route::get('/login/siswa', [LoginController::class, 'showSiswaLoginForm'])
     ->name('login.siswa.form');
 
 // Menampilkan form login guru
 Route::get('/login/guru', [LoginController::class, 'showGuruLoginForm'])
     ->name('login.guru.form');
+
 
 
 Route::post('/login/siswa', [LoginController::class, 'login'])
