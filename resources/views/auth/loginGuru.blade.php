@@ -11,7 +11,7 @@
         <div class="login-title">
             Login Guru
         </div>
-        <form method="POST" action="{{ route('login.guru') }}" class="login-form-multicolor">
+        <form method="POST" action="{{ route('login.guru.submit') }}" class="login-form-multicolor">
             @csrf
             <div class="input-group-custom">
                 <label for="identity">NIP</label>

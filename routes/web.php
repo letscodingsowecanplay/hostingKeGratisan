@@ -19,15 +19,19 @@ Route::get('/', function () {
 })->name('welcome');
 
 // Menampilkan form login siswa
-Route::get('/login/siswa', [App\Http\Controllers\Auth\LoginController::class, 'showSiswaLoginForm'])->name('login.siswa');
+Route::get('/login/siswa', [LoginController::class, 'showSiswaLoginForm'])
+    ->name('login.siswa.form');
 
 // Menampilkan form login guru
-Route::get('/login/guru', [App\Http\Controllers\Auth\LoginController::class, 'showGuruLoginForm'])->name('login.guru');
+Route::get('/login/guru', [LoginController::class, 'showGuruLoginForm'])
+    ->name('login.guru.form');
 
 
-Route::post('/login/siswa', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login.siswa');
-Route::post('/login/guru', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login.guru');
+Route::post('/login/siswa', [LoginController::class, 'login'])
+    ->name('login.siswa.submit');
 
+Route::post('/login/guru', [LoginController::class, 'login'])
+    ->name('login.guru.submit');
 
 Auth::routes();
 

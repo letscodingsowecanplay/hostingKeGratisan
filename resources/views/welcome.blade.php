@@ -317,7 +317,7 @@
             <img src="{{ asset('images/Logo-Si-Ukur.png') }}" alt="Logo">
         </div>
         <div class="navbar-right">
-            <a href="{{ route('login.guru') }}" class="guru-btn">Masuk sebagai Guru</a>
+            <a href="{{ route('login.guru.form') }}" class="guru-btn">Masuk sebagai Guru</a>
         </div>
     </div>
     <!-- Hero Section -->
@@ -331,7 +331,7 @@
                 <div class="hero-sub">
                     Media Pembelajaran Interaktif Berbasis Web Materi Pengukuran Kelas 1 SD Berkonteks Kearifan Lokal Lahan Basah
                 </div>
-                <a href="{{ route('login.siswa') }}">
+                <a href="{{ route('login.siswa.form') }}">
                     <button class="hero-btn">Masuk Sebagai Siswa</button>
                 </a>
             </div>

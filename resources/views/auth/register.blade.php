@@ -119,7 +119,7 @@
             @endif
         </form>
         <div class="login-footer-link">
-            Sudah punya akun? <a href="{{ route('login.siswa') }}">Login di sini</a>
+            Sudah punya akun? <a href="{{ route('login.siswa.form') }}">Login di sini</a>
         </div>
     </div>
 </div>

@@ -11,7 +11,7 @@
         <div class="login-title">
             Login Siswa
         </div>
-        <form method="POST" action="{{ route('login.siswa') }}" class="login-form-multicolor">
+        <form method="POST" action="{{ route('login.siswa.submit') }}" class="login-form-multicolor">
             @csrf
             <div class="input-group-custom">
                 <label for="identity">NISN</label>
