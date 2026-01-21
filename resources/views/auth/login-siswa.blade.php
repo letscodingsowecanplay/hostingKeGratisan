@@ -6,9 +6,9 @@
         <!-- Ilustrasi Anak: Desktop & Tablet -->
         <div class="col-md-6 d-none d-md-flex align-items-center justify-content-center">
             <img src="{{ asset('images/login-siswa.png') }}"
-                 alt="Ilustrasi Siswa SD"
-                 class="img-fluid"
-                 style="max-width:500px;">
+                alt="Ilustrasi Siswa SD"
+                class="img-fluid"
+                style="max-width:500px;">
         </div>
         <!-- Form Login -->
         <div class="col-md-6 col-12 d-flex flex-column justify-content-center align-items-center">
@@ -17,7 +17,7 @@
                     <b>{{ __('Masuk Sebagai Siswa') }}</b>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('login.siswa.submit') }}">
                         @csrf
 
                         <div class="mb-3 row">
@@ -25,12 +25,11 @@
                             <div class="col-md-8">
                                 <input
                                     id="identity" type="text" class="form-control @error('identity') is-invalid @enderror" name="identity" value="{{ old('identity') }}"
-                                    required autocomplete="identity" autofocus
-                                >
+                                    required autocomplete="identity" autofocus>
                                 @error('identity')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -44,12 +43,11 @@
                                     class="form-control @error('password') is-invalid @enderror"
                                     name="password"
                                     required
-                                    autocomplete="current-password"
-                                >
+                                    autocomplete="current-password">
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -63,17 +61,17 @@
                         </div>
 
                         @if ($errors->has('identity') || $errors->has('password'))
-                            <div class="alert alert-danger mt-3">
-                                @foreach ($errors->all() as $error)
-                                    <div>{{ $error }}</div>
-                                @endforeach
-                            </div>
+                        <div class="alert alert-danger mt-3">
+                            @foreach ($errors->all() as $error)
+                            <div>{{ $error }}</div>
+                            @endforeach
+                        </div>
                         @endif
 
                     </form>
 
                     <div class="text-center mt-4">
-                        <p>Belum memiliki akun? 
+                        <p>Belum memiliki akun?
                             <a href="{{ route('register') }}" class="text-decoration-underline text-orange fw-bold">
                                 Daftar di sini
                             </a>
@@ -85,9 +83,9 @@
         <!-- Ilustrasi Anak (Mobile, tampil di atas login card) -->
         <div class="col-12 d-md-none text-center mb-3">
             <img src="{{ asset('images/login-siswa.png') }}"
-                 alt="Ilustrasi Siswa SD"
-                 class="img-fluid"
-                 style="max-width:180px;">
+                alt="Ilustrasi Siswa SD"
+                class="img-fluid"
+                style="max-width:180px;">
         </div>
     </div>
 </div>
