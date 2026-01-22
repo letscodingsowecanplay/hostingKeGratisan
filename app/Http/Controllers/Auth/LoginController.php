@@ -48,7 +48,7 @@ class LoginController extends Controller
         // Deteksi asal login (dari siswa/guru)
         $routeName = $request->route()->getName();
 
-        if ($routeName == 'login.siswa' || $request->input('role') == 'siswa') {
+        if ($routeName == 'login.siswa.submit' || $request->input('role') == 'siswa') {
             // ===== LOGIN SISWA TANPA PASSWORD =====
             $request->validate([
                 'identity' => 'required|string',
